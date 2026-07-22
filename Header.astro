@@ -1,0 +1,62 @@
+---
+const base = import.meta.env.BASE_URL;
+const nav = [
+  { label: 'Lavori selezionati', href: `${base}work/` },
+  { label: 'Competenze', href: `${base}expertise/` },
+  { label: 'Esperienza', href: `${base}experience/` },
+  { label: 'Chi sono', href: `${base}about/` },
+  { label: 'Contatti', href: `${base}contact/` },
+];
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href={base} class="wordmark">Edoardo Rossi</a>
+    <nav aria-label="Navigazione principale">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: var(--border);
+    background: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-2);
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+  nav ul {
+    display: flex;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+  }
+  nav a:hover { color: var(--color-ink); }
+
+  @media (max-width: 640px) {
+    .bar { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+    nav ul { gap: var(--space-2); flex-wrap: wrap; }
+  }
+</style>
