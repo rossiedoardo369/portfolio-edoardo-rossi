@@ -1,74 +1,114 @@
 # Portfolio — Edoardo Rossi
 
-Sito portfolio personale, costruito con [Astro](https://astro.build), pensato per essere
-ospitato gratuitamente su GitHub Pages.
+Sito portfolio personale di **Edoardo Rossi**, Performance Marketing & Digital Strategy
+Specialist. Costruito con [Astro](https://astro.build) e pubblicato su GitHub Pages.
+
+🔗 **Online:** https://rossiedoardo369.github.io/portfolio-edoardo-rossi-2/
 
 ## Stato del progetto
 
-🟡 **In costruzione — solo la Home è pronta per una prima revisione.**
+🟢 **Prima versione completa in italiano.**
 
-- [x] Impalcatura del progetto (layout, header, footer, design token)
-- [x] Home page
-- [ ] Selected Work (griglia dei case study)
-- [ ] Case Study Detail (template riutilizzabile)
-- [ ] Expertise
-- [ ] Experience
-- [ ] About
-- [ ] Contact
-- [ ] Résumé scaricabile
+| Sezione | Stato |
+|---|---|
+| Home | ✅ |
+| Lavori selezionati (griglia) | ✅ |
+| 5 case study | ✅ |
+| Competenze | ✅ |
+| Esperienza | ✅ |
+| Chi sono | ✅ |
+| Contatti | ✅ |
+| Pagina 404 | ✅ |
+| Progetti accademici | ⬜ da fare |
+| Résumé scaricabile | ⬜ da fare |
+| Versione in inglese | ⬜ da fare |
+
+## Struttura
+
+```
+src/
+├── layouts/
+│   ├── BaseLayout.astro        header, footer, meta tag, font
+│   └── CaseStudyLayout.astro   template dei case study
+├── components/
+│   ├── Header.astro
+│   └── Footer.astro
+├── pages/
+│   ├── index.astro             home
+│   ├── about.astro
+│   ├── contact.astro
+│   ├── expertise.astro
+│   ├── experience.astro
+│   ├── 404.astro
+│   └── work/
+│       ├── index.astro         griglia dei lavori
+│       └── *.astro             un file per case study
+└── styles/
+    └── global.css              design token e stili condivisi
+```
 
 ## Eseguire il progetto in locale
 
-Serve [Node.js](https://nodejs.org) (versione 18 o superiore).
+Serve [Node.js](https://nodejs.org) 18 o superiore.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Il sito sarà visibile su `http://localhost:4321`.
+Il sito è visibile su `http://localhost:4321/portfolio-edoardo-rossi-2/`.
 
-## Pubblicare su GitHub Pages
+Per verificare il risultato finale prima di pubblicare:
 
-1. **Aggiorna `astro.config.mjs`** con il tuo username GitHub e il nome del repository:
-   ```js
-   export default defineConfig({
-     site: 'https://TUO-USERNAME.github.io',
-     base: '/NOME-DEL-REPO',
-   });
-   ```
-   Se il repository si chiama `TUO-USERNAME.github.io` (una "user page"), imposta invece
-   `base: '/'`.
+```bash
+npm run build && npm run preview
+```
 
-2. **Carica il progetto su GitHub** (repository pubblico o privato, entrambi funzionano
-   con GitHub Pages su piani gratuiti per i repository pubblici):
-   ```bash
-   git init
-   git add .
-   git commit -m "Prima versione del portfolio"
-   git branch -M main
-   git remote add origin https://github.com/TUO-USERNAME/NOME-DEL-REPO.git
-   git push -u origin main
-   ```
+## Pubblicazione
 
-3. **Attiva GitHub Pages con sorgente "GitHub Actions":**
-   - Vai su Settings → Pages nel repository
-   - In "Build and deployment" → "Source", seleziona **GitHub Actions**
-   - Il workflow incluso (`.github/workflows/deploy.yml`) farà build e deploy
-     automaticamente a ogni push su `main`
+Il deploy è automatico: a ogni `push` sul branch `main`, il workflow in
+`.github/workflows/deploy.yml` esegue la build e pubblica su GitHub Pages.
 
-4. Dopo qualche minuto il sito sarà live all'indirizzo indicato in Settings → Pages.
+Configurazione già attiva (da non modificare salvo cambio di repository):
 
-## Come aggiungere un nuovo case study (quando saranno pronti)
+- `astro.config.mjs` → `site: 'https://rossiedoardo369.github.io'`,
+  `base: '/portfolio-edoardo-rossi-2/'`
+- Settings → Pages → Source: **GitHub Actions**
 
-I case study vivranno come contenuti separati dal codice — quando costruiamo la pagina
-"Selected Work" e il template di dettaglio, aggiungere un nuovo progetto sarà questione di
-creare un nuovo file di contenuto, senza toccare il codice del sito.
+> ⚠️ Se carichi file dall'interfaccia web di GitHub, verifica sempre che finiscano nel
+> percorso corretto: il trascinamento di cartelle può creare un livello di annidamento
+> in più e impedire la build. Il metodo più sicuro è "Add file → Create new file"
+> scrivendo a mano il percorso completo.
 
-## Note su design e contenuti
+## Aggiungere un nuovo case study
 
-- Direzione visiva: minimale, analitica, dati in primo piano — vedi `src/styles/global.css`
-  per i design token (colore, tipografia, spaziatura)
-- Font: Space Grotesk (titoli), IBM Plex Sans (corpo), IBM Plex Mono (numeri e metriche)
-- Tutti i dati dei case study sono già anonimizzati alla fonte: nessun nome di cliente,
-  indirizzo o dato identificativo deve mai essere aggiunto ai contenuti pubblici
+1. Crea `src/pages/work/nome-del-caso.astro`
+2. Usa un case study esistente come modello: importa `CaseStudyLayout` e compila
+   `snapshot`, `results` e il corpo del testo
+3. Aggiungi la card corrispondente nell'array `cases` di `src/pages/work/index.astro`
+
+Nessuna modifica al codice del layout è necessaria.
+
+## Design
+
+Direzione visiva: minimale e analitica, dati in primo piano. Tutti i token (colore,
+tipografia, spaziatura) sono in cima a `src/styles/global.css`.
+
+- **Colori:** sfondo carta fredda, inchiostro quasi-nero, verde-petrolio per i dati
+  confermati, ambra per i punti aperti e i limiti dichiarati
+- **Font:** Space Grotesk (titoli), IBM Plex Sans (testo), IBM Plex Mono (numeri e metriche)
+
+## Riservatezza dei contenuti
+
+I case study riportano **dati reali con clienti anonimizzati**. Non devono mai comparire
+nei contenuti pubblici:
+
+- nomi di studi, aziende o professionisti
+- città specifiche (l'area geografica ampia è accettabile)
+- nomi propri di protocolli o iniziative ricercabili online
+- dati identificativi: partite IVA, numeri di albo, indirizzi, recapiti
+- qualsiasi dato relativo a singoli pazienti o contatti
+
+Le metriche numeriche sono reali e verificate. Dove un dato proviene da stime condivise
+dal cliente anziché da un tracciamento formalizzato, il case study lo dichiara
+esplicitamente.
