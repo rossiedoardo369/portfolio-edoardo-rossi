@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const roles = [
+  {
+    period: '2025 — oggi',
+    title: 'Digital Advertising Specialist',
+    org: 'Marketing Therapy — agenzia di marketing',
+    points: [
+      'Gestione di campagne Google e Meta su un portafoglio multi-cliente, dalla strategia alla reportistica.',
+      'Tracciamento e analisi dei dati con GTM e GA4, integrazione con CRM.',
+      'Discovery con i clienti, copywriting delle campagne, script video e coordinamento con videomaker e team creativo.',
+      'Formazione dei team dei clienti sulla gestione dei lead e costruzione di flussi di automazione.',
+    ],
+  },
+  {
+    period: '2023 — 2024',
+    title: 'Junior Digital Marketing Specialist',
+    org: 'Floris s.r.l. — azienda B2B',
+    points: [
+      'Supporto all\u2019ideazione di strategie di marketing online e offline in un settore B2B complesso.',
+      'Ottimizzazione CRO attraverso interventi su UX e UI.',
+      'Assistenza nel tracciamento e nell\u2019analisi dei dati.',
+    ],
+  },
+  {
+    period: '2021 — 2023',
+    title: 'Digital Marketing Intern',
+    org: 'Floris s.r.l.',
+    points: [
+      'Creazione di contenuti per i canali social aziendali (Meta, LinkedIn, blog).',
+      'Strategie di lead generation tramite email marketing e campagne PPC.',
+      'Gestione del sito web aziendale.',
+    ],
+  },
+];
+
+const education = [
+  {
+    period: '2021 — 2023',
+    title: 'Attestato Tecnico Superiore in Digital Marketing',
+    points: 'Fondamenti del marketing, progetti applicati, stage formativi in azienda.',
+  },
+  {
+    period: '2018 — 2022',
+    title: 'Laurea in Scienze della Comunicazione',
+    points: 'Aspetti cognitivi della comunicazione, strategie di linguaggio persuasivo per media classici e digitali.',
+  },
+];
+---
+<BaseLayout
+  title="Esperienza"
+  description="Il percorso professionale di Edoardo Rossi: digital advertising in agenzia, marketing B2B, formazione in comunicazione e digital marketing."
+>
+  <section class="intro container">
+    <p class="eyebrow">Esperienza</p>
+    <h1>Dal marketing interno di un'azienda B2B alla gestione di un portafoglio clienti in agenzia.</h1>
+  </section>
+
+  <section class="container timeline" aria-label="Esperienza professionale">
+    <h2 class="section-label mono">Percorso professionale</h2>
+    {roles.map((role) => (
+      <article class="role">
+        <p class="mono period">{role.period}</p>
+        <div>
+          <h3>{role.title}</h3>
+          <p class="org">{role.org}</p>
+          <ul>
+            {role.points.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="container timeline" aria-label="Formazione">
+    <h2 class="section-label mono">Formazione</h2>
+    {education.map((ed) => (
+      <article class="role">
+        <p class="mono period">{ed.period}</p>
+        <div>
+          <h3>{ed.title}</h3>
+          <p class="org">{ed.points}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
+
+  .timeline { padding-bottom: var(--space-4); }
+  .section-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-ink-soft);
+    border-bottom: var(--border);
+    padding-bottom: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+  .role {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .period { color: var(--color-accent); font-size: 0.9rem; }
+  .role h3 { margin-bottom: 0.15rem; }
+  .org { font-size: 0.9rem; color: var(--color-ink-soft); margin-bottom: var(--space-1); }
+  .role ul { margin: 0; padding-left: 1.1rem; color: var(--color-ink-soft); }
+  .role li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+
+  @media (max-width: 640px) {
+    .role { grid-template-columns: 1fr; gap: var(--space-1); }
+  }
+</style>

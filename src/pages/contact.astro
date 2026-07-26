@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Contatti"
+  description="Contatta Edoardo Rossi per collaborazioni, progetti e opportunità di lavoro nel performance marketing e nella digital strategy."
+>
+  <section class="contact container">
+    <p class="eyebrow">Contatti</p>
+    <h1>Se il mio modo di lavorare ti convince, parliamone.</h1>
+    <p class="lede">
+      Sono aperto a collaborare con qualsiasi realtà — agenzie, aziende, team interni — interessata
+      non solo alle competenze che porto, ma al modo in cui lavoro: metodo, misurazione, onestà sui
+      risultati. Se hai letto i case study e ti ritrovi in questo approccio, il resto è una
+      conversazione.
+    </p>
+
+    <div class="channels">
+      <a class="channel" href="mailto:rossi.edoardo369@gmail.com">
+        <p class="mono channel-label">Email</p>
+        <p class="channel-value">rossi.edoardo369@gmail.com</p>
+      </a>
+      <a class="channel" href="https://www.linkedin.com/in/rossiedoardo369" target="_blank" rel="noopener">
+        <p class="mono channel-label">LinkedIn</p>
+        <p class="channel-value">linkedin.com/in/rossiedoardo369</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact { padding-block: var(--space-6); max-width: 46rem; }
+  .lede { font-size: 1.15rem; }
+
+  .channels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .channel {
+    display: block;
+    background: var(--color-surface);
+    border: var(--border);
+    padding: var(--space-3);
+    text-decoration: none;
+  }
+  .channel:hover { border-color: var(--color-accent); }
+  .channel-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 0.3rem;
+  }
+  .channel-value { margin: 0; font-size: 1rem; color: var(--color-ink); }
+
+  @media (max-width: 640px) {
+    .channels { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const areas = [
+  {
+    title: 'Paid advertising',
+    tools: 'Google Ads · Meta Ads',
+    body: 'Campagne Search, Performance Max, Smart e Local su Google; lead generation, eventi e notorietà locale su Meta. Struttura, budget, ottimizzazione continua e scaling — su singoli account e su portafogli multi-cliente.',
+  },
+  {
+    title: 'Misurazione e tracciamento',
+    tools: 'GA4 · Google Tag Manager · integrazione CRM',
+    body: 'Il click è l\u2019inizio della misurazione, non la fine: configuro il tracciamento perché ogni campagna possa essere ricondotta al risultato di business — contatto, opportunità, cliente acquisito, ricavo.',
+  },
+  {
+    title: 'CRM e automazione',
+    tools: 'Pipeline · automazioni WhatsApp · lead nurturing',
+    body: 'Progetto i flussi che lavorano il lead dopo il primo contatto: pipeline con stage espliciti, automazioni per il ricontatto, nurturing per chi non è ancora pronto. È la parte del funnel dove si perde più valore — o lo si recupera.',
+  },
+  {
+    title: 'Strategia e posizionamento',
+    tools: 'Discovery · framework di comunicazione · funnel design',
+    body: 'Interviste strutturate con il cliente per estrarre ciò che rende il servizio unico, trasformate in framework di comunicazione replicabili e percorsi di vendita progettati insieme a chi li esegue ogni giorno.',
+  },
+  {
+    title: 'Copywriting e creatività',
+    tools: 'Copy per campagne · script video · direzione creativa',
+    body: 'Scrivo i testi delle campagne e gli script dei video, lavorando a stretto contatto con videomaker e grafici. Testo varianti multiple su angoli di comunicazione diversi, e lascio che siano i dati a scegliere.',
+  },
+  {
+    title: 'Reportistica e analisi',
+    tools: 'Report periodici · lettura del dato col cliente',
+    body: 'Report costruiti per decidere, non per riempire slide: cosa ha funzionato, cosa no, cosa cambiamo. Separando sempre ciò che i dati dimostrano da ciò che suggeriscono.',
+  },
+];
+---
+<BaseLayout
+  title="Competenze"
+  description="Paid advertising, misurazione, CRM e automazione, strategia, copywriting, reportistica: le competenze di Edoardo Rossi, ancorate a progetti reali."
+>
+  <section class="intro container">
+    <p class="eyebrow">Competenze</p>
+    <h1>Quello che so fare, dimostrato da quello che ho fatto.</h1>
+    <p class="lede">
+      Niente barre di autovalutazione: ogni area di competenza qui sotto è collegata a progetti
+      reali, che puoi leggere nei <a href={`${base}work/`}>case study</a>.
+    </p>
+  </section>
+
+  <section class="container skills-grid" aria-label="Aree di competenza">
+    {areas.map((area) => (
+      <article class="skill-card">
+        <h2>{area.title}</h2>
+        <p class="mono tools">{area.tools}</p>
+        <p>{area.body}</p>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
+  .lede { font-size: 1.15rem; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+  .skill-card {
+    background: var(--color-surface);
+    border: var(--border);
+    padding: var(--space-3);
+  }
+  .skill-card h2 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+  .tools { font-size: 0.8rem; color: var(--color-accent); margin-bottom: var(--space-2); }
+  .skill-card p:last-child { margin: 0; font-size: 0.95rem; }
+
+  @media (max-width: 780px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
