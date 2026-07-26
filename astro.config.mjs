@@ -8,5 +8,5 @@ import { defineConfig } from 'astro/config';
 // lascia base: '/' e site con l'URL della user page.
 export default defineConfig({
   site: 'https://rossiedoardo369.github.io',
-  base: '/portfolio-edoardo-rossi-2',
+base: '/portfolio-edoardo-rossi-2/',
 });
