@@ -1,0 +1,119 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface SnapshotItem {
+  label: string;
+  value: string;
+}
+
+interface ResultItem {
+  metric: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  snapshot: SnapshotItem[];
+  results: ResultItem[];
+}
+
+const { title, description, eyebrow, snapshot, results } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title={title} description={description}>
+  <article class="case-study container">
+    <a class="back-link" href={`${base}work/`}>← Tutti i lavori selezionati</a>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+
+    <dl class="snapshot">
+      {snapshot.map((item) => (
+        <div class="snapshot-item">
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="results" aria-label="Risultati principali">
+      {results.map((item) => (
+        <div class="result-card">
+          <p class="mono metric">{item.metric}</p>
+          <p class="result-label">{item.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding-block: var(--space-5) var(--space-6);
+    max-width: 46rem;
+  }
+  .back-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+    margin-bottom: var(--space-3);
+  }
+  h1 { margin-top: 0.3rem; }
+
+  .snapshot {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-2) var(--space-3);
+    margin: var(--space-4) 0 0 0;
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border: var(--border);
+  }
+  .snapshot-item dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-soft);
+    margin-bottom: 0.2rem;
+  }
+  .snapshot-item dd {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    padding-block: var(--space-3) var(--space-4);
+    margin: var(--space-4) 0 var(--space-5) 0;
+    border-top: var(--border);
+    border-bottom: var(--border);
+  }
+  .result-card { padding: var(--space-2); }
+  .metric {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0;
+  }
+  .result-label { font-size: 0.85rem; margin: 0.2rem 0 0 0; }
+
+  .body :global(h2) { margin-top: var(--space-5); }
+  .body :global(.open-point) {
+    border-left: 3px solid var(--color-caution);
+    padding-left: var(--space-2);
+    color: var(--color-ink-soft);
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .results { grid-template-columns: 1fr; }
+  }
+</style>

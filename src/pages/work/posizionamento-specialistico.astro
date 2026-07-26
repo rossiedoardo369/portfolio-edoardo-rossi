@@ -1,0 +1,86 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const snapshot = [
+  { label: 'Organizzazione', value: 'Studio dentistico monosede, Veneto' },
+  { label: 'Periodo', value: 'Iniziativa 2026, in una relazione attiva dal 2023' },
+  { label: 'Ruolo', value: 'Discovery strategica, copywriting, protocollo di vendita post-lead, gestione campagne, reportistica' },
+  { label: 'Canale', value: 'Meta Ads' },
+  { label: 'Team', value: 'Titolare (fonte clinica), segreteria (esecuzione del protocollo)' },
+];
+
+const results = [
+  { metric: '8,53×', label: 'ROAS sulla spesa pubblicitaria' },
+  { metric: '83,3%', label: 'chiusura dopo la visita eseguita' },
+  { metric: '23,8%', label: 'dal contatto alla terapia chiusa' },
+];
+---
+<CaseStudyLayout
+  title="Costruire un posizionamento specialistico, dalla discovery alla chiusura del preventivo"
+  description="Case study: posizionamento clinico-comunicativo per un servizio complesso, con discovery, copywriting e protocollo di vendita. ROAS 8,53x."
+  eyebrow="Strategia · Copywriting · Funnel"
+  snapshot={snapshot}
+  results={results}
+>
+  <h2>Il contesto</h2>
+  <p>
+    La parodontite è una malattia seria, diffusa e quasi invisibile per chi ne soffre: non fa male
+    all'inizio, e i suoi segnali vengono sistematicamente sottovalutati. Per molti studi è più
+    semplice proporre un impianto che salvare il dente. Il titolare voleva il posizionamento
+    opposto: diventare il riferimento del territorio per chi i denti vuole salvarli.
+  </p>
+
+  <h2>La sfida</h2>
+  <p>
+    Rendere tangibile e urgente una patologia che il paziente non percepisce, senza allarmismo e
+    nel rispetto delle regole sulla comunicazione sanitaria — e costruire un percorso post-lead
+    capace di trasformare la comprensione clinica in una decisione di cura.
+  </p>
+
+  <h2>Il mio ruolo</h2>
+  <p>
+    Ho condotto personalmente la discovery con il titolare: un'intervista strutturata per estrarre
+    target, segnali clinici ignorati, obiezioni ricorrenti, tono di voce. Da quel materiale ho
+    costruito il framework di comunicazione (sei angoli distinti, dallo "hai 35 anni e ti parlano
+    già di impianti?" al confronto economico cura-vs-impianto) e scritto le otto varianti di copy
+    delle campagne. Ho poi definito, insieme alla segreteria, il protocollo post-lead: cosa dire
+    in telefonata, cosa deve accadere sempre in prima visita, come presentare il piano di cura.
+  </p>
+
+  <h2>Analisi e insight</h2>
+  <p>
+    Il funnel ha rivelato subito dove si vince e dove si perde: quasi un contatto su due prenota
+    la visita (47,6%), e chi arriva in studio chiude la terapia nell'83,3% dei casi. Il punto
+    debole è nel mezzo: solo il 60% delle visite prenotate viene effettivamente eseguita.
+    Il problema non era la qualità dei lead, ma la fase di presentazione in studio.
+  </p>
+  <p class="open-point">
+    Punto aperto: sul tasso di presentazione si è lavorato con un contatto più costante con la
+    segreteria, ma al momento della stesura non ci sono ancora dati nuovi che ne misurino
+    l'effetto. Preferisco dichiararlo che dichiarare un miglioramento non verificato.
+  </p>
+
+  <h2>Esecuzione</h2>
+  <p>
+    Otto varianti di copy su un territorio creativo coerente, testate su Meta. Uno script di
+    telefonata per la segreteria costruito per comunicare valore prima del prezzo. Una prima
+    visita standardizzata — esami, documentazione fotografica, cartella clinica — pensata per far
+    "vedere" al paziente la propria situazione, trasformando la diagnosi in un momento di
+    consapevolezza anziché in un preventivo da subire.
+  </p>
+
+  <h2>Risultati</h2>
+  <p>
+    42 contatti hanno prodotto 20 visite prenotate, 12 eseguite e 10 terapie chiuse, per
+    18.845 € di valore accettato a fronte di 2.208,34 € di spesa pubblicitaria: un ROAS di
+    8,53×. Quasi un contatto su quattro (23,8%) è arrivato fino alla chiusura della terapia.
+  </p>
+
+  <h2>Cosa ho imparato</h2>
+  <p>
+    Che un insight clinico complesso può diventare un framework di comunicazione replicabile, se
+    la discovery è fatta con metodo. E che il funnel post-lead va progettato insieme a chi lo
+    esegue ogni giorno: lo script più efficace è quello che la segreteria sente proprio, non
+    quello imposto dall'esterno.
+  </p>
+</CaseStudyLayout>

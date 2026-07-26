@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const caseStudies = [
+  {
+    href: 'eventi-multisede/',
+    eyebrow: 'Meta Ads · Misurazione end-to-end',
+    title: 'Trasformare un format di eventi ricorrenti in un canale di acquisizione misurabile',
+    summary: 'Programma di Open Day su una rete multi-sede, misurato dal primo clic al paziente acquisito.',
+    metric: '13,55×',
+    metricLabel: 'ROAS 2024',
+  },
+  {
+    href: 'posizionamento-specialistico/',
+    eyebrow: 'Strategia · Copywriting · Funnel',
+    title: 'Costruire un posizionamento specialistico, dalla discovery alla chiusura del preventivo',
+    summary: 'Posizionamento clinico-comunicativo per un servizio complesso, con discovery, copywriting e protocollo di vendita.',
+    metric: '8,53×',
+    metricLabel: 'ROAS',
+  },
+  {
+    href: 'protocollo-crm/',
+    eyebrow: 'Posizionamento · CRM · Automazione',
+    title: 'Da diagnosi complessa a fatturato misurabile: posizionamento e automazione nella stessa strategia',
+    summary: 'Protocollo clinico-comunicativo proprietario e campagna con CRM e automazione WhatsApp.',
+    metric: '+600%',
+    metricLabel: 'fatturato in un anno',
+  },
+];
+---
+<BaseLayout
+  title="Lavori selezionati"
+  description="Case study di performance marketing e strategia digitale nel settore sanitario: campagne Meta e Google misurate dal primo contatto al risultato di business."
+>
+  <section class="intro container">
+    <p class="eyebrow">Lavori selezionati</p>
+    <h1>Cinque progetti, cinque sfide diverse</h1>
+    <p class="lede">
+      Rete multi-sede da misurare end-to-end, posizionamento comunicativo da costruire da zero,
+      automazione di un CRM per non disperdere lead: ogni caso studio affronta un problema
+      diverso, con lo stesso metodo.
+    </p>
+  </section>
+
+  <section class="list container">
+    {caseStudies.map((item) => (
+      <a class="case-card" href={`${base}work/${item.href}`}>
+        <p class="eyebrow">{item.eyebrow}</p>
+        <h2>{item.title}</h2>
+        <p class="summary">{item.summary}</p>
+        <p class="mono metric">{item.metric} <span class="metric-label">{item.metricLabel}</span></p>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: var(--space-6) var(--space-5);
+    max-width: 46rem;
+  }
+  .lede { font-size: 1.15rem; max-width: 38rem; }
+
+  .list {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-4) var(--space-6);
+  }
+  .case-card {
+    display: block;
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border: var(--border);
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  .case-card:hover { border-color: var(--color-accent); }
+  .case-card h2 { margin-top: 0.2rem; margin-bottom: 0.4rem; }
+  .summary { margin-bottom: var(--space-2); }
+  .metric {
+    color: var(--color-accent);
+    font-weight: 500;
+    margin: 0;
+  }
+  .metric-label {
+    color: var(--color-ink-soft);
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+</style>
