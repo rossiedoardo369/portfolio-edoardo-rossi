@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // ATTENZIONE: aggiorna questi due valori prima del deploy su GitHub Pages.
 // Se il repo si chiama "portfolio-edoardo-rossi" e lo username GitHub è "rossiedoardo":
@@ -8,5 +9,6 @@ import { defineConfig } from 'astro/config';
 // lascia base: '/' e site con l'URL della user page.
 export default defineConfig({
   site: 'https://rossiedoardo369.github.io',
-base: '/portfolio-edoardo-rossi-2/',
+  base: '/portfolio-edoardo-rossi-2/',
+  integrations: [sitemap()],
 });
