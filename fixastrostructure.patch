@@ -1,0 +1,139 @@
+From 83190ecde8946b21741d9364b2d4607a5ed9644f Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 22 Jul 2026 14:30:23 +0000
+Subject: [PATCH] Fix Astro project structure and GitHub Pages deploy workflow
+
+Move layout/component/page files into src/ (pages, layouts,
+components, styles) as required by Astro, move favicon.svg into
+public/, and replace the Jekyll deploy workflow with an Astro build
++ deploy workflow. Previously the site built 0 pages because
+src/pages was missing.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0156tmxiXPUvZYocdjvjAUyi
+---
+ .../{jekyll-gh-pages.yml => deploy.yml}       | 27 +++++++++----------
+ .gitignore                                    |  4 +++
+ favicon.svg => public/favicon.svg             |  0
+ Footer.astro => src/components/Footer.astro   |  0
+ Header.astro => src/components/Header.astro   |  0
+ env.d.ts => src/env.d.ts                      |  0
+ .../layouts/BaseLayout.astro                  |  0
+ index.astro => src/pages/index.astro          |  0
+ global.css => src/styles/global.css           |  0
+ 9 files changed, 16 insertions(+), 15 deletions(-)
+ rename .github/workflows/{jekyll-gh-pages.yml => deploy.yml} (50%)
+ create mode 100644 .gitignore
+ rename favicon.svg => public/favicon.svg (100%)
+ rename Footer.astro => src/components/Footer.astro (100%)
+ rename Header.astro => src/components/Header.astro (100%)
+ rename env.d.ts => src/env.d.ts (100%)
+ rename BaseLayout.astro => src/layouts/BaseLayout.astro (100%)
+ rename index.astro => src/pages/index.astro (100%)
+ rename global.css => src/styles/global.css (100%)
+
+diff --git a/.github/workflows/jekyll-gh-pages.yml b/.github/workflows/deploy.yml
+similarity index 50%
+rename from .github/workflows/jekyll-gh-pages.yml
+rename to .github/workflows/deploy.yml
+index 67be9b0..a181fd4 100644
+--- a/.github/workflows/jekyll-gh-pages.yml
++++ b/.github/workflows/deploy.yml
+@@ -1,44 +1,41 @@
+-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
++name: Deploy Astro site to GitHub Pages
+ 
+ on:
+-  # Runs on pushes targeting the default branch
+   push:
+     branches: ["main"]
+-
+-  # Allows you to run this workflow manually from the Actions tab
+   workflow_dispatch:
+ 
+-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+ permissions:
+   contents: read
+   pages: write
+   id-token: write
+ 
+-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+ concurrency:
+   group: "pages"
+   cancel-in-progress: false
+ 
+ jobs:
+-  # Build job
+   build:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v4
++      - name: Setup Node
++        uses: actions/setup-node@v4
++        with:
++          node-version: 20
++          cache: npm
++      - name: Install dependencies
++        run: npm ci
+       - name: Setup Pages
+         uses: actions/configure-pages@v5
+-      - name: Build with Jekyll
+-        uses: actions/jekyll-build-pages@v1
+-        with:
+-          source: ./
+-          destination: ./_site
++      - name: Build
++        run: npm run build
+       - name: Upload artifact
+         uses: actions/upload-pages-artifact@v3
++        with:
++          path: ./dist
+ 
+-  # Deployment job
+   deploy:
+     environment:
+       name: github-pages
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..de35ccf
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++node_modules/
++dist/
++.astro/
++.DS_Store
+diff --git a/favicon.svg b/public/favicon.svg
+similarity index 100%
+rename from favicon.svg
+rename to public/favicon.svg
+diff --git a/Footer.astro b/src/components/Footer.astro
+similarity index 100%
+rename from Footer.astro
+rename to src/components/Footer.astro
+diff --git a/Header.astro b/src/components/Header.astro
+similarity index 100%
+rename from Header.astro
+rename to src/components/Header.astro
+diff --git a/env.d.ts b/src/env.d.ts
+similarity index 100%
+rename from env.d.ts
+rename to src/env.d.ts
+diff --git a/BaseLayout.astro b/src/layouts/BaseLayout.astro
+similarity index 100%
+rename from BaseLayout.astro
+rename to src/layouts/BaseLayout.astro
+diff --git a/index.astro b/src/pages/index.astro
+similarity index 100%
+rename from index.astro
+rename to src/pages/index.astro
+diff --git a/global.css b/src/styles/global.css
+similarity index 100%
+rename from global.css
+rename to src/styles/global.css
+-- 
+2.43.0
+
