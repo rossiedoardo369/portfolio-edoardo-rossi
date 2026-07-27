@@ -45,6 +45,16 @@ export const ui = {
     'home.closing.p':
       'Hai appena visto risultati misurati, non promesse. Se cerchi lo stesso approccio — dati alla mano, dal primo contatto al risultato di business — sono a disposizione per parlarne.',
     'home.closing.cta': 'Contattami →',
+
+    'work.title': 'Lavori selezionati',
+    'work.description':
+      'Case study di performance marketing: misurazione end-to-end, posizionamento strategico, CRM e automazione. Numeri reali, clienti anonimizzati.',
+    'work.eyebrow': 'Lavori selezionati',
+    'work.h1': 'Cinque problemi diversi, lo stesso metodo.',
+    'work.lede':
+      'Ogni caso studio parte da un problema di business reale e arriva a un risultato misurato. I dati sono reali; i clienti sono anonimizzati per riservatezza.',
+    'work.aria': 'Elenco dei case study',
+    'work.cta': 'Leggi il caso studio →',
   },
   en: {
     'nav.work': 'Selected work',
@@ -85,5 +95,15 @@ export const ui = {
     'home.closing.p':
       'You’ve just seen measured results, not promises. If you’re looking for the same approach — data in hand, from first contact to business outcome — I’m available to talk.',
     'home.closing.cta': 'Get in touch →',
+
+    'work.title': 'Selected work',
+    'work.description':
+      'Performance marketing case studies: end-to-end measurement, strategic positioning, CRM and automation. Real numbers, anonymized clients.',
+    'work.eyebrow': 'Selected work',
+    'work.h1': 'Five different problems, the same method.',
+    'work.lede':
+      'Every case study starts from a real business problem and ends in a measured result. The data is real; clients are anonymized for confidentiality.',
+    'work.aria': 'List of case studies',
+    'work.cta': 'Read the case study →',
   },
 } as const;
