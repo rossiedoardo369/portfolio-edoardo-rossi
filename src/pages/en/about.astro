@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="About"
+  description="Edoardo Rossi — marketing as the meeting point between business and psychology: understanding people through data, and data through people."
+  translated
+>
+  <section class="about container">
+    <p class="eyebrow">About</p>
+    <h1>Marketing is where business meets psychology.</h1>
+    <p class="lede">
+      That's what brought me here, and it's what keeps me here. Behind every metric is a
+      behavior; behind every behavior, a person making a decision. The anthropological side of
+      the job — understanding who you're talking to, what they're really looking for, why they
+      choose — interests me as much as the analytical one. If anything, I believe one doesn't
+      work without the other.
+    </p>
+    <p>
+      Data, on its own, tells you what happened. People, on their own, tell stories that the
+      numbers sometimes contradict. My work sits in between: using analysis to give clear answers
+      on who, what and why — and using those answers to build campaigns, funnels and positioning
+      that treat the audience as people, not segments.
+    </p>
+    <p>
+      I'm someone who always looks for the extra step: understanding the process beyond the
+      campaign, the business beyond the brief, the outcome beyond the report. In my
+      <a href={`${base}en/work/`}>case studies</a> you'll find how this approach plays out in
+      practice — real numbers, stated limitations included.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .about { padding-block: var(--space-6); max-width: 46rem; }
+  .lede { font-size: 1.15rem; }
+</style>
