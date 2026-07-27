@@ -1,64 +1,52 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { caseStudies } from '../data/case-studies.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { caseStudiesEn } from '../../data/case-studies.js';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const steps = [
-  {
-    n: '01',
-    title: 'Strategia',
-    body: 'Discovery diretta con il cliente: individuo il posizionamento e l’obiettivo di business reale, non solo quello pubblicitario.',
-  },
-  {
-    n: '02',
-    title: 'Esecuzione',
-    body: 'Creatività, struttura della campagna, automazioni e integrazione con CRM e team commerciale — dal primo contatto in poi.',
-  },
-  {
-    n: '03',
-    title: 'Misurazione',
-    body: 'Reportistica che risale fino al risultato di business — cliente acquisito, fatturato, ritorno reale — non si ferma al click.',
-  },
+  { n: '01', title: t('home.how.step1.title'), body: t('home.how.step1.body') },
+  { n: '02', title: t('home.how.step2.title'), body: t('home.how.step2.body') },
+  { n: '03', title: t('home.how.step3.title'), body: t('home.how.step3.body') },
 ];
 ---
 <BaseLayout
-  title="Home"
-  description="Performance Marketing & Digital Strategy Specialist — campagne Google e Meta misurate dal primo contatto al risultato di business."
+  title={t('home.title')}
+  description={t('home.description')}
   translated
 >
   <section class="hero container">
-    <p class="eyebrow">Performance Marketing &amp; Digital Strategy Specialist</p>
-    <h1>Ogni euro speso in advertising dovrebbe poter rispondere a una domanda: cosa ha prodotto, esattamente?</h1>
-    <p class="lede">
-      Progetto e conduco campagne su Google e Meta, dal primo contatto pubblicitario fino alla
-      decisione finale del cliente — con la reportistica a dimostrarlo, non solo a raccontarlo.
-    </p>
+    <p class="eyebrow">{t('home.eyebrow')}</p>
+    <h1>{t('home.h1')}</h1>
+    <p class="lede">{t('home.lede')}</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}work/`}>Guarda i case studies</a>
-      <a class="btn btn-ghost" href={`${base}contact/`}>Contattami</a>
+      <a class="btn btn-primary" href={`${base}work/`}>{t('home.cta.work')}</a>
+      <a class="btn btn-ghost" href={`${base}contact/`}>{t('home.cta.contact')}</a>
     </div>
   </section>
 
-  <section class="proof container" aria-label="Risultati principali">
+  <section class="proof container" aria-label={t('home.proof.aria')}>
     <div class="proof-track" id="proof-track">
-      {caseStudies.map((c) => (
+      {caseStudiesEn.map((c) => (
         <a class="proof-card" href={`${base}work/${c.slug}/`}>
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
-          <p class="proof-cta card-cta">Leggi di più →</p>
+          <p class="proof-cta card-cta">{t('home.proof.cta')}</p>
         </a>
       ))}
     </div>
     <div class="proof-controls">
-      <button type="button" class="slider-arrow" id="proof-prev" aria-label="Caso precedente">←</button>
-      <button type="button" class="slider-arrow" id="proof-next" aria-label="Caso successivo">→</button>
+      <button type="button" class="slider-arrow" id="proof-prev" aria-label={t('home.proof.prev')}>←</button>
+      <button type="button" class="slider-arrow" id="proof-next" aria-label={t('home.proof.next')}>→</button>
     </div>
   </section>
 
   <section class="how container">
-    <h2>Come lavoro</h2>
+    <h2>{t('home.how.title')}</h2>
     <ol class="steps">
       {steps.map((step) => (
         <li>
@@ -73,12 +61,9 @@ const steps = [
   </section>
 
   <section class="closing container">
-    <h2>Ti ho già convinto? Allora cosa aspetti?</h2>
-    <p>
-      Hai appena visto risultati misurati, non promesse. Se cerchi lo stesso approccio — dati alla
-      mano, dal primo contatto al risultato di business — sono a disposizione per parlarne.
-    </p>
-    <a class="btn btn-primary" href={`${base}contact/`}>Contattami →</a>
+    <h2>{t('home.closing.h2')}</h2>
+    <p>{t('home.closing.p')}</p>
+    <a class="btn btn-primary" href={`${base}contact/`}>{t('home.closing.cta')}</a>
   </section>
 </BaseLayout>
 
@@ -114,7 +99,7 @@ const steps = [
   window.addEventListener('resize', updateArrows);
   updateArrows();
 
-  // Animazione dei numeri al primo ingresso in viewport
+  // Number count-up on first entering the viewport
   function animateValue(el: HTMLElement) {
     const raw = el.dataset.value || '';
     const match = raw.match(/^([+−]?)(\d+(?:,\d+)?)(.*)$/);
@@ -146,8 +131,8 @@ const steps = [
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
   if (isMobile) {
-    // Su mobile è visibile una card alla volta: ognuna parte quando è
-    // interamente a schermo (dopo che lo scroll-snap si è assestato).
+    // On mobile only one card is visible at a time: each starts once it's
+    // fully on screen (after scroll-snap has settled).
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -158,8 +143,8 @@ const steps = [
     }, { threshold: 1 });
     metrics.forEach((el) => observer.observe(el));
   } else {
-    // Su desktop più card sono visibili insieme: partono tutte insieme
-    // non appena la prima card entra in vista.
+    // On desktop several cards are visible together: they all start as
+    // soon as the first card enters view.
     const firstMetric = metrics[0];
     if (firstMetric) {
       const observer = new IntersectionObserver((entries) => {

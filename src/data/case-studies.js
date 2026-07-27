@@ -45,3 +45,53 @@ export const caseStudies = [
     metricLabel: 'pazienti acquisiti in quattro mesi',
   },
 ];
+
+// Traduzione inglese usata solo dalle pagine sotto /en/ già localizzate
+// (per ora la home). Slug e metriche numeriche restano invariati.
+export const caseStudiesEn = [
+  {
+    slug: 'eventi-multisede',
+    eyebrow: 'Meta Ads · End-to-end measurement',
+    title: 'Turning a recurring events format into a measurable acquisition channel',
+    summary:
+      'An events program replicated across a network of 6 locations, measured from the first click through to the acquired customer — including in-house training on lead management.',
+    metric: '13,55×',
+    metricLabel: 'ROAS · 2024',
+  },
+  {
+    slug: 'posizionamento-specialistico',
+    eyebrow: 'Strategy · Copywriting · Funnel',
+    title: 'Building a specialist positioning, from discovery to closing the quote',
+    summary:
+      'A service that was hard to explain, turned into a clear journey: discovery with the owner, 8 copy variants, a post-lead sales protocol.',
+    metric: '8,53×',
+    metricLabel: 'ROAS on ad spend',
+  },
+  {
+    slug: 'protocollo-crm',
+    eyebrow: 'Positioning · CRM · Automation',
+    title: 'From a complex diagnosis to measurable revenue: positioning and automation in a single strategy',
+    summary:
+      'A proprietary protocol that more than doubled the close rate, paired with a campaign using CRM and WhatsApp automations so no lead was lost.',
+    metric: '+600%',
+    metricLabel: 'revenue on one service line · 2024 → 2025',
+  },
+  {
+    slug: 'territorio-bilingue',
+    eyebrow: 'Google Ads · Meta Ads · Bilingual communication',
+    title: 'Local marketing in a bilingual territory: three locations, two languages, one system',
+    summary:
+      'Three locations, two languages, and catchment areas with very different potential: a bilingual Search and Social presence that halved cost per lead with the same format.',
+    metric: '−53%',
+    metricLabel: 'cost per lead · 2025 → 2026',
+  },
+  {
+    slug: 'capacita-operativa',
+    eyebrow: 'Google Ads · Meta Ads · Attribution',
+    title: 'When advertising outpaces the company’s capacity',
+    summary:
+      'High ticket value, low volume, separate tracking to make ROI defensible — right up to filling the client’s schedule and advising them to pull back.',
+    metric: '37',
+    metricLabel: 'patients acquired in four months',
+  },
+];
