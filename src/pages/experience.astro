@@ -53,15 +53,13 @@ const certifications = [
     title: 'Meta Certified Media Buying Professional',
     issuer: 'Meta',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeType: 'credly',
-    credlyBadgeId: '9670c461-061d-45f7-9eb1-cb1ac1af366f',
+    badgeImage: null,
     verifyUrl: 'https://www.credly.com/badges/9670c461-061d-45f7-9eb1-cb1ac1af366f/public_url',
   },
   {
     title: 'Google Ads Search Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeType: 'image',
     badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/172388976',
     verifyUrl: 'https://skillshop.credential.net/93e395c1-dc3a-471a-bf8c-a5fdbfc66709#acc.Q4cxfne5',
   },
@@ -69,7 +67,6 @@ const certifications = [
     title: 'Google Ads Display Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeType: 'image',
     badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/173777092',
     verifyUrl: 'https://skillshop.credential.net/60f9d544-7bba-4d4a-8444-c8a8897826de#acc.8wjsMQ0C',
   },
@@ -117,30 +114,21 @@ const certifications = [
     <h2 class="section-label mono">Certificazioni</h2>
     <div class="cert-grid">
       {certifications.map((cert) => (
-        <article class="cert-card">
+        <a class="cert-card" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
           <div class="cert-badge">
-            {cert.badgeType === 'credly' ? (
-              <div
-                data-iframe-width="150"
-                data-iframe-height="270"
-                data-share-badge-id={cert.credlyBadgeId}
-                data-share-badge-host="https://www.credly.com"
-              />
-            ) : (
+            {cert.badgeImage && (
               <img src={cert.badgeImage} alt={`Badge: ${cert.title}`} loading="lazy" width="150" height="150" />
             )}
           </div>
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
           <p class="cert-validity">{cert.validity}</p>
-          <a class="cert-verify" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">Verifica la credenziale →</a>
-        </article>
+          <p class="cert-verify">Verifica la credenziale →</p>
+        </a>
       ))}
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
 <style>
   .intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
@@ -174,10 +162,14 @@ const certifications = [
     padding-bottom: var(--space-4);
   }
   .cert-card {
+    display: block;
     background: var(--color-surface);
     border: var(--border);
     padding: var(--space-3);
+    text-decoration: none;
+    color: var(--color-ink);
   }
+  .cert-card:hover { border-color: var(--color-accent); }
   .cert-badge {
     display: flex;
     justify-content: center;
@@ -196,13 +188,12 @@ const certifications = [
   .cert-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
   .cert-validity { font-size: 0.85rem; color: var(--color-ink-soft); margin: 0 0 0.6rem 0; }
   .cert-verify {
-    display: inline-block;
     font-size: 0.85rem;
     color: var(--color-ink);
     text-decoration: underline;
     text-underline-offset: 3px;
+    margin: 0;
   }
-  .cert-verify:hover { color: var(--color-accent); }
 
   @media (max-width: 780px) {
     .cert-grid { grid-template-columns: 1fr; }
