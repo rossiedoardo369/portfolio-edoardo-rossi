@@ -43,9 +43,10 @@ const steps = [
     <div class="proof-track" id="proof-track">
       {caseStudies.map((c) => (
         <a class="proof-card" href={`${base}work/${c.slug}/`}>
-          <p class="mono metric">{c.metric}</p>
+          <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
+          <p class="proof-cta">Leggi di più →</p>
         </a>
       ))}
     </div>
@@ -83,8 +84,8 @@ const steps = [
 
 <script>
   const track = document.getElementById('proof-track');
-  const prev = document.getElementById('proof-prev');
-  const next = document.getElementById('proof-next');
+  const prev = document.getElementById('proof-prev') as HTMLButtonElement | null;
+  const next = document.getElementById('proof-next') as HTMLButtonElement | null;
 
   function step(): number {
     const card = track?.querySelector<HTMLElement>('.proof-card');
@@ -93,12 +94,65 @@ const steps = [
     return card.getBoundingClientRect().width + gap;
   }
 
+  function updateArrows() {
+    if (!track || !prev || !next) return;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const atEnd = track.scrollLeft >= maxScroll - 1;
+    prev.disabled = track.scrollLeft <= 1;
+    next.disabled = atEnd;
+    track.classList.toggle('at-end', atEnd);
+  }
+
   prev?.addEventListener('click', () => {
     track?.scrollBy({ left: -step(), behavior: 'smooth' });
   });
   next?.addEventListener('click', () => {
     track?.scrollBy({ left: step(), behavior: 'smooth' });
   });
+
+  track?.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+
+  // Animazione dei numeri al primo ingresso in viewport
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateValue(el: HTMLElement) {
+    const raw = el.dataset.value || '';
+    const match = raw.match(/^([+−]?)(\d+(?:,\d+)?)(.*)$/);
+    if (!match || prefersReducedMotion) {
+      el.textContent = raw;
+      return;
+    }
+    const [, sign, numStr, suffix] = match;
+    const decimals = numStr.includes(',') ? numStr.split(',')[1].length : 0;
+    const target = parseFloat(numStr.replace(',', '.'));
+    const duration = 1200;
+    const start = performance.now();
+
+    function frame(now: number) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const current = target * eased;
+      el.textContent = sign + current.toLocaleString('it-IT', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }) + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const metrics = document.querySelectorAll<HTMLElement>('.proof-card .metric');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateValue(entry.target as HTMLElement);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  metrics.forEach((el) => observer.observe(el));
 </script>
 
 <style>
@@ -142,10 +196,18 @@ const steps = [
     display: flex;
     gap: var(--space-3);
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-padding-left: var(--space-1);
     padding-bottom: var(--space-1);
     scrollbar-width: none;
+    mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+    transition: mask-image 0.2s ease, -webkit-mask-image 0.2s ease;
+  }
+  .proof-track.at-end {
+    mask-image: none;
+    -webkit-mask-image: none;
   }
   .proof-track::-webkit-scrollbar { display: none; }
   .proof-card {
@@ -166,6 +228,7 @@ const steps = [
     font-weight: 500;
     color: var(--color-accent);
     margin: 0;
+    font-variant-numeric: tabular-nums;
   }
   .proof-label {
     font-family: var(--font-display);
@@ -175,15 +238,22 @@ const steps = [
   .proof-context {
     font-size: 0.85rem;
     color: var(--color-ink-soft);
-    margin: 0;
+    margin: 0 0 var(--space-2) 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .proof-cta {
+    font-size: 0.85rem;
+    color: var(--color-ink);
+    margin: 0;
+    transition: color 0.2s ease;
+  }
+  .proof-card:hover .proof-cta { color: var(--color-accent); }
   .proof-controls {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: var(--space-2);
     margin-top: var(--space-3);
   }
@@ -196,9 +266,16 @@ const steps = [
     color: var(--color-ink);
     font-size: 1.1rem;
     cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
   }
   .slider-arrow:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .slider-arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+    border-color: var(--color-line);
+    color: var(--color-ink);
+  }
+  .slider-arrow:disabled:hover { border-color: var(--color-line); color: var(--color-ink); }
 
   .how { padding-block: var(--space-6); }
   .steps {
