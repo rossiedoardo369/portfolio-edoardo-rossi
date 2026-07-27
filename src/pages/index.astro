@@ -46,7 +46,7 @@ const steps = [
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
-          <p class="proof-cta">Leggi di più →</p>
+          <p class="proof-cta card-cta">Leggi di più →</p>
         </a>
       ))}
     </div>
@@ -246,11 +246,13 @@ const steps = [
   }
   .proof-cta {
     font-size: 0.85rem;
-    color: var(--color-ink);
     margin: 0;
-    transition: color 0.2s ease;
   }
-  .proof-card:hover .proof-cta { color: var(--color-accent); }
+  .proof-card:hover .proof-cta {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transform: scale(1.04);
+  }
   .proof-controls {
     display: flex;
     justify-content: center;

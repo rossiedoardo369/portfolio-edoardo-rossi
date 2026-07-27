@@ -55,7 +55,15 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-accent);
     margin-bottom: 0.3rem;
   }
-  .channel-value { margin: 0; font-size: 1rem; color: var(--color-ink); }
+  .channel-value {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
+  }
+  .channel:hover .channel-value { text-decoration: underline; }
 
   @media (max-width: 640px) {
     .channels { grid-template-columns: 1fr; }
