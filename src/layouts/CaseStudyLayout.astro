@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { caseStudies } from '../data/case-studies.js';
+import { caseStudies, caseStudiesEn } from '../data/case-studies.js';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface SnapshotItem {
   label: string;
@@ -22,16 +23,20 @@ interface Props {
 
 const { title, description, eyebrow, snapshot, results } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const list = lang === 'en' ? caseStudiesEn : caseStudies;
+const workBase = lang === 'en' ? `${base}en/work/` : `${base}work/`;
 
 const segments = Astro.url.pathname.split('/').filter(Boolean);
 const currentSlug = segments[segments.length - 1];
-const currentIndex = caseStudies.findIndex((c) => c.slug === currentSlug);
-const prevCase = caseStudies[(currentIndex - 1 + caseStudies.length) % caseStudies.length];
-const nextCase = caseStudies[(currentIndex + 1) % caseStudies.length];
+const currentIndex = list.findIndex((c) => c.slug === currentSlug);
+const prevCase = list[(currentIndex - 1 + list.length) % list.length];
+const nextCase = list[(currentIndex + 1) % list.length];
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} translated>
   <article class="case-study container">
-    <a class="back-link" href={`${base}work/`}>← Tutti i lavori selezionati</a>
+    <a class="back-link" href={workBase}>← {t('case.back')}</a>
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
 
@@ -44,7 +49,7 @@ const nextCase = caseStudies[(currentIndex + 1) % caseStudies.length];
       ))}
     </dl>
 
-    <div class="results" aria-label="Risultati principali">
+    <div class="results" aria-label={t('case.resultsAria')}>
       {results.map((item) => (
         <div class="result-card">
           <p class="mono metric">{item.metric}</p>
@@ -57,13 +62,13 @@ const nextCase = caseStudies[(currentIndex + 1) % caseStudies.length];
       <slot />
     </div>
 
-    <nav class="case-pagination" aria-label="Altri case study">
-      <a class="case-pagination-link prev" href={`${base}work/${prevCase.slug}/`}>
-        <p class="eyebrow">← Caso precedente</p>
+    <nav class="case-pagination" aria-label={t('case.paginationAria')}>
+      <a class="case-pagination-link prev" href={`${workBase}${prevCase.slug}/`}>
+        <p class="eyebrow">← {t('case.prev')}</p>
         <p class="case-pagination-title">{prevCase.title}</p>
       </a>
-      <a class="case-pagination-link next" href={`${base}work/${nextCase.slug}/`}>
-        <p class="eyebrow">Caso successivo →</p>
+      <a class="case-pagination-link next" href={`${workBase}${nextCase.slug}/`}>
+        <p class="eyebrow">{t('case.next')} →</p>
         <p class="case-pagination-title">{nextCase.title}</p>
       </a>
     </nav>

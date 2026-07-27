@@ -23,7 +23,7 @@ const steps = [
     <h1>{t('home.h1')}</h1>
     <p class="lede">{t('home.lede')}</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}work/`}>{t('home.cta.work')}</a>
+      <a class="btn btn-primary" href={`${base}en/work/`}>{t('home.cta.work')}</a>
       <a class="btn btn-ghost" href={`${base}contact/`}>{t('home.cta.contact')}</a>
     </div>
   </section>
@@ -31,7 +31,7 @@ const steps = [
   <section class="proof container" aria-label={t('home.proof.aria')}>
     <div class="proof-track" id="proof-track">
       {caseStudiesEn.map((c) => (
-        <a class="proof-card" href={`${base}work/${c.slug}/`}>
+        <a class="proof-card" href={`${base}en/work/${c.slug}/`}>
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>

@@ -1,0 +1,88 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+
+const snapshot = [
+  { label: 'Organization', value: 'Dental clinic network, 6 locations across Lombardy and Piedmont' },
+  { label: 'Timeframe', value: 'Ongoing relationship since 2022 — detailed data 2024–2025' },
+  { label: 'Role', value: 'Digital Advertising Specialist: strategy, campaigns, reporting, team training' },
+  { label: 'Channels', value: 'Meta Ads (primary), Google Ads Search' },
+  { label: 'Team', value: 'Project manager, videographer, front-desk staff at each location' },
+];
+
+const results = [
+  { metric: '13.55×', label: '2024 program ROAS' },
+  { metric: '293', label: 'leads generated in 2024' },
+  { metric: '~19.9×', label: 'best single event ROAS' },
+];
+---
+<CaseStudyLayout
+  title="Turning a recurring events format into a measurable acquisition channel"
+  description="Case study: an Open Day program across a multi-location network, measured from the first click to the acquired patient. Meta Ads, 13.55x ROAS."
+  eyebrow="Meta Ads · End-to-end measurement"
+  snapshot={snapshot}
+  results={results}
+>
+  <h2>The context</h2>
+  <p>
+    The client is a dental network with 6 locations that runs a recurring format — themed
+    "Open Days" (implantology, orthodontics, gnathology, cosmetic dentistry) — held periodically
+    across the different locations. Not a one-off campaign: an ongoing program, repeated several
+    times a year, in different cities.
+  </p>
+
+  <h2>The challenge</h2>
+  <p>
+    Counting submitted forms is easy. The client's real question was different: how many of those
+    leads actually become patients, event by event, location by location? And why does the same
+    format perform so differently depending on where and when it runs?
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    Each Open Day was conceived together with the project manager and the team; photo and video
+    material was produced with the videographer. From there on, management was entirely mine:
+    building and optimizing Meta campaigns for each individual event and location, periodic
+    reporting to the client and — something I particularly care about — training the front-desk
+    staff at each location on handling incoming leads, because the best campaign is worthless if
+    the contact isn't handled well.
+  </p>
+
+  <h2>Analysis and insight</h2>
+  <p>
+    Cost per lead varied enormously between locations: from €6.50 to over €80 in the same period.
+    A figure like that, read only in aggregate, would have gone unnoticed — analyzed location by
+    location, it showed how much location, timing and local saturation affected the format's
+    performance, just as much as the creative did.
+  </p>
+  <p class="open-point">
+    A stated limitation: the choice of where and when to hold events was up to the brand, not
+    advertising management. Geographic budget allocation was therefore not a lever I could
+    optimize — distinguishing what you control from what you're subject to is part of the
+    analysis work.
+  </p>
+
+  <h2>Execution</h2>
+  <p>
+    Over 16 lead-gen campaigns dedicated to individual events between 2022 and 2026, each with
+    creative and budget adapted to the location. In parallel: low-cost local awareness campaigns
+    (over 1.9 million people reached with roughly €1,100 total) and, over time, automation flows
+    to route leads to the front desks, which helped improve ROAS.
+  </p>
+
+  <h2>Results</h2>
+  <p>
+    In 2024 the program generated 293 leads with €2,838.64 in spend and €38,473 in attributed
+    revenue: a ROAS of roughly 13.55×. The single most efficient event closed at around 19.9× with
+    under €800 invested. The 2025 program (partial data as of May) had already generated 192
+    leads, with the pipeline still closing.
+  </p>
+
+  <h2>What I learned</h2>
+  <p>
+    To manage a growing average spend over time. To build process, not just campaigns: lead
+    automation and front-desk training weighed on the result as much as media optimization did.
+    And if I could do it again, I'd structure the content creation process first: recognizing and
+    quickly reproducing winning creative would have made it possible to scale the best results
+    instead of starting from zero every time.
+  </p>
+</CaseStudyLayout>
