@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Page not found"
+  description="The page you were looking for doesn't exist or has been moved."
+>
+  <section class="notfound container">
+    <p class="eyebrow">404</p>
+    <h1>This page doesn't exist.</h1>
+    <p>
+      The link might be wrong, or the page may have moved.
+      You can start again from the home page or go straight to the case studies.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={`${base}en/`}>Back to home</a>
+      <a class="btn btn-ghost" href={`${base}en/work/`}>Selected work</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { padding-block: var(--space-6); max-width: 40rem; }
+  .cta-row { display: flex; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.3rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: var(--border);
+  }
+  .btn-primary { background: var(--color-ink); color: var(--color-bg); border-color: var(--color-ink); }
+  .btn-primary:hover { background: var(--color-accent); border-color: var(--color-accent); }
+  .btn-ghost { color: var(--color-ink); }
+</style>
