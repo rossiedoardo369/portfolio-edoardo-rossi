@@ -44,7 +44,25 @@ const education = [
   {
     period: '2018 — 2022',
     title: 'Laurea in Scienze della Comunicazione',
-    points: 'Aspetti cognitivi della comunicazione, strategie di linguaggio persuasivo per media classici e digitali.',
+    points: 'Aspetti cognitivi della comunicazione, strategie di linguaggio persuasivo per media classici e digitali. Tesi di laurea sull\u2019intelligenza artificiale.',
+  },
+];
+
+const certifications = [
+  {
+    title: 'Meta Certified Media Buying Professional',
+    issuer: 'Meta',
+    validity: 'Rinnovata nel 2026 · valida fino al 2027',
+  },
+  {
+    title: 'Google Ads Search Certification',
+    issuer: 'Google',
+    validity: 'Rinnovata nel 2026 · valida fino al 2027',
+  },
+  {
+    title: 'Google Ads Display Certification',
+    issuer: 'Google',
+    validity: 'Rinnovata nel 2026 · valida fino al 2027',
   },
 ];
 ---
@@ -85,6 +103,19 @@ const education = [
       </article>
     ))}
   </section>
+
+  <section class="container timeline" aria-label="Certificazioni">
+    <h2 class="section-label mono">Certificazioni</h2>
+    <div class="cert-grid">
+      {certifications.map((cert) => (
+        <article class="cert-card">
+          <p class="mono cert-issuer">{cert.issuer}</p>
+          <h3>{cert.title}</h3>
+          <p class="cert-validity">{cert.validity}</p>
+        </article>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -111,6 +142,31 @@ const education = [
   .org { font-size: 0.9rem; color: var(--color-ink-soft); margin-bottom: var(--space-1); }
   .role ul { margin: 0; padding-left: 1.1rem; color: var(--color-ink-soft); }
   .role li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+  }
+  .cert-card {
+    background: var(--color-surface);
+    border: var(--border);
+    padding: var(--space-3);
+  }
+  .cert-issuer {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 0.3rem;
+  }
+  .cert-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+  .cert-validity { font-size: 0.85rem; color: var(--color-ink-soft); margin: 0; }
+
+  @media (max-width: 780px) {
+    .cert-grid { grid-template-columns: 1fr; }
+  }
 
   @media (max-width: 640px) {
     .role { grid-template-columns: 1fr; gap: var(--space-1); }

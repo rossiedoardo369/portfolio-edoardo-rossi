@@ -7,7 +7,7 @@ const areas = [
   {
     title: 'Paid advertising',
     tools: 'Google Ads · Meta Ads',
-    body: 'Campagne Search, Performance Max, Smart e Local su Google; lead generation, eventi e notorietà locale su Meta. Struttura, budget, ottimizzazione continua e scaling — su singoli account e su portafogli multi-cliente.',
+    body: 'Campagne Search, Performance Max, Smart e Local su Google; lead generation, eventi e notorietà locale su Meta. Struttura, budget, ottimizzazione continua e scaling — su singoli account e su portafogli multi-cliente. Competenze certificate da Google e Meta, rinnovate annualmente.',
   },
   {
     title: 'Misurazione e tracciamento',
@@ -38,7 +38,7 @@ const areas = [
 ---
 <BaseLayout
   title="Competenze"
-  description="Paid advertising, misurazione, CRM e automazione, strategia, copywriting, reportistica: le competenze di Edoardo Rossi, ancorate a progetti reali."
+  description="Paid advertising, misurazione, CRM e automazione, strategia, copywriting e uso dell'intelligenza artificiale: le competenze di Edoardo Rossi, ancorate a progetti reali."
 >
   <section class="intro container">
     <p class="eyebrow">Competenze</p>
@@ -57,6 +57,39 @@ const areas = [
         <p>{area.body}</p>
       </article>
     ))}
+  </section>
+
+  <section class="container ai-section" aria-labelledby="ai-title">
+    <p class="eyebrow">Un metodo di lavoro, non uno strumento in più</p>
+    <h2 id="ai-title">L'intelligenza artificiale nel mio flusso di lavoro</h2>
+    <p class="ai-lede">
+      Un interesse nato all'università, dove ho dedicato la tesi di laurea all'intelligenza
+      artificiale, e diventato negli anni parte del modo in cui lavoro su ogni progetto.
+    </p>
+
+    <div class="ai-grid">
+      <article class="ai-block">
+        <h3>Strategia e ricerca</h3>
+        <p>
+          È qui che l'impatto è maggiore. Ricerca di mercato preliminare, definizione e
+          raffinamento del target, costruzione delle buyer personas, brainstorming strutturato
+          sugli angoli di comunicazione da testare. Il valore non sta nella risposta che il
+          modello restituisce, ma nel numero di direzioni che permette di esplorare e scartare
+          prima di impegnare budget su una.
+        </p>
+      </article>
+
+      <article class="ai-block">
+        <h3>Produzione e ottimizzazione</h3>
+        <p>
+          Nella fase esecutiva l'AI accelera il lavoro sulle creatività: varianti di copy da
+          testare, adattamento dei messaggi ai diversi formati e pubblici, lettura di volumi di
+          dati di campagna alla ricerca di pattern che a occhio sfuggirebbero. L'output non va
+          mai in campagna così com'è: serve a coprire più terreno in meno tempo, non a sostituire
+          il giudizio su cosa funziona davvero.
+        </p>
+      </article>
+    </div>
   </section>
 </BaseLayout>
 
@@ -79,7 +112,27 @@ const areas = [
   .tools { font-size: 0.8rem; color: var(--color-accent); margin-bottom: var(--space-2); }
   .skill-card p:last-child { margin: 0; font-size: 0.95rem; }
 
+  .ai-section {
+    border-top: var(--border);
+    padding-block: var(--space-5) var(--space-6);
+  }
+  .ai-section h2 { max-width: 34rem; margin-top: 0.3rem; }
+  .ai-lede {
+    max-width: 42rem;
+    font-size: 1.05rem;
+    margin-bottom: var(--space-4);
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .ai-block { border-left: 3px solid var(--color-accent); padding-left: var(--space-3); }
+  .ai-block h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .ai-block p { margin: 0; font-size: 0.95rem; }
+
   @media (max-width: 780px) {
     .skills-grid { grid-template-columns: 1fr; }
+    .ai-grid { grid-template-columns: 1fr; gap: var(--space-3); }
   }
 </style>
