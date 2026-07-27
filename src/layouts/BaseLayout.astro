@@ -1,7 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, translatedPaths } from '../i18n/utils';
 import '../styles/global.css';
 
 interface Props {
@@ -50,6 +50,43 @@ const personSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      is:inline
+      define:vars={{ base, currentLang: lang, currentPath: restPath, translatedPaths }}
+    >
+      // Reindirizza alla lingua del browser al primo arrivo su una pagina
+      // sbagliata. Una scelta fatta a mano con lo switcher (salvata in
+      // localStorage) vale sempre più della lingua del browser. Niente
+      // redirect fuori dall'insieme delle pagine già tradotte, e i bot dei
+      // motori di ricerca vengono esclusi per non interferire con
+      // l'indicizzazione delle due versioni.
+      (function () {
+        try {
+          if (translatedPaths.indexOf(currentPath) === -1) return;
+
+          var stored = null;
+          try {
+            stored = localStorage.getItem('preferredLang');
+          } catch (e) {}
+
+          var targetLang = stored;
+          if (targetLang !== 'it' && targetLang !== 'en') {
+            var nav = (navigator.language || (navigator.languages && navigator.languages[0]) || 'it').toLowerCase();
+            targetLang = nav.indexOf('it') === 0 ? 'it' : 'en';
+          }
+
+          if (targetLang === currentLang) return;
+
+          var ua = navigator.userAgent || '';
+          if (/bot|crawl|spider|slurp|googlebot|bingbot|duckduckbot|baiduspider|yandex|lighthouse|pagespeed/i.test(ua)) return;
+
+          var dest = (targetLang === 'en' ? base + 'en/' + currentPath : base + currentPath) + location.search + location.hash;
+          if (dest !== location.pathname + location.search + location.hash) {
+            location.replace(dest);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="canonical" href={canonicalURL} />
     {translated && (
