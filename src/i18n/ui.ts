@@ -55,6 +55,12 @@ export const ui = {
       'Ogni caso studio parte da un problema di business reale e arriva a un risultato misurato. I dati sono reali; i clienti sono anonimizzati per riservatezza.',
     'work.aria': 'Elenco dei case study',
     'work.cta': 'Leggi il caso studio →',
+
+    'case.back': 'Tutti i lavori selezionati',
+    'case.resultsAria': 'Risultati principali',
+    'case.paginationAria': 'Altri case study',
+    'case.prev': 'Caso precedente',
+    'case.next': 'Caso successivo',
   },
   en: {
     'nav.work': 'Selected work',
@@ -105,5 +111,11 @@ export const ui = {
       'Every case study starts from a real business problem and ends in a measured result. The data is real; clients are anonymized for confidentiality.',
     'work.aria': 'List of case studies',
     'work.cta': 'Read the case study →',
+
+    'case.back': 'All selected work',
+    'case.resultsAria': 'Key results',
+    'case.paginationAria': 'More case studies',
+    'case.prev': 'Previous case',
+    'case.next': 'Next case',
   },
 } as const;

@@ -1,0 +1,88 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+
+const snapshot = [
+  { label: 'Organization', value: 'Single-location dental practice, Veneto' },
+  { label: 'Timeframe', value: 'Initiative in 2026, part of an ongoing relationship since 2023' },
+  { label: 'Role', value: 'Strategic discovery, copywriting, post-lead sales protocol, campaign management, reporting' },
+  { label: 'Channel', value: 'Meta Ads' },
+  { label: 'Team', value: 'Practice owner (clinical input), front desk (protocol execution)' },
+];
+
+const results = [
+  { metric: '8.53×', label: 'ROAS on ad spend' },
+  { metric: '83.3%', label: 'close rate after the visit was completed' },
+  { metric: '23.8%', label: 'from contact to closed treatment' },
+];
+---
+<CaseStudyLayout
+  title="Building a specialist positioning, from discovery to closing the quote"
+  description="Case study: clinical-communication positioning for a complex service, with discovery, copywriting and a sales protocol. 8.53x ROAS."
+  eyebrow="Strategy · Copywriting · Funnel"
+  snapshot={snapshot}
+  results={results}
+>
+  <h2>The context</h2>
+  <p>
+    Periodontitis is a serious, widespread disease that's almost invisible to the people who have
+    it: it doesn't hurt at first, and its signs are systematically underestimated. For many
+    practices it's easier to offer an implant than to save the tooth. The owner wanted the
+    opposite positioning: becoming the local reference point for patients who want to save their
+    teeth.
+  </p>
+
+  <h2>The challenge</h2>
+  <p>
+    Making a condition the patient doesn't perceive feel tangible and urgent, without alarmism and
+    while respecting the rules on healthcare communication — and building a post-lead journey able
+    to turn clinical understanding into a treatment decision.
+  </p>
+
+  <h2>My role</h2>
+  <p>
+    I personally ran the discovery with the practice owner: a structured interview to extract the
+    target audience, overlooked clinical signals, recurring objections, tone of voice. From that
+    material I built the communication framework (six distinct angles, from "35 years old and
+    already being offered implants?" to the cost comparison between treatment and implant) and
+    wrote the eight campaign copy variants. I then defined, together with the front desk, the
+    post-lead protocol: what to say on the phone, what must always happen at the first visit, how
+    to present the treatment plan.
+  </p>
+
+  <h2>Analysis and insight</h2>
+  <p>
+    The funnel immediately revealed where it wins and where it loses: almost one contact in two
+    books a visit (47.6%), and whoever makes it to the practice closes treatment in 83.3% of
+    cases. The weak point is in the middle: only 60% of booked visits are actually attended. The
+    problem wasn't lead quality, but the in-practice presentation stage.
+  </p>
+  <p class="open-point">
+    Open point: we've worked on the show-up rate through more consistent contact with the front
+    desk, but at the time of writing there's no new data yet measuring its effect. I'd rather
+    state that than claim an unverified improvement.
+  </p>
+
+  <h2>Execution</h2>
+  <p>
+    Eight copy variants within a consistent creative territory, tested on Meta. A phone script for
+    the front desk built to communicate value before price. A standardized first visit — exams,
+    photographic documentation, clinical record — designed to let the patient "see" their own
+    situation, turning the diagnosis into a moment of awareness rather than a quote imposed on
+    them.
+  </p>
+
+  <h2>Results</h2>
+  <p>
+    42 contacts produced 20 booked visits, 12 attended and 10 closed treatments, for €18,845 in
+    accepted value against €2,208.34 in ad spend: a ROAS of 8.53×. Almost one contact in four
+    (23.8%) made it all the way to closed treatment.
+  </p>
+
+  <h2>What I learned</h2>
+  <p>
+    That a complex clinical insight can become a repeatable communication framework, if the
+    discovery is done with method. And that the post-lead funnel has to be designed together with
+    whoever runs it every day: the most effective script is the one the front desk makes their
+    own, not one imposed from outside.
+  </p>
+</CaseStudyLayout>
