@@ -53,16 +53,22 @@ const certifications = [
     title: 'Meta Certified Media Buying Professional',
     issuer: 'Meta',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    badgeType: 'credly',
+    credlyBadgeId: '9670c461-061d-45f7-9eb1-cb1ac1af366f',
   },
   {
     title: 'Google Ads Search Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    badgeType: 'image',
+    badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/172388976',
   },
   {
     title: 'Google Ads Display Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    badgeType: 'image',
+    badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/173777092',
   },
 ];
 ---
@@ -109,6 +115,18 @@ const certifications = [
     <div class="cert-grid">
       {certifications.map((cert) => (
         <article class="cert-card">
+          <div class="cert-badge">
+            {cert.badgeType === 'credly' ? (
+              <div
+                data-iframe-width="150"
+                data-iframe-height="270"
+                data-share-badge-id={cert.credlyBadgeId}
+                data-share-badge-host="https://www.credly.com"
+              />
+            ) : (
+              <img src={cert.badgeImage} alt={`Badge: ${cert.title}`} loading="lazy" width="150" height="150" />
+            )}
+          </div>
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
           <p class="cert-validity">{cert.validity}</p>
@@ -117,6 +135,8 @@ const certifications = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 
 <style>
   .intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
@@ -154,6 +174,14 @@ const certifications = [
     border: var(--border);
     padding: var(--space-3);
   }
+  .cert-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 160px;
+    margin-bottom: var(--space-2);
+  }
+  .cert-badge img { max-width: 100%; height: auto; }
   .cert-issuer {
     font-size: 0.75rem;
     text-transform: uppercase;
