@@ -1,18 +1,32 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
+  // true solo per le pagine che hanno già una versione tradotta nell'altra
+  // lingua (per ora solo la home) — evita di dichiarare alternate hreflang
+  // verso pagine /en/ che non esistono ancora.
+  translated?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, translated = false } = Astro.props;
 const siteName = 'Edoardo Rossi — Performance Marketing & Digital Strategy';
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(`${base}og-image.png`, Astro.site);
+
+const pathWithoutBase = Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname;
+const restPath = lang === 'en' ? pathWithoutBase.replace(/^en\/?/, '') : pathWithoutBase;
+const itHref = new URL(`${base}${restPath}`, Astro.site).toString();
+const enHref = new URL(`${base}en/${restPath}`, Astro.site).toString();
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -32,12 +46,19 @@ const personSchema = {
 };
 ---
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="canonical" href={canonicalURL} />
+    {translated && (
+      <>
+        <link rel="alternate" hreflang="it" href={itHref} />
+        <link rel="alternate" hreflang="en" href={enHref} />
+        <link rel="alternate" hreflang="x-default" href={itHref} />
+      </>
+    )}
 
     <title>{title} — {siteName}</title>
     <meta name="description" content={description} />
@@ -51,7 +72,7 @@ const personSchema = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content={siteName} />
-    <meta property="og:locale" content="it_IT" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'it_IT'} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -71,7 +92,7 @@ const personSchema = {
     />
   </head>
   <body>
-    <a href="#main" class="skip-link">Vai al contenuto principale</a>
+    <a href="#main" class="skip-link">{t('skip.content')}</a>
     <Header />
     <main id="main">
       <slot />

@@ -10,5 +10,12 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://rossiedoardo369.github.io',
   base: '/portfolio-edoardo-rossi/',
+  i18n: {
+    defaultLocale: 'it',
+    locales: ['it', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [sitemap()],
 });

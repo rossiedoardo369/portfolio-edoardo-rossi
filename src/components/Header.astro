@@ -1,22 +1,34 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const homeHref = lang === 'en' ? `${base}en/` : base;
+
+// Le altre pagine non hanno ancora una versione /en/: finché non vengono
+// tradotte, i link puntano alle pagine italiane esistenti.
 const nav = [
-  { label: 'Lavori selezionati', href: `${base}work/` },
-  { label: 'Competenze', href: `${base}expertise/` },
-  { label: 'Esperienza', href: `${base}experience/` },
-  { label: 'Chi sono', href: `${base}about/` },
-  { label: 'Contatti', href: `${base}contact/` },
+  { label: t('nav.work'), href: `${base}work/` },
+  { label: t('nav.expertise'), href: `${base}expertise/` },
+  { label: t('nav.experience'), href: `${base}experience/` },
+  { label: t('nav.about'), href: `${base}about/` },
+  { label: t('nav.contact'), href: `${base}contact/` },
 ];
+
+const switchHref = lang === 'en' ? base : `${base}en/`;
 ---
 <header class="site-header">
   <div class="container bar">
-    <a href={base} class="wordmark">Edoardo Rossi</a>
+    <a href={homeHref} class="wordmark">Edoardo Rossi</a>
     <button
       type="button"
       class="menu-toggle"
       aria-expanded="false"
       aria-controls="primary-nav"
-      aria-label="Apri il menu"
+      aria-label={t('nav.menuOpen')}
+      data-open-label={t('nav.menuOpen')}
+      data-close-label={t('nav.menuClose')}
     >
       <span class="menu-icon"></span>
     </button>
@@ -25,6 +37,7 @@ const nav = [
         {nav.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
+        <li><a class="lang-switch" href={switchHref} hreflang={lang === 'en' ? 'it' : 'en'}>{t('nav.langSwitch')}</a></li>
       </ul>
     </nav>
   </div>
@@ -34,17 +47,20 @@ const nav = [
   const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const nav = document.getElementById('primary-nav');
 
+  const openLabel = toggle?.dataset.openLabel ?? 'Apri il menu';
+  const closeLabel = toggle?.dataset.closeLabel ?? 'Chiudi il menu';
+
   toggle?.addEventListener('click', () => {
     const isOpen = nav?.classList.toggle('is-open') ?? false;
     toggle.setAttribute('aria-expanded', String(isOpen));
-    toggle.setAttribute('aria-label', isOpen ? 'Chiudi il menu' : 'Apri il menu');
+    toggle.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
   });
 
   nav?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       nav.classList.remove('is-open');
       toggle?.setAttribute('aria-expanded', 'false');
-      toggle?.setAttribute('aria-label', 'Apri il menu');
+      toggle?.setAttribute('aria-label', openLabel);
     });
   });
 </script>
@@ -98,6 +114,20 @@ const nav = [
   nav a:hover::after,
   nav a:focus-visible::after {
     transform: scaleX(1);
+  }
+
+  .lang-switch {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 0.2rem 0.5rem;
+    color: var(--color-ink);
+  }
+  .lang-switch::after { display: none; }
+  .lang-switch:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   .menu-toggle {
