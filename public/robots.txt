@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rossiedoardo369.github.io/portfolio-edoardo-rossi-2/sitemap-index.xml
+Sitemap: https://rossiedoardo369.github.io/portfolio-edoardo-rossi/sitemap-index.xml

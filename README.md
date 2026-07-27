@@ -3,7 +3,7 @@
 Sito portfolio personale di **Edoardo Rossi**, Performance Marketing & Digital Strategy
 Specialist. Costruito con [Astro](https://astro.build) e pubblicato su GitHub Pages.
 
-🔗 **Online:** https://rossiedoardo369.github.io/portfolio-edoardo-rossi-2/
+🔗 **Online:** https://rossiedoardo369.github.io/portfolio-edoardo-rossi/
 
 ## Stato del progetto
 
@@ -56,7 +56,7 @@ npm install
 npm run dev
 ```
 
-Il sito è visibile su `http://localhost:4321/portfolio-edoardo-rossi-2/`.
+Il sito è visibile su `http://localhost:4321/portfolio-edoardo-rossi/`.
 
 Per verificare il risultato finale prima di pubblicare:
 
@@ -72,7 +72,7 @@ Il deploy è automatico: a ogni `push` sul branch `main`, il workflow in
 Configurazione già attiva (da non modificare salvo cambio di repository):
 
 - `astro.config.mjs` → `site: 'https://rossiedoardo369.github.io'`,
-  `base: '/portfolio-edoardo-rossi-2/'`
+  `base: '/portfolio-edoardo-rossi/'`
 - Settings → Pages → Source: **GitHub Actions**
 
 > ⚠️ Se carichi file dall'interfaccia web di GitHub, verifica sempre che finiscano nel
