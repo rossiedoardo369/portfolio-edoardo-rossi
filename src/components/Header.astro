@@ -7,7 +7,8 @@ const t = useTranslations(lang);
 const homeHref = lang === 'en' ? `${base}en/` : base;
 
 // Percorsi (senza prefisso locale) che esistono già in entrambe le lingue.
-// Si estende man mano che altre pagine vengono tradotte.
+// Ogni pagina del sito è ormai tradotta: si estende solo se in futuro si
+// aggiungono nuove pagine non ancora bilingui.
 const translatedPaths = [
   '',
   'work/',
@@ -16,16 +17,20 @@ const translatedPaths = [
   'work/protocollo-crm/',
   'work/territorio-bilingue/',
   'work/capacita-operativa/',
+  'expertise/',
+  'experience/',
+  'about/',
+  'contact/',
 ];
 
-// Le pagine non ancora tradotte restano collegate alla versione italiana
-// anche quando si naviga in inglese.
+const localizedHref = (path: string) => (lang === 'en' ? `${base}en/${path}` : `${base}${path}`);
+
 const nav = [
-  { label: t('nav.work'), href: lang === 'en' ? `${base}en/work/` : `${base}work/` },
-  { label: t('nav.expertise'), href: `${base}expertise/` },
-  { label: t('nav.experience'), href: `${base}experience/` },
-  { label: t('nav.about'), href: `${base}about/` },
-  { label: t('nav.contact'), href: `${base}contact/` },
+  { label: t('nav.work'), href: localizedHref('work/') },
+  { label: t('nav.expertise'), href: localizedHref('expertise/') },
+  { label: t('nav.experience'), href: localizedHref('experience/') },
+  { label: t('nav.about'), href: localizedHref('about/') },
+  { label: t('nav.contact'), href: localizedHref('contact/') },
 ];
 
 const pathWithoutBase = Astro.url.pathname.startsWith(base)

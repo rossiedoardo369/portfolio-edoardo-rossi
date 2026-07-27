@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const areas = [
+  {
+    title: 'Paid advertising',
+    tools: 'Google Ads · Meta Ads',
+    body: 'Search, Performance Max, Smart and Local campaigns on Google; lead generation, events and local awareness on Meta. Structure, budget, continuous optimization and scaling — on single accounts and multi-client portfolios. Skills certified by Google and Meta, renewed annually.',
+  },
+  {
+    title: 'Measurement and tracking',
+    tools: 'GA4 · Google Tag Manager · CRM integration',
+    body: 'The click is where measurement starts, not where it ends: I set up tracking so every campaign can be traced back to the business outcome — contact, opportunity, acquired client, revenue.',
+  },
+  {
+    title: 'CRM and automation',
+    tools: 'Pipeline · WhatsApp automations · lead nurturing',
+    body: 'I design the flows that work the lead after the first contact: pipelines with explicit stages, follow-up automations, nurturing for those not yet ready. It’s the part of the funnel where the most value is lost — or recovered.',
+  },
+  {
+    title: 'Strategy and positioning',
+    tools: 'Discovery · communication frameworks · funnel design',
+    body: 'Structured interviews with the client to extract what makes the service unique, turned into repeatable communication frameworks and sales journeys designed together with the people who run them every day.',
+  },
+  {
+    title: 'Copywriting and creative',
+    tools: 'Campaign copy · video scripts · creative direction',
+    body: 'I write campaign copy and video scripts, working closely with videographers and designers. I test multiple variants across different communication angles, and let the data choose.',
+  },
+  {
+    title: 'Reporting and analysis',
+    tools: 'Periodic reports · reviewing the data with the client',
+    body: 'Reports built to make decisions, not to fill slides: what worked, what didn’t, what we change. Always separating what the data proves from what it merely suggests.',
+  },
+];
+---
+<BaseLayout
+  title="Expertise"
+  description="Paid advertising, measurement, CRM and automation, strategy, copywriting and the use of artificial intelligence: Edoardo Rossi's skills, anchored to real projects."
+  translated
+>
+  <section class="intro container">
+    <p class="eyebrow">Expertise</p>
+    <h1>What I can do, proven by what I've done.</h1>
+    <p class="lede">
+      No self-assessment bars: every area of expertise below is tied to real projects, which you
+      can read about in the <a href={`${base}en/work/`}>case studies</a>.
+    </p>
+  </section>
+
+  <section class="container skills-grid" aria-label="Areas of expertise">
+    {areas.map((area) => (
+      <article class="skill-card">
+        <h2>{area.title}</h2>
+        <p class="mono tools">{area.tools}</p>
+        <p>{area.body}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="container ai-section" aria-labelledby="ai-title">
+    <p class="eyebrow">A way of working, not just another tool</p>
+    <h2 id="ai-title">Artificial intelligence in my workflow</h2>
+    <p class="ai-lede">
+      An interest that started at university, where I dedicated my thesis to artificial
+      intelligence, and that has become, over the years, part of how I work on every project.
+    </p>
+
+    <div class="ai-grid">
+      <article class="ai-block">
+        <h3>Strategy and research</h3>
+        <p>
+          This is where the impact is greatest. Preliminary market research, target definition and
+          refinement, buyer persona building, structured brainstorming on communication angles to
+          test. The value isn't in the answer the model gives, but in how many directions it lets
+          you explore and rule out before committing budget to one.
+        </p>
+      </article>
+
+      <article class="ai-block">
+        <h3>Production and optimization</h3>
+        <p>
+          In the execution phase AI speeds up work on creative: copy variants to test, adapting
+          messages to different formats and audiences, reading through volumes of campaign data
+          looking for patterns that would be easy to miss by eye. The output never goes into a
+          campaign as-is: it's there to cover more ground in less time, not to replace judgment on
+          what actually works.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
+  .lede { font-size: 1.15rem; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+  .skill-card {
+    background: var(--color-surface);
+    border: var(--border);
+    padding: var(--space-3);
+  }
+  .skill-card h2 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+  .tools { font-size: 0.8rem; color: var(--color-accent); margin-bottom: var(--space-2); }
+  .skill-card p:last-child { margin: 0; font-size: 0.95rem; }
+
+  .ai-section {
+    border-top: var(--border);
+    padding-block: var(--space-5) var(--space-6);
+  }
+  .ai-section h2 { max-width: 34rem; margin-top: 0.3rem; }
+  .ai-lede {
+    max-width: 42rem;
+    font-size: 1.05rem;
+    margin-bottom: var(--space-4);
+  }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .ai-block { border-left: 3px solid var(--color-accent); padding-left: var(--space-3); }
+  .ai-block h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .ai-block p { margin: 0; font-size: 0.95rem; }
+
+  @media (max-width: 780px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .ai-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+  }
+</style>

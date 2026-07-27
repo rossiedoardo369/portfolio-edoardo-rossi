@@ -1,28 +1,28 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
 
 const roles = [
   {
-    period: '2025 — oggi',
+    period: '2025 — present',
     title: 'Digital Advertising Specialist',
-    org: 'Marketing Therapy — agenzia di marketing',
+    org: 'Marketing Therapy — marketing agency',
     points: [
-      'Gestione di campagne Google e Meta su un portafoglio multi-cliente, dalla strategia alla reportistica.',
-      'Tracciamento e analisi dei dati con GTM e GA4, integrazione con CRM.',
-      'Discovery con i clienti, copywriting delle campagne, script video e coordinamento con videomaker e team creativo.',
-      'Formazione dei team dei clienti sulla gestione dei lead e costruzione di flussi di automazione.',
+      'Managing Google and Meta campaigns across a multi-client portfolio, from strategy to reporting.',
+      'Tracking and data analysis with GTM and GA4, CRM integration.',
+      'Client discovery, campaign copywriting, video scripts and coordination with videographers and the creative team.',
+      'Training client teams on lead management and building automation flows.',
     ],
   },
   {
     period: '2023 — 2024',
     title: 'Junior Digital Marketing Specialist',
-    org: 'Floris s.r.l. — azienda B2B',
+    org: 'Floris s.r.l. — B2B company',
     points: [
-      'Supporto all\u2019ideazione di strategie di marketing online e offline in un settore B2B complesso.',
-      'Ottimizzazione CRO attraverso interventi su UX e UI.',
-      'Assistenza nel tracciamento e nell\u2019analisi dei dati.',
+      'Supporting the design of online and offline marketing strategies in a complex B2B sector.',
+      'CRO optimization through UX and UI work.',
+      'Assisting with tracking and data analysis.',
     ],
   },
   {
@@ -30,9 +30,9 @@ const roles = [
     title: 'Digital Marketing Intern',
     org: 'Floris s.r.l.',
     points: [
-      'Creazione di contenuti per i canali social aziendali (Meta, LinkedIn, blog).',
-      'Strategie di lead generation tramite email marketing e campagne PPC.',
-      'Gestione del sito web aziendale.',
+      'Creating content for company social channels (Meta, LinkedIn, blog).',
+      'Lead generation strategies through email marketing and PPC campaigns.',
+      'Managing the company website.',
     ],
   },
 ];
@@ -40,13 +40,13 @@ const roles = [
 const education = [
   {
     period: '2021 — 2023',
-    title: 'Attestato Tecnico Superiore in Digital Marketing',
-    points: 'Fondamenti del marketing, progetti applicati, stage formativi in azienda.',
+    title: 'Higher Technical Certificate in Digital Marketing',
+    points: 'Marketing fundamentals, applied projects, in-company training placements.',
   },
   {
     period: '2018 — 2022',
-    title: 'Laurea in Scienze della Comunicazione',
-    points: 'Aspetti cognitivi della comunicazione, strategie di linguaggio persuasivo per media classici e digitali. Tesi di laurea sull\u2019intelligenza artificiale.',
+    title: 'Bachelor’s Degree in Communication Sciences',
+    points: 'Cognitive aspects of communication, persuasive language strategies for traditional and digital media. Thesis on artificial intelligence.',
   },
 ];
 
@@ -54,38 +54,38 @@ const certifications = [
   {
     title: 'Meta Certified Media Buying Professional',
     issuer: 'Meta',
-    validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    validity: 'Renewed in 2026 · valid through 2027',
     badgeName: 'meta-media-buying',
     verifyUrl: 'https://www.credly.com/badges/9670c461-061d-45f7-9eb1-cb1ac1af366f/public_url',
   },
   {
     title: 'Google Ads Search Certification',
     issuer: 'Google',
-    validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    validity: 'Renewed in 2026 · valid through 2027',
     badgeName: 'google-ads-search',
     verifyUrl: 'https://skillshop.credential.net/93e395c1-dc3a-471a-bf8c-a5fdbfc66709#acc.Q4cxfne5',
   },
   {
     title: 'Google Ads Display Certification',
     issuer: 'Google',
-    validity: 'Rinnovata nel 2026 · valida fino al 2027',
+    validity: 'Renewed in 2026 · valid through 2027',
     badgeName: 'google-ads-display',
     verifyUrl: 'https://skillshop.credential.net/60f9d544-7bba-4d4a-8444-c8a8897826de#acc.8wjsMQ0C',
   },
 ];
 ---
 <BaseLayout
-  title="Esperienza"
-  description="Il percorso professionale di Edoardo Rossi: digital advertising in agenzia, marketing B2B, formazione in comunicazione e digital marketing."
+  title="Experience"
+  description="Edoardo Rossi's professional path: digital advertising in an agency, B2B marketing, education in communication and digital marketing."
   translated
 >
   <section class="intro container">
-    <p class="eyebrow">Esperienza</p>
-    <h1>Dal marketing interno di un'azienda B2B alla gestione di un portafoglio clienti in agenzia.</h1>
+    <p class="eyebrow">Experience</p>
+    <h1>From in-house marketing at a B2B company to managing a client portfolio in an agency.</h1>
   </section>
 
-  <section class="container timeline" aria-label="Esperienza professionale">
-    <h2 class="section-label mono">Percorso professionale</h2>
+  <section class="container timeline" aria-label="Professional experience">
+    <h2 class="section-label mono">Professional path</h2>
     {roles.map((role) => (
       <article class="role">
         <p class="mono period">{role.period}</p>
@@ -100,8 +100,8 @@ const certifications = [
     ))}
   </section>
 
-  <section class="container timeline" aria-label="Formazione">
-    <h2 class="section-label mono">Formazione</h2>
+  <section class="container timeline" aria-label="Education">
+    <h2 class="section-label mono">Education</h2>
     {education.map((ed) => (
       <article class="role">
         <p class="mono period">{ed.period}</p>
@@ -113,8 +113,8 @@ const certifications = [
     ))}
   </section>
 
-  <section class="container timeline" aria-label="Certificazioni">
-    <h2 class="section-label mono">Certificazioni</h2>
+  <section class="container timeline" aria-label="Certifications">
+    <h2 class="section-label mono">Certifications</h2>
     <div class="cert-grid">
       {certifications.map((cert) => (
         <a class="cert-card" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
@@ -133,7 +133,7 @@ const certifications = [
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
           <p class="cert-validity">{cert.validity}</p>
-          <p class="cert-verify card-cta">Verifica la credenziale →</p>
+          <p class="cert-verify card-cta">Verify credential →</p>
         </a>
       ))}
     </div>
