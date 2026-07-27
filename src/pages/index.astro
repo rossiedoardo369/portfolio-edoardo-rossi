@@ -46,7 +46,7 @@ const steps = [
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
-          <p class="proof-cta">Leggi di più →</p>
+          <p class="proof-cta card-cta">Leggi di più →</p>
         </a>
       ))}
     </div>
@@ -144,15 +144,36 @@ const steps = [
   }
 
   const metrics = document.querySelectorAll<HTMLElement>('.proof-card .metric');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateValue(entry.target as HTMLElement);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  metrics.forEach((el) => observer.observe(el));
+  const isMobile = window.matchMedia('(max-width: 780px)').matches;
+
+  if (isMobile) {
+    // Su mobile è visibile una card alla volta: ognuna parte quando è
+    // interamente a schermo (dopo che lo scroll-snap si è assestato).
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateValue(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 1 });
+    metrics.forEach((el) => observer.observe(el));
+  } else {
+    // Su desktop più card sono visibili insieme: partono tutte insieme
+    // non appena la prima card entra in vista.
+    const firstMetric = metrics[0];
+    if (firstMetric) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            metrics.forEach((el) => animateValue(el));
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(firstMetric);
+    }
+  }
 </script>
 
 <style>
@@ -246,11 +267,13 @@ const steps = [
   }
   .proof-cta {
     font-size: 0.85rem;
-    color: var(--color-ink);
     margin: 0;
-    transition: color 0.2s ease;
   }
-  .proof-card:hover .proof-cta { color: var(--color-accent); }
+  .proof-card:hover .proof-cta {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transform: scale(1.04);
+  }
   .proof-controls {
     display: flex;
     justify-content: center;
