@@ -102,6 +102,20 @@ button:focus-visible {
   color: var(--color-accent);
 }
 
+/* CTA testuale dentro le card cliccabili (case study, certificazioni, ecc.) —
+   nero e senza sottolineatura a riposo; verde, sottolineato e leggermente
+   ingrandito quando la card genitrice è in hover. La regola dell'hover va
+   scritta nello style scoped di ciascuna pagina (serve il selettore della
+   card genitrice, che è locale a quella pagina). */
+.card-cta {
+  display: inline-block;
+  color: var(--color-ink);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transform-origin: left center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
 .skip-link {
   position: absolute;
   left: -999px;
