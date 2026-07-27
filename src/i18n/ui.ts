@@ -75,12 +75,12 @@ export const ui = {
 
     'home.title': 'Home',
     'home.description':
-      'Performance Marketing & Digital Strategy Specialist — Google and Meta campaigns measured from first contact to business outcome.',
+      'Performance Marketing & Digital Strategy Specialist — Google and Meta campaigns measured from first contact through to business outcome.',
     'home.eyebrow': 'Performance Marketing & Digital Strategy Specialist',
     'home.h1':
-      'Every euro spent on advertising should be able to answer one question: what did it actually produce?',
+      'Every dollar spent on advertising should answer one question: what did it actually produce?',
     'home.lede':
-      'I plan and run campaigns on Google and Meta, from the first advertising touchpoint through to the client’s final decision — with reporting to prove it, not just tell it.',
+      'I plan and run Google and Meta campaigns from first touchpoint to final decision — with reporting that proves it, not just tells it.',
     'home.cta.work': 'See the case studies',
     'home.cta.contact': 'Get in touch',
     'home.proof.aria': 'Key results',
@@ -90,16 +90,16 @@ export const ui = {
     'home.how.title': 'How I work',
     'home.how.step1.title': 'Strategy',
     'home.how.step1.body':
-      'Direct discovery with the client: I identify the positioning and the real business goal, not just the advertising one.',
+      'Direct discovery with the client to find the real business goal — not just the advertising brief.',
     'home.how.step2.title': 'Execution',
     'home.how.step2.body':
-      'Creative, campaign structure, automations and integration with CRM and sales team — from the first contact onward.',
+      'Creative, campaign structure, automations, CRM and sales team integration — from first contact onward.',
     'home.how.step3.title': 'Measurement',
     'home.how.step3.body':
       'Reporting that traces all the way to the business outcome — acquired client, revenue, real return — not just the click.',
-    'home.closing.h2': 'Already convinced? Then what are you waiting for?',
+    'home.closing.h2': 'Convinced? What are you waiting for?',
     'home.closing.p':
-      'You’ve just seen measured results, not promises. If you’re looking for the same approach — data in hand, from first contact to business outcome — I’m available to talk.',
+      'You’ve just seen measured results, not promises. If that’s the approach you’re after — data-driven, from first contact to business outcome — let’s talk.',
     'home.closing.cta': 'Get in touch →',
 
     'work.title': 'Selected work',
@@ -108,7 +108,7 @@ export const ui = {
     'work.eyebrow': 'Selected work',
     'work.h1': 'Five different problems, the same method.',
     'work.lede':
-      'Every case study starts from a real business problem and ends in a measured result. The data is real; clients are anonymized for confidentiality.',
+      'Every case study starts with a real business problem and ends with a measured result. The numbers are real; the clients are anonymized.',
     'work.aria': 'List of case studies',
     'work.cta': 'Read the case study →',
 
