@@ -132,7 +132,7 @@ const certifications = [
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
           <p class="cert-validity">{cert.validity}</p>
-          <p class="cert-verify">Verifica la credenziale →</p>
+          <p class="cert-verify card-cta">Verifica la credenziale →</p>
         </a>
       ))}
     </div>
@@ -198,10 +198,12 @@ const certifications = [
   .cert-validity { font-size: 0.85rem; color: var(--color-ink-soft); margin: 0 0 0.6rem 0; }
   .cert-verify {
     font-size: 0.85rem;
-    color: var(--color-ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
     margin: 0;
+  }
+  .cert-card:hover .cert-verify {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transform: scale(1.04);
   }
 
   @media (max-width: 780px) {
