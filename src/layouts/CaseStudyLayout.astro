@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { caseStudies } from '../data/case-studies.js';
 
 interface SnapshotItem {
   label: string;
@@ -21,6 +22,12 @@ interface Props {
 
 const { title, description, eyebrow, snapshot, results } = Astro.props;
 const base = import.meta.env.BASE_URL;
+
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const currentSlug = segments[segments.length - 1];
+const currentIndex = caseStudies.findIndex((c) => c.slug === currentSlug);
+const prevCase = caseStudies[(currentIndex - 1 + caseStudies.length) % caseStudies.length];
+const nextCase = caseStudies[(currentIndex + 1) % caseStudies.length];
 ---
 <BaseLayout title={title} description={description}>
   <article class="case-study container">
@@ -49,6 +56,17 @@ const base = import.meta.env.BASE_URL;
     <div class="body">
       <slot />
     </div>
+
+    <nav class="case-pagination" aria-label="Altri case study">
+      <a class="case-pagination-link prev" href={`${base}work/${prevCase.slug}/`}>
+        <p class="eyebrow">← Caso precedente</p>
+        <p class="case-pagination-title">{prevCase.title}</p>
+      </a>
+      <a class="case-pagination-link next" href={`${base}work/${nextCase.slug}/`}>
+        <p class="eyebrow">Caso successivo →</p>
+        <p class="case-pagination-title">{nextCase.title}</p>
+      </a>
+    </nav>
   </article>
 </BaseLayout>
 
@@ -113,7 +131,35 @@ const base = import.meta.env.BASE_URL;
     font-style: italic;
   }
 
+  .case-pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--border);
+  }
+  .case-pagination-link {
+    display: block;
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border: var(--border);
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  .case-pagination-link:hover { border-color: var(--color-accent); }
+  .case-pagination-link.next { text-align: right; }
+  .case-pagination-title {
+    margin: 0.3rem 0 0 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+  }
+
   @media (max-width: 640px) {
     .results { grid-template-columns: 1fr; }
+    .case-pagination { grid-template-columns: 1fr; }
+    .case-pagination-link.next { text-align: left; }
   }
 </style>
