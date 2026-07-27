@@ -55,21 +55,21 @@ const certifications = [
     title: 'Meta Certified Media Buying Professional',
     issuer: 'Meta',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeImage: `${base}badges/meta-media-buying.png`,
+    badgeName: 'meta-media-buying',
     verifyUrl: 'https://www.credly.com/badges/9670c461-061d-45f7-9eb1-cb1ac1af366f/public_url',
   },
   {
     title: 'Google Ads Search Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeImage: `${base}badges/google-ads-search.png`,
+    badgeName: 'google-ads-search',
     verifyUrl: 'https://skillshop.credential.net/93e395c1-dc3a-471a-bf8c-a5fdbfc66709#acc.Q4cxfne5',
   },
   {
     title: 'Google Ads Display Certification',
     issuer: 'Google',
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
-    badgeImage: `${base}badges/google-ads-display.png`,
+    badgeName: 'google-ads-display',
     verifyUrl: 'https://skillshop.credential.net/60f9d544-7bba-4d4a-8444-c8a8897826de#acc.8wjsMQ0C',
   },
 ];
@@ -118,9 +118,16 @@ const certifications = [
       {certifications.map((cert) => (
         <a class="cert-card" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
           <div class="cert-badge">
-            {cert.badgeImage && (
-              <img src={cert.badgeImage} alt={`Badge: ${cert.title}`} loading="lazy" width="150" height="150" />
-            )}
+            <picture>
+              <source srcset={`${base}badges/${cert.badgeName}.webp`} type="image/webp" />
+              <img
+                src={`${base}badges/${cert.badgeName}.png`}
+                alt={`Badge: ${cert.title}`}
+                loading="lazy"
+                width="150"
+                height="150"
+              />
+            </picture>
           </div>
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
