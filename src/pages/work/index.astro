@@ -1,55 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { caseStudies } from '../../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
-
-const cases = [
-  {
-    href: `${base}work/eventi-multisede/`,
-    eyebrow: 'Meta Ads · Misurazione end-to-end',
-    title: 'Trasformare un format di eventi ricorrenti in un canale di acquisizione misurabile',
-    summary:
-      'Un programma di eventi replicato su una rete di 6 sedi, misurato dal primo clic fino al cliente acquisito — con formazione del team interno sulla gestione dei lead.',
-    metric: '13,55×',
-    metricLabel: 'ROAS · 2024',
-  },
-  {
-    href: `${base}work/posizionamento-specialistico/`,
-    eyebrow: 'Strategia · Copywriting · Funnel',
-    title: 'Costruire un posizionamento specialistico, dalla discovery alla chiusura del preventivo',
-    summary:
-      'Un servizio complesso da spiegare, trasformato in un percorso comprensibile: discovery col titolare, 8 varianti di copy, protocollo di vendita post-lead.',
-    metric: '8,53×',
-    metricLabel: 'ROAS sulla spesa pubblicitaria',
-  },
-  {
-    href: `${base}work/protocollo-crm/`,
-    eyebrow: 'Posizionamento · CRM · Automazione',
-    title: 'Da diagnosi complessa a fatturato misurabile: posizionamento e automazione nella stessa strategia',
-    summary:
-      'Un protocollo proprietario che ha più che raddoppiato il tasso di chiusura, e una campagna con CRM e automazioni WhatsApp per non disperdere un solo lead.',
-    metric: '+600%',
-    metricLabel: 'fatturato su una linea di servizio · 2024 → 2025',
-  },
-  {
-    href: `${base}work/territorio-bilingue/`,
-    eyebrow: 'Google Ads · Meta Ads · Comunicazione bilingue',
-    title: 'Local marketing in un territorio bilingue: tre sedi, due lingue, un solo sistema',
-    summary:
-      'Tre sedi, due lingue e bacini con potenziale molto diverso: una presenza Search e Social bilingue che ha dimezzato il costo per lead a parità di format.',
-    metric: '−53%',
-    metricLabel: 'costo per lead · 2025 → 2026',
-  },
-  {
-    href: `${base}work/capacita-operativa/`,
-    eyebrow: 'Google Ads · Meta Ads · Attribuzione',
-    title: "Quando l'advertising supera la capacità dell'azienda",
-    summary:
-      'Ticket alti, volumi bassi, tracciamento separato per rendere il ritorno difendibile — fino a saturare l\u2019agenda del cliente e consigliargli di fermarsi.',
-    metric: '37',
-    metricLabel: 'pazienti acquisiti in quattro mesi',
-  },
-];
 ---
 <BaseLayout
   title="Lavori selezionati"
@@ -65,8 +18,8 @@ const cases = [
   </section>
 
   <section class="container case-grid" aria-label="Elenco dei case study">
-    {cases.map((c) => (
-      <a class="case-card" href={c.href}>
+    {caseStudies.map((c) => (
+      <a class="case-card" href={`${base}work/${c.slug}/`}>
         <p class="eyebrow">{c.eyebrow}</p>
         <h2>{c.title}</h2>
         <p class="summary">{c.summary}</p>
