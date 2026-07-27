@@ -6,17 +6,27 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const homeHref = lang === 'en' ? `${base}en/` : base;
 
-// Le altre pagine non hanno ancora una versione /en/: finché non vengono
-// tradotte, i link puntano alle pagine italiane esistenti.
+// Percorsi (senza prefisso locale) che esistono già in entrambe le lingue.
+// Si estende man mano che altre pagine vengono tradotte.
+const translatedPaths = ['', 'work/'];
+
+// Le pagine non ancora tradotte restano collegate alla versione italiana
+// anche quando si naviga in inglese.
 const nav = [
-  { label: t('nav.work'), href: `${base}work/` },
+  { label: t('nav.work'), href: lang === 'en' ? `${base}en/work/` : `${base}work/` },
   { label: t('nav.expertise'), href: `${base}expertise/` },
   { label: t('nav.experience'), href: `${base}experience/` },
   { label: t('nav.about'), href: `${base}about/` },
   { label: t('nav.contact'), href: `${base}contact/` },
 ];
 
-const switchHref = lang === 'en' ? base : `${base}en/`;
+const pathWithoutBase = Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname;
+const restPath = lang === 'en' ? pathWithoutBase.replace(/^en\/?/, '') : pathWithoutBase;
+const switchHref = translatedPaths.includes(restPath)
+  ? (lang === 'en' ? `${base}${restPath}` : `${base}en/${restPath}`)
+  : (lang === 'en' ? base : `${base}en/`);
 ---
 <header class="site-header">
   <div class="container bar">
