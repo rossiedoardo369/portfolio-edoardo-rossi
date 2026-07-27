@@ -55,6 +55,7 @@ const certifications = [
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
     badgeType: 'credly',
     credlyBadgeId: '9670c461-061d-45f7-9eb1-cb1ac1af366f',
+    verifyUrl: 'https://www.credly.com/badges/9670c461-061d-45f7-9eb1-cb1ac1af366f/public_url',
   },
   {
     title: 'Google Ads Search Certification',
@@ -62,6 +63,7 @@ const certifications = [
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
     badgeType: 'image',
     badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/172388976',
+    verifyUrl: 'https://skillshop.credential.net/93e395c1-dc3a-471a-bf8c-a5fdbfc66709#acc.Q4cxfne5',
   },
   {
     title: 'Google Ads Display Certification',
@@ -69,6 +71,7 @@ const certifications = [
     validity: 'Rinnovata nel 2026 · valida fino al 2027',
     badgeType: 'image',
     badgeImage: 'https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/173777092',
+    verifyUrl: 'https://skillshop.credential.net/60f9d544-7bba-4d4a-8444-c8a8897826de#acc.8wjsMQ0C',
   },
 ];
 ---
@@ -130,6 +133,7 @@ const certifications = [
           <p class="mono cert-issuer">{cert.issuer}</p>
           <h3>{cert.title}</h3>
           <p class="cert-validity">{cert.validity}</p>
+          <a class="cert-verify" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">Verifica la credenziale →</a>
         </article>
       ))}
     </div>
@@ -190,7 +194,15 @@ const certifications = [
     margin-bottom: 0.3rem;
   }
   .cert-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
-  .cert-validity { font-size: 0.85rem; color: var(--color-ink-soft); margin: 0; }
+  .cert-validity { font-size: 0.85rem; color: var(--color-ink-soft); margin: 0 0 0.6rem 0; }
+  .cert-verify {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cert-verify:hover { color: var(--color-accent); }
 
   @media (max-width: 780px) {
     .cert-grid { grid-template-columns: 1fr; }
