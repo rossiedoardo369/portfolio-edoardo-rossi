@@ -11,7 +11,16 @@ const nav = [
 <header class="site-header">
   <div class="container bar">
     <a href={base} class="wordmark">Edoardo Rossi</a>
-    <nav aria-label="Navigazione principale">
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label="Apri il menu"
+    >
+      <span class="menu-icon"></span>
+    </button>
+    <nav aria-label="Navigazione principale" id="primary-nav">
       <ul>
         {nav.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
@@ -20,6 +29,25 @@ const nav = [
     </nav>
   </div>
 </header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('primary-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open') ?? false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Chiudi il menu' : 'Apri il menu');
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.setAttribute('aria-label', 'Apri il menu');
+    });
+  });
+</script>
 
 <style>
   .site-header {
@@ -49,30 +77,93 @@ const nav = [
     padding: 0;
   }
   nav a {
-  position: relative;
-  font-size: 0.95rem;
-  text-decoration: none;
-  color: var(--color-ink-soft);
-  padding-bottom: 0.25rem;
-}
-nav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--color-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease;
-}
-nav a:hover::after,
-nav a:focus-visible::after {
-  transform: scaleX(1);
-}
+    position: relative;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+    padding-bottom: 0.25rem;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  nav a:hover::after,
+  nav a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    background: none;
+    border: var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .menu-icon,
+  .menu-icon::before,
+  .menu-icon::after {
+    display: block;
+    width: 1.25rem;
+    height: 2px;
+    background: var(--color-ink);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .menu-icon {
+    position: relative;
+    margin: 0 auto;
+  }
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .menu-icon::before { top: -6px; }
+  .menu-icon::after { top: 6px; }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon {
+    background: transparent;
+  }
+  .menu-toggle[aria-expanded="true"] .menu-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  .menu-toggle[aria-expanded="true"] .menu-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
   @media (max-width: 640px) {
-    .bar { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
-    nav ul { gap: var(--space-2); flex-wrap: wrap; }
+    .bar { flex-wrap: wrap; }
+    .menu-toggle { display: block; }
+
+    nav {
+      display: none;
+      width: 100%;
+      order: 1;
+    }
+    nav.is-open {
+      display: block;
+      padding-bottom: var(--space-2);
+    }
+    nav ul {
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    nav a {
+      display: block;
+      padding-block: var(--space-1);
+    }
   }
 </style>
