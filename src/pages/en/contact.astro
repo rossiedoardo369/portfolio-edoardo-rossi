@@ -2,6 +2,39 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
+
+const faqs = [
+  {
+    q: 'What kind of clients does Edoardo Rossi work with?',
+    a: 'Agencies, companies, and in-house teams looking for a measured approach: Google and Meta campaigns tracked from first contact through to business outcome, not just the click.',
+  },
+  {
+    q: 'Why are all the case studies in the dental industry?',
+    a: 'It’s a deliberate vertical specialization, not a limitation. The method — direct discovery, end-to-end measurement, CRM integration — applies the same way to other regulated or high-lead-value industries.',
+  },
+  {
+    q: 'Does he work with clients outside Italy?',
+    a: 'Yes. That’s exactly why this site is bilingual: he’s open to remote collaborations with clients and teams who work in English, compatible time zones included.',
+  },
+  {
+    q: 'Which advertising channels does he manage?',
+    a: 'Mainly Google Ads (Search, Performance Max, Display) and Meta Ads, with GA4/Google Tag Manager measurement and CRM integration whenever a lead needs tracking past the click.',
+  },
+  {
+    q: 'What’s the best way to reach him?',
+    a: 'Email or LinkedIn — the links are right below.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 <BaseLayout
   title="Contact"
@@ -28,7 +61,19 @@ const base = import.meta.env.BASE_URL;
         <p class="channel-value">linkedin.com/in/rossiedoardo369</p>
       </a>
     </div>
+
+    <div class="faq">
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
   </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </BaseLayout>
 
 <style>
@@ -69,4 +114,18 @@ const base = import.meta.env.BASE_URL;
   @media (max-width: 640px) {
     .channels { grid-template-columns: 1fr; }
   }
+
+  .faq {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--border);
+  }
+  .faq h2 { margin-bottom: var(--space-3); }
+  .faq-item {
+    padding-block: var(--space-2);
+    border-top: var(--border);
+  }
+  .faq-item:first-of-type { border-top: none; }
+  .faq-item h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .faq-item p { margin: 0; font-size: 0.95rem; }
 </style>

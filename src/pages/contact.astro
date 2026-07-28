@@ -2,6 +2,39 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
+
+const faqs = [
+  {
+    q: 'Con che tipo di realtà lavora Edoardo Rossi?',
+    a: 'Agenzie, aziende e team interni interessati a un approccio misurato: campagne Google e Meta seguite dal primo contatto pubblicitario fino al risultato di business, non solo al click.',
+  },
+  {
+    q: 'Perché i case studies sono tutti in ambito odontoiatrico?',
+    a: 'È una specializzazione verticale scelta, non un limite. Il metodo — discovery diretta, misurazione end-to-end, integrazione con CRM — si applica allo stesso modo ad altri settori regolamentati o ad alto valore per lead.',
+  },
+  {
+    q: 'Lavora anche con clienti fuori dall’Italia?',
+    a: 'Sì. Il sito è bilingue italiano/inglese proprio per questo: è aperto a collaborazioni a distanza con clienti e team che comunicano in inglese, fusi orari compatibili inclusi.',
+  },
+  {
+    q: 'Quali canali pubblicitari gestisce?',
+    a: 'Principalmente Google Ads (Search, Performance Max, Display) e Meta Ads, con misurazione GA4/Google Tag Manager e integrazione CRM quando serve tracciare il lead oltre il click.',
+  },
+  {
+    q: 'Qual è il modo migliore per contattarlo?',
+    a: 'Email o LinkedIn — i link sono qui sotto.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 <BaseLayout
   title="Contatti"
@@ -28,7 +61,19 @@ const base = import.meta.env.BASE_URL;
         <p class="channel-value">linkedin.com/in/rossiedoardo369</p>
       </a>
     </div>
+
+    <div class="faq">
+      <h2>Domande frequenti</h2>
+      {faqs.map((f) => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
   </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </BaseLayout>
 
 <style>
@@ -69,4 +114,18 @@ const base = import.meta.env.BASE_URL;
   @media (max-width: 640px) {
     .channels { grid-template-columns: 1fr; }
   }
+
+  .faq {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--border);
+  }
+  .faq h2 { margin-bottom: var(--space-3); }
+  .faq-item {
+    padding-block: var(--space-2);
+    border-top: var(--border);
+  }
+  .faq-item:first-of-type { border-top: none; }
+  .faq-item h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .faq-item p { margin: 0; font-size: 0.95rem; }
 </style>
