@@ -63,7 +63,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
       <slot />
     </div>
 
-    <ClosingCTA />
+    <ClosingCTA nested />
 
     <nav class="case-pagination" aria-label={t('case.paginationAria')}>
       <a class="case-pagination-link prev" href={`${workBase}${prevCase.slug}/`}>
