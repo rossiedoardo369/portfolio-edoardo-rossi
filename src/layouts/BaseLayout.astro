@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { getLangFromUrl, useTranslations, translatedPaths } from '../i18n/utils';
 import '../styles/global.css';
 
@@ -50,6 +51,39 @@ const personSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Consent Mode: stato di default negato finché l'utente non sceglie
+         dal banner, e riapplicazione immediata di una scelta già salvata —
+         deve girare prima che GTM carichi qualsiasi tag. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push([
+        'consent',
+        'default',
+        {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          wait_for_update: 500,
+        },
+      ]);
+      try {
+        var saved = JSON.parse(localStorage.getItem('cookieConsent') || 'null');
+        if (saved) {
+          window.dataLayer.push([
+            'consent',
+            'update',
+            {
+              analytics_storage: saved.analytics ? 'granted' : 'denied',
+              ad_storage: saved.marketing ? 'granted' : 'denied',
+              ad_user_data: saved.marketing ? 'granted' : 'denied',
+              ad_personalization: saved.marketing ? 'granted' : 'denied',
+            },
+          ]);
+        }
+      } catch (e) {}
+    </script>
 
     <!-- Google Tag Manager -->
     <script is:inline>
@@ -160,5 +194,6 @@ const personSchema = {
       <slot />
     </main>
     <Footer />
+    <CookieConsent />
   </body>
 </html>
