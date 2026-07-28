@@ -54,33 +54,30 @@ const personSchema = {
 
     <!-- Consent Mode: stato di default negato finché l'utente non sceglie
          dal banner, e riapplicazione immediata di una scelta già salvata —
-         deve girare prima che GTM carichi qualsiasi tag. -->
+         deve girare prima che GTM carichi qualsiasi tag. Usa gtag() nella
+         forma canonica (non un push di array grezzo): è il pattern che GTM
+         riconosce in modo affidabile per il consenso di default. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push([
-        'consent',
-        'default',
-        {
-          analytics_storage: 'denied',
-          ad_storage: 'denied',
-          ad_user_data: 'denied',
-          ad_personalization: 'denied',
-          wait_for_update: 500,
-        },
-      ]);
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
       try {
         var saved = JSON.parse(localStorage.getItem('cookieConsent') || 'null');
         if (saved) {
-          window.dataLayer.push([
-            'consent',
-            'update',
-            {
-              analytics_storage: saved.analytics ? 'granted' : 'denied',
-              ad_storage: saved.marketing ? 'granted' : 'denied',
-              ad_user_data: saved.marketing ? 'granted' : 'denied',
-              ad_personalization: saved.marketing ? 'granted' : 'denied',
-            },
-          ]);
+          gtag('consent', 'update', {
+            analytics_storage: saved.analytics ? 'granted' : 'denied',
+            ad_storage: saved.marketing ? 'granted' : 'denied',
+            ad_user_data: saved.marketing ? 'granted' : 'denied',
+            ad_personalization: saved.marketing ? 'granted' : 'denied',
+          });
         }
       } catch (e) {}
     </script>
