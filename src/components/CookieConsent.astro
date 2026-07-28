@@ -63,21 +63,25 @@ const t = useTranslations(lang);
   declare global {
     interface Window {
       dataLayer: unknown[];
+      gtag: (...args: unknown[]) => void;
     }
   }
 
   function pushConsentUpdate(consent: Consent) {
+    // gtag() è definita in BaseLayout, prima di questo script: stesso
+    // meccanismo usato per il consenso di default, così GTM lo riconosce.
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push([
-      'consent',
-      'update',
-      {
-        analytics_storage: consent.analytics ? 'granted' : 'denied',
-        ad_storage: consent.marketing ? 'granted' : 'denied',
-        ad_user_data: consent.marketing ? 'granted' : 'denied',
-        ad_personalization: consent.marketing ? 'granted' : 'denied',
-      },
-    ]);
+    window.gtag =
+      window.gtag ||
+      function () {
+        window.dataLayer.push(arguments);
+      };
+    window.gtag('consent', 'update', {
+      analytics_storage: consent.analytics ? 'granted' : 'denied',
+      ad_storage: consent.marketing ? 'granted' : 'denied',
+      ad_user_data: consent.marketing ? 'granted' : 'denied',
+      ad_personalization: consent.marketing ? 'granted' : 'denied',
+    });
   }
 
   function readStoredConsent(): Consent | null {
