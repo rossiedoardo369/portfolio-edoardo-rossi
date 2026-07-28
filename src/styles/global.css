@@ -11,6 +11,7 @@
   --color-ink-soft: #4B5259;
   --color-accent: #2B6E63;      /* dati confermati / risultati positivi */
   --color-caution: #B5762A;     /* punti aperti, limiti dichiarati */
+  --color-caution-text: #905E21; /* stessa tinta, scurita per passare WCAG AA come testo normale */
   --color-line: #D8DAD5;
 
   /* Tipografia */

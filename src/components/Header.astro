@@ -38,7 +38,7 @@ const switchHref = translatedPaths.includes(restPath)
     >
       <span class="menu-icon"></span>
     </button>
-    <nav aria-label="Navigazione principale" id="primary-nav">
+    <nav aria-label={t('nav.mainAria')} id="primary-nav">
       <ul>
         {nav.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
@@ -212,6 +212,10 @@ const switchHref = translatedPaths.includes(restPath)
     nav a {
       display: block;
       padding-block: var(--space-1);
+    }
+    nav a.lang-switch {
+      display: inline-block;
+      margin-top: var(--space-1);
     }
   }
 </style>

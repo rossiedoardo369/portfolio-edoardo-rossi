@@ -14,6 +14,7 @@ export const ui = {
     'nav.contact': 'Contatti',
     'nav.menuOpen': 'Apri il menu',
     'nav.menuClose': 'Chiudi il menu',
+    'nav.mainAria': 'Navigazione principale',
     'nav.langSwitch': 'EN',
     'skip.content': 'Vai al contenuto principale',
 
@@ -77,6 +78,13 @@ export const ui = {
     'cookie.marketing.title': 'Marketing',
     'cookie.marketing.body': 'Misurazione delle campagne pubblicitarie. Al momento non è attivo nessun tracciamento di questo tipo sul sito.',
     'cookie.manage': 'Preferenze cookie',
+
+    'schema.knowsAbout': 'Google Ads,Meta Ads,Performance Marketing,CRM e automazione,Misurazione e tracciamento',
+
+    'closing.h2': 'Parliamone.',
+    'closing.body':
+      'Se il metodo che hai visto qui risponde a un problema che hai in azienda, scrivimi — senza impegno.',
+    'closing.cta': 'Contattami →',
   },
   en: {
     'nav.work': 'Selected work',
@@ -86,6 +94,7 @@ export const ui = {
     'nav.contact': 'Contact',
     'nav.menuOpen': 'Open menu',
     'nav.menuClose': 'Close menu',
+    'nav.mainAria': 'Main navigation',
     'nav.langSwitch': 'IT',
     'skip.content': 'Skip to main content',
 
@@ -149,5 +158,12 @@ export const ui = {
     'cookie.marketing.title': 'Marketing',
     'cookie.marketing.body': 'Advertising campaign measurement. No tracking of this kind is currently active on the site.',
     'cookie.manage': 'Cookie preferences',
+
+    'schema.knowsAbout': 'Google Ads,Meta Ads,Performance Marketing,CRM & Automation,Measurement & Tracking',
+
+    'closing.h2': "Let's talk.",
+    'closing.body':
+      "If the approach you've just seen matches a problem you're dealing with, get in touch — no strings attached.",
+    'closing.cta': 'Get in touch →',
   },
 } as const;
