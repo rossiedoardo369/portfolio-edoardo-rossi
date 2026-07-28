@@ -1,5 +1,9 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 const year = new Date().getFullYear();
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <footer class="site-footer">
   <div class="container bar">
@@ -7,6 +11,7 @@ const year = new Date().getFullYear();
     <ul class="links">
       <li><a href="https://www.linkedin.com/in/rossiedoardo369" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><a href="mailto:rossi.edoardo369@gmail.com">Email</a></li>
+      <li><a href="#" id="cookie-manage-link">{t('cookie.manage')}</a></li>
     </ul>
   </div>
 </footer>
