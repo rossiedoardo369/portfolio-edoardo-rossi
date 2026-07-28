@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClosingCTA from '../../components/ClosingCTA.astro';
+import KeyFacts from '../../components/KeyFacts.astro';
+import { caseStudiesEn } from '../../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
+const yearsActive = new Date().getFullYear() - 2021;
 
 const roles = [
   {
@@ -74,6 +77,13 @@ const certifications = [
     verifyUrl: 'https://skillshop.credential.net/60f9d544-7bba-4d4a-8444-c8a8897826de#acc.8wjsMQ0C',
   },
 ];
+
+const keyFacts = [
+  { value: `${yearsActive}+`, label: 'years in digital marketing' },
+  { value: String(certifications.length), label: 'active certifications' },
+  { value: String(caseStudiesEn.length), label: 'published case studies' },
+  { value: 'Google · Meta', label: 'core channels' },
+];
 ---
 <BaseLayout
   title="Experience"
@@ -83,6 +93,7 @@ const certifications = [
   <section class="intro container">
     <p class="eyebrow">Experience</p>
     <h1>From in-house marketing at a B2B company to managing a client portfolio in an agency.</h1>
+    <KeyFacts facts={keyFacts} />
   </section>
 
   <section class="container timeline" aria-label="Professional experience">
