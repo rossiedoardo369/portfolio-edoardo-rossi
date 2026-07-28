@@ -17,5 +17,15 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'it',
+        locales: {
+          it: 'it-IT',
+          en: 'en-US',
+        },
+      },
+    }),
+  ],
 });

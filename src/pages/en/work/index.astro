@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ClosingCTA from '../../../components/ClosingCTA.astro';
 import { caseStudiesEn } from '../../../data/case-studies.js';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
@@ -29,6 +30,8 @@ const t = useTranslations(lang);
       </a>
     ))}
   </section>
+
+  <ClosingCTA />
 </BaseLayout>
 
 <style>

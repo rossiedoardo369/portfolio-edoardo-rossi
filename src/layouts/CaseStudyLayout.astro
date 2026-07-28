@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
 import { caseStudies, caseStudiesEn } from '../data/case-studies.js';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
@@ -61,6 +62,8 @@ const nextCase = list[(currentIndex + 1) % list.length];
     <div class="body">
       <slot />
     </div>
+
+    <ClosingCTA />
 
     <nav class="case-pagination" aria-label={t('case.paginationAria')}>
       <a class="case-pagination-link prev" href={`${workBase}${prevCase.slug}/`}>
@@ -140,9 +143,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3);
-    margin-top: var(--space-6);
-    padding-top: var(--space-4);
-    border-top: var(--border);
+    margin-top: var(--space-4);
   }
   .case-pagination-link {
     display: block;

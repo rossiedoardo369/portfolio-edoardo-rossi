@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -138,6 +139,8 @@ const certifications = [
       ))}
     </div>
   </section>
+
+  <ClosingCTA />
 </BaseLayout>
 
 <style>

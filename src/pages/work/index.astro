@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
 import { caseStudies } from '../../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
@@ -29,6 +30,8 @@ const base = import.meta.env.BASE_URL;
       </a>
     ))}
   </section>
+
+  <ClosingCTA />
 </BaseLayout>
 
 <style>
