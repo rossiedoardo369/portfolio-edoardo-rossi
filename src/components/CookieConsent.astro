@@ -49,6 +49,13 @@ const t = useTranslations(lang);
   </div>
 </div>
 
+<button type="button" class="cookie-fab" id="cookie-fab" aria-label={t('cookie.manage')} title={t('cookie.manage')} hidden>
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3.2" />
+    <path d="M12 3v2.2M12 18.8V21M4.9 4.9l1.55 1.55M17.55 17.55l1.55 1.55M3 12h2.2M18.8 12H21M4.9 19.1l1.55-1.55M17.55 6.45l1.55-1.55" />
+  </svg>
+</button>
+
 <script>
   type Consent = { analytics: boolean; marketing: boolean };
   const STORAGE_KEY = 'cookieConsent';
@@ -98,6 +105,7 @@ const t = useTranslations(lang);
   const banner = document.getElementById('cookie-banner');
   const summary = document.getElementById('cookie-summary');
   const detail = document.getElementById('cookie-detail');
+  const fab = document.getElementById('cookie-fab');
   const analyticsToggle = document.getElementById('cookie-toggle-analytics') as HTMLInputElement | null;
   const marketingToggle = document.getElementById('cookie-toggle-marketing') as HTMLInputElement | null;
 
@@ -109,11 +117,16 @@ const t = useTranslations(lang);
     summary.hidden = openDetail;
     detail.hidden = !openDetail;
     banner.hidden = false;
+    if (fab) fab.hidden = true;
   }
 
   function hideBanner() {
     if (!banner) return;
     banner.hidden = true;
+    // Il pulsantino ancorato resta disponibile solo dopo una prima scelta:
+    // finché il banner non è mai stato chiuso non c'è ancora nulla da
+    // "modificare".
+    if (fab && readStoredConsent()) fab.hidden = false;
   }
 
   function applyChoice(consent: Consent) {
@@ -149,8 +162,11 @@ const t = useTranslations(lang);
     e.preventDefault();
     showBanner(true);
   });
+  fab?.addEventListener('click', () => showBanner(true));
 
-  if (!readStoredConsent()) {
+  if (readStoredConsent()) {
+    if (fab) fab.hidden = false;
+  } else {
     showBanner(false);
   }
 </script>
@@ -242,5 +258,30 @@ const t = useTranslations(lang);
   @media (max-width: 640px) {
     .cookie-actions { justify-content: stretch; }
     .cookie-actions .btn { flex: 1; text-align: center; }
+  }
+
+  .cookie-fab {
+    position: fixed;
+    left: var(--space-2);
+    bottom: var(--space-2);
+    z-index: 40;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    border: var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .cookie-fab:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .cookie-fab[hidden] {
+    display: none;
   }
 </style>
