@@ -92,6 +92,10 @@ const areas = [
         </p>
       </article>
     </div>
+
+    <p class="stack-link">
+      <a class="card-cta" href={`${base}stack/`}>Vedi tutti gli strumenti che uso →</a>
+    </p>
   </section>
 
   <ClosingCTA />
@@ -134,6 +138,9 @@ const areas = [
   .ai-block { border-left: 3px solid var(--color-accent); padding-left: var(--space-3); }
   .ai-block h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
   .ai-block p { margin: 0; font-size: 0.95rem; }
+
+  .stack-link { margin-top: var(--space-4); }
+  .stack-link .card-cta:hover { color: var(--color-accent); text-decoration: underline; }
 
   @media (max-width: 780px) {
     .skills-grid { grid-template-columns: 1fr; }

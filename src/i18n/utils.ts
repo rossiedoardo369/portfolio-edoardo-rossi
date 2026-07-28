@@ -18,6 +18,7 @@ export const translatedPaths = [
   'experience/',
   'about/',
   'contact/',
+  'stack/',
 ];
 
 export function getPathWithoutBase(pathname: string): string {

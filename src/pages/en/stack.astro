@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ClosingCTA from '../../components/ClosingCTA.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const categories = [
+  {
+    n: '01',
+    title: 'Advertising',
+    subtitle: 'The platforms where client budget actually goes.',
+    tools: ['Google Ads', 'Google Ads Editor', 'Meta Ads', 'LinkedIn Ads', 'TikTok Ads'],
+  },
+  {
+    n: '02',
+    title: 'Tracking, analytics & reporting',
+    subtitle: 'How I measure what happens after the click.',
+    tools: ['Google Analytics 4', 'Google Tag Manager', 'Looker Studio (Data Studio)', 'Google Sheets / Microsoft Excel'],
+  },
+  {
+    n: '03',
+    title: 'CRM & marketing automation',
+    subtitle: 'Where leads live after first contact.',
+    tools: ['GoHighLevel', 'Mailchimp'],
+  },
+  {
+    n: '04',
+    title: 'CRO & landing pages',
+    subtitle: 'Where I optimize the gap between click and conversion.',
+    tools: ['Hotjar', 'Microsoft Clarity', 'WordPress', 'Google PageSpeed Insights'],
+  },
+  {
+    n: '05',
+    title: 'Creative',
+    subtitle: 'What I build campaign creative and assets with.',
+    tools: ['Canva', 'Affinity', 'Adobe Photoshop', 'Adobe Illustrator', 'Figma', 'CapCut', 'Miro'],
+  },
+  {
+    n: '06',
+    title: 'Automation, AI & dev',
+    subtitle: 'How I speed up research, production, and workflows.',
+    tools: [
+      'ChatGPT', 'Claude', 'Gemini', 'Microsoft Copilot', 'Perplexity', 'NotebookLM', 'HeyGen',
+      'Zapier', 'n8n', 'HTML5', 'CSS3', 'JavaScript', 'GitHub',
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Stack"
+  description="The tools I actually use day to day: advertising, tracking and reporting, CRM, CRO, creative, automation and AI."
+  translated
+>
+  <section class="stack-intro container">
+    <p class="eyebrow">Stack</p>
+    <h1>What I actually use, not what sounds good on a list.</h1>
+    <p class="lede">
+      Every line below is part of the daily work behind the
+      <a href={`${base}en/work/`}>case studies</a> — not a badge wall to look more capable.
+    </p>
+  </section>
+
+  <section class="stack container">
+    {categories.map((cat) => (
+      <div class="stack-category">
+        <div class="stack-category-head">
+          <span class="mono stack-n">{cat.n}</span>
+          <div>
+            <h2>{cat.title}</h2>
+            <p class="stack-subtitle">{cat.subtitle}</p>
+          </div>
+        </div>
+        <ul class="stack-tools">
+          {cat.tools.map((tool) => (
+            <li class="mono">{tool}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <ClosingCTA />
+</BaseLayout>
+
+<style>
+  .stack-intro { padding-block: var(--space-6) var(--space-4); max-width: 46rem; }
+  .lede { font-size: 1.15rem; }
+
+  .stack { padding-bottom: var(--space-5); }
+  .stack-category {
+    padding-block: var(--space-4);
+    border-top: var(--border);
+  }
+  .stack-category:first-child { border-top: none; }
+  .stack-category-head {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+  .stack-n {
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    padding-top: 0.3rem;
+  }
+  .stack-category-head h2 { margin-bottom: 0.2rem; font-size: 1.3rem; }
+  .stack-subtitle { margin: 0; color: var(--color-ink-soft); font-size: 0.95rem; }
+
+  .stack-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .stack-tools li {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border: var(--border);
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+</style>
