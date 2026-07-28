@@ -50,9 +50,14 @@ const t = useTranslations(lang);
 </div>
 
 <button type="button" class="cookie-fab" id="cookie-fab" aria-label={t('cookie.manage')} title={t('cookie.manage')} hidden>
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="3.2" />
-    <path d="M12 3v2.2M12 18.8V21M4.9 4.9l1.55 1.55M17.55 17.55l1.55 1.55M3 12h2.2M18.8 12H21M4.9 19.1l1.55-1.55M17.55 6.45l1.55-1.55" />
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.7" />
+    <circle cx="17.6" cy="6.6" r="4.6" fill="var(--color-bg)" />
+    <circle cx="9" cy="9.3" r="1.1" fill="currentColor" />
+    <circle cx="14.7" cy="9.6" r="1" fill="currentColor" />
+    <circle cx="10.2" cy="14.3" r="1" fill="currentColor" />
+    <circle cx="15.3" cy="14.8" r="1.1" fill="currentColor" />
+    <circle cx="12.3" cy="12" r="0.9" fill="currentColor" />
   </svg>
 </button>
 
@@ -166,7 +171,7 @@ const t = useTranslations(lang);
     e.preventDefault();
     showBanner(false);
   });
-  fab?.addEventListener('click', () => showBanner(true));
+  fab?.addEventListener('click', () => showBanner(false));
 
   if (readStoredConsent()) {
     if (fab) fab.hidden = false;
