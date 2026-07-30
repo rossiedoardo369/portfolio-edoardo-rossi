@@ -26,9 +26,7 @@ const switchHref = translatedPaths.includes(restPath)
 ---
 <header class="site-header">
   <div class="container bar">
-    <a href={homeHref} class="wordmark">
-      <img src={`${base}logo-wordmark.svg`} alt="Edoardo Rossi" width="720" height="260" class="wordmark-img" />
-    </a>
+    <a href={homeHref} class="wordmark">Edoardo Rossi</a>
     <button
       type="button"
       class="menu-toggle"
@@ -100,13 +98,10 @@ const switchHref = translatedPaths.includes(restPath)
     padding-block: var(--space-2);
   }
   .wordmark {
-    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
     text-decoration: none;
-  }
-  .wordmark-img {
-    display: block;
-    height: 64px;
-    width: auto;
   }
   nav ul {
     display: flex;
