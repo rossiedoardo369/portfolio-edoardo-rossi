@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="480" height="140" viewBox="0 0 480 140"
+     role="img" aria-labelledby="icon-title icon-desc">
+  <title id="icon-title">Icona semplificata Edoardo Rossi</title>
+  <desc id="icon-desc">Linea di misurazione corta con due terminali e tacca centrale</desc>
+  <g id="measurement-line-short" fill="#2B6E63" stroke="#2B6E63">
+    <line x1="80" y1="70" x2="400" y2="70"
+          stroke-width="12" stroke-linecap="round"/>
+    <circle cx="80" cy="70" r="32"/>
+    <circle cx="400" cy="70" r="32"/>
+    <line x1="240" y1="35" x2="240" y2="105"
+          stroke-width="12" stroke-linecap="butt"/>
+  </g>
+</svg>
