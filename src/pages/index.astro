@@ -114,21 +114,33 @@ const steps = [
   window.addEventListener('resize', updateArrows);
   updateArrows();
 
-  // Fade-in al primo ingresso in viewport (solo opacity, nessun movement)
+  // Fade-in al primo ingresso in viewport (solo opacity, nessun movement).
+  // Gli elementi già visibili al caricamento vengono mostrati subito senza
+  // transizione; l'observer anima solo quelli sotto la piega.
   const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        (entry.target as HTMLElement).style.setProperty(
-          '--delay',
-          (entry.target as HTMLElement).style.getPropertyValue('--delay') || '0ms'
-        );
-        entry.target.classList.add('is-visible');
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  fadeEls.forEach((el) => fadeObserver.observe(el));
+  const vh = window.innerHeight;
+  const toObserve: HTMLElement[] = [];
+
+  fadeEls.forEach((el) => {
+    if (el.getBoundingClientRect().top < vh * 0.9) {
+      el.style.transition = 'none';
+      el.classList.add('is-visible');
+    } else {
+      toObserve.push(el);
+    }
+  });
+
+  if (toObserve.length) {
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    toObserve.forEach((el) => fadeObserver.observe(el));
+  }
 
   // Animazione dei numeri al primo ingresso in viewport
   function animateValue(el: HTMLElement) {
