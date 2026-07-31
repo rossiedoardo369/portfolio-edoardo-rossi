@@ -20,8 +20,8 @@ const t = useTranslations(lang);
   </section>
 
   <section class="container case-grid" aria-label={t('work.aria')}>
-    {caseStudiesEn.map((c) => (
-      <a class="case-card" href={`${base}en/work/${c.slug}/`}>
+    {caseStudiesEn.map((c, i) => (
+      <a class="case-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}en/work/${c.slug}/`}>
         <p class="eyebrow">{c.eyebrow}</p>
         <h2>{c.title}</h2>
         <p class="summary">{c.summary}</p>
@@ -49,8 +49,10 @@ const t = useTranslations(lang);
     border: var(--border);
     padding: var(--space-4);
     text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.1s ease;
   }
   .case-card:hover { border-color: var(--color-accent); }
+  .case-card:active { transform: scale(0.99); }
   .case-card h2 { font-size: 1.4rem; margin-top: var(--space-1); }
   .summary { max-width: 44rem; }
   .case-metric {

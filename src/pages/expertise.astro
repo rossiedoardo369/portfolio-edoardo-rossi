@@ -52,8 +52,8 @@ const areas = [
   </section>
 
   <section class="container skills-grid" aria-label="Aree di competenza">
-    {areas.map((area) => (
-      <article class="skill-card">
+    {areas.map((area, i) => (
+      <article class="skill-card fade-in" style={`--delay: ${i * 60}ms`}>
         <h2>{area.title}</h2>
         <p class="mono tools">{area.tools}</p>
         <p>{area.body}</p>
@@ -70,7 +70,7 @@ const areas = [
     </p>
 
     <div class="ai-grid">
-      <article class="ai-block">
+      <article class="ai-block fade-in">
         <h3>Strategia e ricerca</h3>
         <p>
           È qui che l'impatto è maggiore. Ricerca di mercato preliminare, definizione e
@@ -81,7 +81,7 @@ const areas = [
         </p>
       </article>
 
-      <article class="ai-block">
+      <article class="ai-block fade-in" style="--delay: 80ms">
         <h3>Produzione e ottimizzazione</h3>
         <p>
           Nella fase esecutiva l'AI accelera il lavoro sulle creatività: varianti di copy da

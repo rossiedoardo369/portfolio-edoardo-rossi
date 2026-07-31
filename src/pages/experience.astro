@@ -98,8 +98,8 @@ const keyFacts = [
 
   <section class="container timeline" aria-label="Esperienza professionale">
     <h2 class="section-label mono">Percorso professionale</h2>
-    {roles.map((role) => (
-      <article class="role">
+    {roles.map((role, i) => (
+      <article class="role fade-in" style={`--delay: ${i * 80}ms`}>
         <p class="mono period">{role.period}</p>
         <div>
           <h3>{role.title}</h3>
@@ -114,8 +114,8 @@ const keyFacts = [
 
   <section class="container timeline" aria-label="Formazione">
     <h2 class="section-label mono">Formazione</h2>
-    {education.map((ed) => (
-      <article class="role">
+    {education.map((ed, i) => (
+      <article class="role fade-in" style={`--delay: ${i * 80}ms`}>
         <p class="mono period">{ed.period}</p>
         <div>
           <h3>{ed.title}</h3>
@@ -128,8 +128,8 @@ const keyFacts = [
   <section class="container timeline" aria-label="Certificazioni">
     <h2 class="section-label mono">Certificazioni</h2>
     <div class="cert-grid">
-      {certifications.map((cert) => (
-        <a class="cert-card" href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
+      {certifications.map((cert, i) => (
+        <a class="cert-card fade-in" style={`--delay: ${i * 80}ms`} href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
           <div class="cert-badge">
             <picture>
               <source srcset={`${base}badges/${cert.badgeName}.webp`} type="image/webp" />
@@ -192,8 +192,10 @@ const keyFacts = [
     padding: var(--space-3);
     text-decoration: none;
     color: var(--color-ink);
+    transition: border-color 0.2s ease, transform 0.1s ease;
   }
   .cert-card:hover { border-color: var(--color-accent); }
+  .cert-card:active { transform: scale(0.98); }
   .cert-badge {
     display: flex;
     justify-content: center;

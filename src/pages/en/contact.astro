@@ -52,11 +52,11 @@ const faqSchema = {
     </p>
 
     <div class="channels">
-      <a class="channel" href="mailto:rossi.edoardo369@gmail.com">
+      <a class="channel fade-in" href="mailto:rossi.edoardo369@gmail.com">
         <p class="mono channel-label">Email</p>
         <p class="channel-value">rossi.edoardo369@gmail.com</p>
       </a>
-      <a class="channel" href="https://www.linkedin.com/in/rossiedoardo369" target="_blank" rel="noopener">
+      <a class="channel fade-in" style="--delay: 80ms" href="https://www.linkedin.com/in/rossiedoardo369" target="_blank" rel="noopener">
         <p class="mono channel-label">LinkedIn</p>
         <p class="channel-value">linkedin.com/in/rossiedoardo369</p>
       </a>
@@ -92,8 +92,10 @@ const faqSchema = {
     border: var(--border);
     padding: var(--space-3);
     text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.1s ease;
   }
   .channel:hover { border-color: var(--color-accent); }
+  .channel:active { transform: scale(0.98); }
   .channel-label {
     font-size: 0.8rem;
     text-transform: uppercase;
