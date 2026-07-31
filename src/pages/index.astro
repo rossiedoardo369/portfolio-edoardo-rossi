@@ -143,16 +143,10 @@ const steps = [
   }
 
   // Animazione dei numeri al primo ingresso in viewport
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   function animateValue(el: HTMLElement) {
     const raw = el.dataset.value || '';
     const match = raw.match(/^([+−]?)(\d+(?:,\d+)?)(.*)$/);
     if (!match) {
-      el.textContent = raw;
-      return;
-    }
-    if (prefersReducedMotion) {
       el.textContent = raw;
       return;
     }
