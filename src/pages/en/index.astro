@@ -26,7 +26,7 @@ const steps = [
     <h1 aria-label={heroH1}>
       <span aria-hidden="true">
         {heroWords.map((w, i) => (
-          <span class="word">{w}{i < heroWords.length - 1 ? ' ' : ''}</span>
+          <Fragment><span class="word">{w}</span>{i < heroWords.length - 1 ? ' ' : ''}</Fragment>
         ))}
       </span>
     </h1>
