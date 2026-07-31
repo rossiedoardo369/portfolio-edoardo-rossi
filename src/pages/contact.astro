@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -43,7 +44,7 @@ const faqSchema = {
 >
   <section class="contact container">
     <p class="eyebrow">Contatti</p>
-    <h1>Se il mio modo di lavorare ti convince, parliamone.</h1>
+    <RevealH1 text="Se il mio modo di lavorare ti convince, parliamone." />
     <p class="lede">
       Sono aperto a collaborare con qualsiasi realtà — agenzie, aziende, team interni — interessata
       non solo alle competenze che porto, ma al modo in cui lavoro: metodo, misurazione, onestà sui

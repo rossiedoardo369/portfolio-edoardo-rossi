@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
 import ClosingCTA from '../../components/ClosingCTA.astro';
 import { caseStudies } from '../../data/case-studies.js';
 
@@ -12,7 +13,7 @@ const base = import.meta.env.BASE_URL;
 >
   <section class="intro container">
     <p class="eyebrow">Lavori selezionati</p>
-    <h1>Cinque problemi diversi, lo stesso metodo.</h1>
+    <RevealH1 text="Cinque problemi diversi, lo stesso metodo." />
     <p class="lede">
       Ogni caso studio parte da un problema di business reale e arriva a un risultato misurato.
       I dati sono reali; i clienti sono anonimizzati per riservatezza.

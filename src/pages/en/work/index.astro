@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import RevealH1 from '../../../components/RevealH1.astro';
 import ClosingCTA from '../../../components/ClosingCTA.astro';
 import { caseStudiesEn } from '../../../data/case-studies.js';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
@@ -15,7 +16,7 @@ const t = useTranslations(lang);
 >
   <section class="intro container">
     <p class="eyebrow">{t('work.eyebrow')}</p>
-    <h1>{t('work.h1')}</h1>
+    <RevealH1 text={t('work.h1')} />
     <p class="lede">{t('work.lede')}</p>
   </section>
 

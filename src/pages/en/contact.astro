@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -43,7 +44,7 @@ const faqSchema = {
 >
   <section class="contact container">
     <p class="eyebrow">Contact</p>
-    <h1>If how I work convinces you, let's talk.</h1>
+    <RevealH1 text="If how I work convinces you, let's talk." />
     <p class="lede">
       I'm open to working with any kind of organization — agencies, companies, in-house teams —
       interested not just in the skills I bring, but in how I work: method, measurement, honesty

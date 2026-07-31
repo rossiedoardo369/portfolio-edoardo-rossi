@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 import ClosingCTA from '../components/ClosingCTA.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -53,7 +54,7 @@ const categories = [
 >
   <section class="stack-intro container">
     <p class="eyebrow">Strumenti</p>
-    <h1>Cosa uso davvero, non cosa dovrei dire di usare.</h1>
+    <RevealH1 text="Cosa uso davvero, non cosa dovrei dire di usare." />
     <p class="lede">
       Ogni voce qui sotto fa parte del lavoro quotidiano dietro i
       <a href={`${base}work/`}>case studies</a> — non è un elenco di badge per

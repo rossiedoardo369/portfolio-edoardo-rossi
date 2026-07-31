@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
 import ClosingCTA from '../../components/ClosingCTA.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -44,7 +45,7 @@ const areas = [
 >
   <section class="intro container">
     <p class="eyebrow">Expertise</p>
-    <h1>What I can do, proven by what I've done.</h1>
+    <RevealH1 text="What I can do, proven by what I've done." />
     <p class="lede">
       No self-assessment bars here — every area below is backed by real projects, which you can
       read about in the <a href={`${base}en/work/`}>case studies</a>.

@@ -189,6 +189,32 @@ const personSchema = {
     <Footer />
     <CookieConsent />
     <script>
+      // Rivelazione parola per parola degli h1 (componente RevealH1) al
+      // caricamento della pagina, non allo scroll: sono sempre nella parte
+      // già visibile della pagina appena questa si apre. L'opacity iniziale
+      // viene impostata da qui, non da CSS: se lo script non parte per
+      // qualunque motivo, il testo resta semplicemente visibile da subito
+      // invece di sparire.
+      const revealWordEls = document.querySelectorAll<HTMLElement>('h1 .word');
+      revealWordEls.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(6px)';
+        const duration = 300;
+        function frame(now: number, start: number) {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.style.opacity = String(eased);
+          el.style.transform = `translateY(${(1 - eased) * 6}px)`;
+          if (t < 1) {
+            requestAnimationFrame((n) => frame(n, start));
+          } else {
+            el.style.opacity = '';
+            el.style.transform = '';
+          }
+        }
+        setTimeout(() => requestAnimationFrame((now) => frame(now, now)), i * 25);
+      });
+
       // Fade-in on-scroll condiviso da tutte le pagine: qualunque elemento
       // con class="fade-in" (più opzionale style="--delay: Nms") viene
       // rivelato al primo ingresso in viewport. Usa visualViewport.height

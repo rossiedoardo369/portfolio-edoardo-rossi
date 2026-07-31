@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
 import { caseStudiesEn } from '../../data/case-studies.js';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
@@ -8,7 +9,6 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const heroH1 = t('home.h1');
-const heroWords = heroH1.split(' ');
 
 const steps = [
   { n: '01', title: t('home.how.step1.title'), body: t('home.how.step1.body') },
@@ -23,13 +23,7 @@ const steps = [
 >
   <section class="hero container">
     <p class="eyebrow">{t('home.eyebrow')}</p>
-    <h1 aria-label={heroH1}>
-      <span aria-hidden="true">
-        {heroWords.map((w, i) => (
-          <Fragment><span class="word">{w}</span>{i < heroWords.length - 1 ? ' ' : ''}</Fragment>
-        ))}
-      </span>
-    </h1>
+    <RevealH1 text={heroH1} />
     <p class="lede">{t('home.lede')}</p>
     <div class="cta-row">
       <a class="btn btn-primary" href={`${base}en/work/`}>{t('home.cta.work')}</a>
@@ -77,32 +71,6 @@ const steps = [
 </BaseLayout>
 
 <script>
-  // Word-by-word reveal of the h1 on load (not on scroll: the hero is
-  // already visible as soon as the page opens). Initial opacity is set
-  // from here, not CSS: if the script fails to run for any reason, the
-  // text simply stays visible right away instead of disappearing — the
-  // h1 still carries the aria-label with the full sentence, so screen
-  // reader users see no difference either way.
-  const heroWordEls = document.querySelectorAll<HTMLElement>('.hero h1 .word');
-  heroWordEls.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(6px)';
-    const duration = 300;
-    function frame(now: number, start: number) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.style.opacity = String(eased);
-      el.style.transform = `translateY(${(1 - eased) * 6}px)`;
-      if (t < 1) {
-        requestAnimationFrame((n) => frame(n, start));
-      } else {
-        el.style.opacity = '';
-        el.style.transform = '';
-      }
-    }
-    setTimeout(() => requestAnimationFrame((now) => frame(now, now)), i * 25);
-  });
-
   const track = document.getElementById('proof-track');
   const prev = document.getElementById('proof-prev') as HTMLButtonElement | null;
   const next = document.getElementById('proof-next') as HTMLButtonElement | null;
@@ -202,7 +170,6 @@ const steps = [
     padding-block: var(--space-6) var(--space-5);
     max-width: 46rem;
   }
-  .hero h1 .word { display: inline-block; }
   .lede {
     font-size: 1.15rem;
     max-width: 38rem;

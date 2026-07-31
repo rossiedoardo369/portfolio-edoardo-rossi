@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
 import ClosingCTA from '../../components/ClosingCTA.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -11,7 +12,7 @@ const base = import.meta.env.BASE_URL;
 >
   <section class="about container">
     <p class="eyebrow">About</p>
-    <h1>Marketing is where business meets psychology.</h1>
+    <RevealH1 text="Marketing is where business meets psychology." />
     <p class="lede">
       That's what brought me here, and it's what keeps me here. Behind every metric is a
       behavior. Behind every behavior, a person making a decision. The anthropological side of

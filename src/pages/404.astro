@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -9,7 +10,7 @@ const base = import.meta.env.BASE_URL;
 >
   <section class="notfound container">
     <p class="eyebrow">404</p>
-    <h1>Questa pagina non esiste.</h1>
+    <RevealH1 text="Questa pagina non esiste." />
     <p>
       Il link potrebbe essere errato o la pagina essere stata spostata.
       Puoi ripartire dalla home o andare direttamente ai case study.

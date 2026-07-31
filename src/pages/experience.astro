@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 import ClosingCTA from '../components/ClosingCTA.astro';
 import KeyFacts from '../components/KeyFacts.astro';
 import { caseStudies } from '../data/case-studies.js';
@@ -92,7 +93,7 @@ const keyFacts = [
 >
   <section class="intro container">
     <p class="eyebrow">Esperienza</p>
-    <h1>Dal marketing interno di un'azienda B2B alla gestione di un portafoglio di 20+ clienti in agenzia.</h1>
+    <RevealH1 text="Dal marketing interno di un'azienda B2B alla gestione di un portafoglio di 20+ clienti in agenzia." />
     <KeyFacts facts={keyFacts} />
   </section>
 

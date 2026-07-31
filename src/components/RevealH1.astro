@@ -1,0 +1,23 @@
+---
+// h1 con rivelazione parola per parola al caricamento (vedi script condiviso
+// in BaseLayout). L'aria-label porta la frase intera, quindi per chi usa
+// uno screen reader il contenuto non cambia: gli span con le singole
+// parole sono aria-hidden.
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const words = text.split(' ');
+---
+<h1 aria-label={text}>
+  <span aria-hidden="true">
+    {words.map((w, i) => (
+      <Fragment><span class="word">{w}</span>{i < words.length - 1 ? ' ' : ''}</Fragment>
+    ))}
+  </span>
+</h1>
+
+<style>
+  h1 .word { display: inline-block; }
+</style>

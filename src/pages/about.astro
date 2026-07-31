@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 import ClosingCTA from '../components/ClosingCTA.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -11,7 +12,7 @@ const base = import.meta.env.BASE_URL;
 >
   <section class="about container">
     <p class="eyebrow">Chi sono</p>
-    <h1>Il marketing è il punto in cui il business incontra la psicologia.</h1>
+    <RevealH1 text="Il marketing è il punto in cui il business incontra la psicologia." />
     <p class="lede">
       È questo che mi ha portato qui, ed è questo che mi tiene qui. Dietro ogni metrica c'è un
       comportamento; dietro ogni comportamento, una persona che decide. Il lato antropologico

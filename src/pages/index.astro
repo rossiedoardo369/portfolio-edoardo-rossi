@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 import { caseStudies } from '../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
 
 const heroH1 = 'Ogni euro speso in advertising dovrebbe poter rispondere a una domanda: cosa ha prodotto, esattamente?';
-const heroWords = heroH1.split(' ');
 
 const steps = [
   {
@@ -32,13 +32,7 @@ const steps = [
 >
   <section class="hero container">
     <p class="eyebrow">Performance Marketing &amp; Digital Strategy Specialist</p>
-    <h1 aria-label={heroH1}>
-      <span aria-hidden="true">
-        {heroWords.map((w, i) => (
-          <Fragment><span class="word">{w}</span>{i < heroWords.length - 1 ? ' ' : ''}</Fragment>
-        ))}
-      </span>
-    </h1>
+    <RevealH1 text={heroH1} />
     <p class="lede">
       Progetto e conduco campagne su Google e Meta, dal primo contatto pubblicitario fino alla
       decisione finale del cliente — con la reportistica a dimostrarlo, non solo a raccontarlo.
@@ -92,32 +86,6 @@ const steps = [
 </BaseLayout>
 
 <script>
-  // Rivelazione parola per parola dell'h1 al caricamento (non allo scroll:
-  // la hero è già visibile appena si apre la pagina). L'opacity iniziale
-  // viene impostata da qui, non da CSS: se lo script non parte per
-  // qualunque motivo, il testo resta semplicemente visibile da subito
-  // invece di sparire — l'h1 porta comunque l'aria-label con la frase
-  // intera, quindi per chi usa uno screen reader il contenuto non cambia.
-  const heroWordEls = document.querySelectorAll<HTMLElement>('.hero h1 .word');
-  heroWordEls.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(6px)';
-    const duration = 300;
-    function frame(now: number, start: number) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.style.opacity = String(eased);
-      el.style.transform = `translateY(${(1 - eased) * 6}px)`;
-      if (t < 1) {
-        requestAnimationFrame((n) => frame(n, start));
-      } else {
-        el.style.opacity = '';
-        el.style.transform = '';
-      }
-    }
-    setTimeout(() => requestAnimationFrame((now) => frame(now, now)), i * 25);
-  });
-
   const track = document.getElementById('proof-track');
   const prev = document.getElementById('proof-prev') as HTMLButtonElement | null;
   const next = document.getElementById('proof-next') as HTMLButtonElement | null;
@@ -217,7 +185,6 @@ const steps = [
     padding-block: var(--space-6) var(--space-5);
     max-width: 46rem;
   }
-  .hero h1 .word { display: inline-block; }
   .lede {
     font-size: 1.15rem;
     max-width: 38rem;

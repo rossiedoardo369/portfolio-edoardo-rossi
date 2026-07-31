@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import RevealH1 from '../components/RevealH1.astro';
 import ClosingCTA from '../components/ClosingCTA.astro';
 import { caseStudies, caseStudiesEn } from '../data/case-studies.js';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
@@ -39,7 +40,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
   <article class="case-study container">
     <a class="back-link" href={workBase}>← {t('case.back')}</a>
     <p class="eyebrow">{eyebrow}</p>
-    <h1>{title}</h1>
+    <RevealH1 text={title} />
 
     <dl class="snapshot fade-in">
       {snapshot.map((item) => (
@@ -150,7 +151,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
     color: var(--color-ink-soft);
     margin-bottom: var(--space-3);
   }
-  h1 { margin-top: 0.3rem; }
+  .case-study :global(h1) { margin-top: 0.3rem; }
 
   .snapshot {
     display: grid;
