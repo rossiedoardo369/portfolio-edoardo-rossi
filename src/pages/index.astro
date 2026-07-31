@@ -118,12 +118,32 @@ const steps = [
   // per avere l'altezza realmente visibile (innerHeight su Safari include
   // l'area dietro la barra del browser).
   //
-  // A fine reveal le classi fade-in/is-visible vengono rimosse: alcuni
-  // elementi (es. le card) hanno le proprie transizioni per hover/tap, e la
-  // transition da 0.5s di .fade-in le sovrascriverebbe se restasse applicata.
-  function finishReveal(el: HTMLElement) {
-    el.classList.remove('fade-in', 'is-visible');
-    el.style.transition = '';
+  // Guidato via requestAnimationFrame invece che con una CSS transition:
+  // iOS degrada le transition/animation CSS quando "Riduci movimento" è
+  // attivo (a scatti, non fluide), ma non tocca uno script che scrive i
+  // valori frame per frame — stesso motivo per cui il conteggio dei numeri
+  // qui sotto resta fluido in quella condizione.
+  function animateFade(el: HTMLElement, delayMs: number) {
+    const duration = 450;
+    function frame(now: number, start: number) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.style.opacity = String(eased);
+      el.style.transform = `translateY(${(1 - eased) * 8}px)`;
+      if (t < 1) {
+        requestAnimationFrame((n) => frame(n, start));
+      } else {
+        el.style.opacity = '';
+        el.style.transform = '';
+        el.classList.remove('fade-in');
+      }
+    }
+    const run = () => requestAnimationFrame((now) => frame(now, now));
+    if (delayMs > 0) {
+      setTimeout(run, delayMs);
+    } else {
+      run();
+    }
   }
 
   const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
@@ -132,9 +152,7 @@ const steps = [
 
   fadeEls.forEach((el) => {
     if (el.getBoundingClientRect().top < vh * 0.75) {
-      el.style.transition = 'none';
-      el.classList.add('is-visible');
-      requestAnimationFrame(() => requestAnimationFrame(() => finishReveal(el)));
+      el.classList.remove('fade-in');
     } else {
       toObserve.push(el);
     }
@@ -145,8 +163,8 @@ const steps = [
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target as HTMLElement;
-          el.classList.add('is-visible');
-          el.addEventListener('transitionend', () => finishReveal(el), { once: true });
+          const delay = parseFloat(el.style.getPropertyValue('--delay')) || 0;
+          animateFade(el, delay);
           fadeObserver.unobserve(el);
         }
       });
@@ -373,10 +391,5 @@ const steps = [
   .fade-in {
     opacity: 0;
     transform: translateY(8px);
-    transition: opacity 0.5s ease var(--delay, 0ms), transform 0.5s ease var(--delay, 0ms);
-  }
-  .fade-in.is-visible {
-    opacity: 1;
-    transform: none;
   }
 </style>
