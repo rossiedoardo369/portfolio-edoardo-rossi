@@ -127,3 +127,13 @@ button:focus-visible {
   z-index: 100;
 }
 .skip-link:focus { left: var(--space-2); top: var(--space-2); }
+
+/* Stato iniziale per il reveal on-scroll (vedi script in BaseLayout).
+   Guidato via requestAnimationFrame invece che con una CSS transition:
+   iOS degrada le transition/animation CSS quando "Riduci movimento" è
+   attivo (a scatti, non fluide), ma non tocca uno script che scrive i
+   valori frame per frame. */
+.fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+}

@@ -99,63 +99,7 @@ const steps = [
   window.addEventListener('resize', updateArrows);
   updateArrows();
 
-  // Fade-in on first entering the viewport. Uses visualViewport.height on
-  // iOS for the actually-visible height (innerHeight on Safari includes the
-  // area behind the browser chrome).
-  //
-  // Driven via requestAnimationFrame instead of a CSS transition: iOS
-  // degrades CSS transitions/animations to a choppy render when Reduce
-  // Motion is enabled, but leaves script-driven per-frame style writes
-  // alone — same reason the KPI count-up below stays smooth in that
-  // condition.
-  function animateFade(el: HTMLElement, delayMs: number) {
-    const duration = 450;
-    function frame(now: number, start: number) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.style.opacity = String(eased);
-      el.style.transform = `translateY(${(1 - eased) * 8}px)`;
-      if (t < 1) {
-        requestAnimationFrame((n) => frame(n, start));
-      } else {
-        el.style.opacity = '';
-        el.style.transform = '';
-        el.classList.remove('fade-in');
-      }
-    }
-    const run = () => requestAnimationFrame((now) => frame(now, now));
-    if (delayMs > 0) {
-      setTimeout(run, delayMs);
-    } else {
-      run();
-    }
-  }
-
-  const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
-  const vh = window.visualViewport?.height ?? window.innerHeight;
-  const toObserve: HTMLElement[] = [];
-
-  fadeEls.forEach((el) => {
-    if (el.getBoundingClientRect().top < vh * 0.75) {
-      el.classList.remove('fade-in');
-    } else {
-      toObserve.push(el);
-    }
-  });
-
-  if (toObserve.length) {
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target as HTMLElement;
-          const delay = parseFloat(el.style.getPropertyValue('--delay')) || 0;
-          animateFade(el, delay);
-          fadeObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-    toObserve.forEach((el) => fadeObserver.observe(el));
-  }
+  // The on-scroll fade-in (.fade-in) is handled globally by BaseLayout.
 
   // Number count-up on first entering the viewport
   function animateValue(el: HTMLElement) {
@@ -371,10 +315,5 @@ const steps = [
 
   @media (max-width: 780px) {
     .proof-card { width: clamp(200px, 68vw, 280px); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(8px);
   }
 </style>
