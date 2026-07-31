@@ -358,7 +358,11 @@ const steps = [
 
   .fade-in {
     opacity: 0;
-    transition: opacity 0.45s ease var(--delay, 0ms);
+    transform: translateY(8px);
+    transition: opacity 0.5s ease var(--delay, 0ms), transform 0.5s ease var(--delay, 0ms);
   }
-  .fade-in.is-visible { opacity: 1; }
+  .fade-in.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 </style>
