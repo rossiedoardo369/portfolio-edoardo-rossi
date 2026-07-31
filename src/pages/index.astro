@@ -146,6 +146,8 @@ const steps = [
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
   if (isMobile) {
+    // Su mobile è visibile una card alla volta: ognuna parte quando è
+    // interamente a schermo (dopo che lo scroll-snap si è assestato).
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -156,6 +158,8 @@ const steps = [
     }, { threshold: 1 });
     metrics.forEach((el) => observer.observe(el));
   } else {
+    // Su desktop più card sono visibili insieme: partono tutte insieme
+    // non appena la prima card entra in vista.
     const firstMetric = metrics[0];
     if (firstMetric) {
       const observer = new IntersectionObserver((entries) => {
@@ -236,15 +240,9 @@ const steps = [
     border: var(--border);
     text-decoration: none;
     color: var(--color-ink);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease;
   }
-  @media (hover: hover) {
-    .proof-card:hover {
-      border-color: var(--color-accent);
-      box-shadow: 0 4px 16px -8px rgb(0 0 0 / 0.18);
-    }
-    .proof-card:hover .proof-cta { color: var(--color-accent); }
-  }
+  .proof-card:hover { border-color: var(--color-accent); }
   .metric {
     font-size: 2.1rem;
     font-weight: 500;
@@ -269,7 +267,11 @@ const steps = [
   .proof-cta {
     font-size: 0.85rem;
     margin: 0;
-    transition: color 0.2s ease;
+  }
+  .proof-card:hover .proof-cta {
+    color: var(--color-accent);
+    text-decoration: underline;
+    transform: scale(1.04);
   }
   .proof-controls {
     display: flex;
