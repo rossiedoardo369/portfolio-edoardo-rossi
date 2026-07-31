@@ -1,114 +1,77 @@
-# Portfolio — Edoardo Rossi
+# Edoardo Rossi — Performance Marketing & Digital Strategy
 
-Sito portfolio personale di **Edoardo Rossi**, Performance Marketing & Digital Strategy
-Specialist. Costruito con [Astro](https://astro.build) e pubblicato su GitHub Pages.
+Portfolio personale di **Edoardo Rossi**, specialista in performance marketing su Google Ads
+e Meta Ads. Il sito raccoglie case study reali, con dati verificati e clienti anonimizzati,
+di campagne seguite dal primo contatto pubblicitario fino al risultato di business.
 
-🔗 **Online:** https://rossiedoardo369.github.io/portfolio-edoardo-rossi/
+🔗 **Sito online:** https://rossiedoardo369.github.io/portfolio-edoardo-rossi/ — disponibile in italiano e inglese
 
-## Stato del progetto
+## Cosa trovi nel sito
 
-🟢 **Prima versione completa in italiano.**
+**5 case study**, ognuno con un problema di business reale e un risultato misurato:
 
-| Sezione | Stato |
+| Case study | Risultato |
 |---|---|
-| Home | ✅ |
-| Lavori selezionati (griglia) | ✅ |
-| 5 case study | ✅ |
-| Competenze | ✅ |
-| Esperienza | ✅ |
-| Chi sono | ✅ |
-| Contatti | ✅ |
-| Pagina 404 | ✅ |
-| Progetti accademici | ⬜ da fare |
-| Résumé scaricabile | ⬜ da fare |
-| Versione in inglese | ⬜ da fare |
+| Trasformare un format di eventi ricorrenti in un canale di acquisizione misurabile | 13,55× ROAS (2024) |
+| Costruire un posizionamento specialistico, dalla discovery alla chiusura del preventivo | 8,53× ROAS sulla spesa pubblicitaria |
+| Da diagnosi complessa a fatturato misurabile: posizionamento e automazione nella stessa strategia | +600% fatturato su una linea di servizio |
+| Local marketing in un territorio bilingue: tre sedi, due lingue, un solo sistema | −53% costo per lead |
+| Quando l'advertising supera la capacità dell'azienda | 37 pazienti acquisiti in quattro mesi |
 
-## Struttura
+I casi appartengono in prevalenza al settore odontoiatrico: è una specializzazione verticale
+scelta, non un limite — il metodo (discovery diretta, misurazione end-to-end, integrazione con
+CRM) si applica allo stesso modo ad altri settori regolamentati o ad alto valore per lead.
+
+Oltre ai case study, il sito include:
+
+- **Competenze** — piattaforme e strumenti usati (Google Ads, Meta Ads, GA4/GTM, CRM e
+  automazione, CRO)
+- **Esperienza** — percorso professionale e certificazioni verificabili (Google Ads Search,
+  Google Ads Display, Meta Media Buying)
+- **Chi sono** e **Contatti**, con le domande più frequenti su come e con chi lavoro
+
+## Il metodo
+
+1. **Strategia** — discovery diretta con il cliente per individuare l'obiettivo di business
+   reale, non solo quello pubblicitario
+2. **Esecuzione** — creatività, struttura della campagna, automazioni, integrazione con CRM
+   e team commerciale
+3. **Misurazione** — reportistica che risale fino al risultato di business, non si ferma al click
+
+## Contatti
+
+- **Email:** rossi.edoardo369@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/rossiedoardo369
+
+## Sotto il cofano
+
+Il sito è costruito con [Astro](https://astro.build) e pubblicato su GitHub Pages tramite
+GitHub Actions (deploy automatico a ogni push su `main`). Bilingue IT/EN con routing e
+switch di lingua nativi, accessibile da tastiera, con Consent Mode per Google Analytics/GTM
+attivo solo dopo consenso esplicito dell'utente.
 
 ```
 src/
-├── layouts/
-│   ├── BaseLayout.astro        header, footer, meta tag, font
-│   └── CaseStudyLayout.astro   template dei case study
-├── components/
-│   ├── Header.astro
-│   └── Footer.astro
-├── pages/
-│   ├── index.astro             home
-│   ├── about.astro
-│   ├── contact.astro
-│   ├── expertise.astro
-│   ├── experience.astro
-│   ├── 404.astro
-│   └── work/
-│       ├── index.astro         griglia dei lavori
-│       └── *.astro             un file per case study
-└── styles/
-    └── global.css              design token e stili condivisi
+├── layouts/       BaseLayout (header, footer, meta tag) e CaseStudyLayout
+├── components/    Header, Footer, CookieConsent, ClosingCTA, KeyFacts, RevealH1
+├── i18n/          traduzioni e utility per il routing bilingue
+├── data/          contenuti dei case study (IT/EN)
+├── pages/         home, lavori selezionati, competenze, esperienza, chi sono, contatti
+│   └── en/        versione inglese, stessa struttura
+└── styles/        design token e stili condivisi
 ```
 
-## Eseguire il progetto in locale
-
-Serve [Node.js](https://nodejs.org) 18 o superiore.
+Per eseguirlo in locale serve [Node.js](https://nodejs.org) 18+:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Il sito è visibile su `http://localhost:4321/portfolio-edoardo-rossi/`.
-
-Per verificare il risultato finale prima di pubblicare:
-
-```bash
-npm run build && npm run preview
-```
-
-## Pubblicazione
-
-Il deploy è automatico: a ogni `push` sul branch `main`, il workflow in
-`.github/workflows/deploy.yml` esegue la build e pubblica su GitHub Pages.
-
-Configurazione già attiva (da non modificare salvo cambio di repository):
-
-- `astro.config.mjs` → `site: 'https://rossiedoardo369.github.io'`,
-  `base: '/portfolio-edoardo-rossi/'`
-- Settings → Pages → Source: **GitHub Actions**
-
-> ⚠️ Se carichi file dall'interfaccia web di GitHub, verifica sempre che finiscano nel
-> percorso corretto: il trascinamento di cartelle può creare un livello di annidamento
-> in più e impedire la build. Il metodo più sicuro è "Add file → Create new file"
-> scrivendo a mano il percorso completo.
-
-## Aggiungere un nuovo case study
-
-1. Crea `src/pages/work/nome-del-caso.astro`
-2. Usa un case study esistente come modello: importa `CaseStudyLayout` e compila
-   `snapshot`, `results` e il corpo del testo
-3. Aggiungi la card corrispondente nell'array `cases` di `src/pages/work/index.astro`
-
-Nessuna modifica al codice del layout è necessaria.
-
-## Design
-
-Direzione visiva: minimale e analitica, dati in primo piano. Tutti i token (colore,
-tipografia, spaziatura) sono in cima a `src/styles/global.css`.
-
-- **Colori:** sfondo carta fredda, inchiostro quasi-nero, verde-petrolio per i dati
-  confermati, ambra per i punti aperti e i limiti dichiarati
-- **Font:** Space Grotesk (titoli), IBM Plex Sans (testo), IBM Plex Mono (numeri e metriche)
-
 ## Riservatezza dei contenuti
 
-I case study riportano **dati reali con clienti anonimizzati**. Non devono mai comparire
-nei contenuti pubblici:
-
-- nomi di studi, aziende o professionisti
-- città specifiche (l'area geografica ampia è accettabile)
-- nomi propri di protocolli o iniziative ricercabili online
-- dati identificativi: partite IVA, numeri di albo, indirizzi, recapiti
-- qualsiasi dato relativo a singoli pazienti o contatti
-
-Le metriche numeriche sono reali e verificate. Dove un dato proviene da stime condivise
-dal cliente anziché da un tracciamento formalizzato, il case study lo dichiara
-esplicitamente.
+I case study riportano **dati reali con clienti anonimizzati**. Non compaiono mai nomi di
+studi, aziende o professionisti, città specifiche, dati identificativi o informazioni relative
+a singoli pazienti o contatti. Le metriche numeriche sono reali e verificate; dove un dato
+proviene da una stima condivisa dal cliente anziché da un tracciamento formalizzato, il case
+study lo dichiara esplicitamente.

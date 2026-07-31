@@ -55,7 +55,7 @@ export const caseStudiesEn = [
     title: 'Turning a recurring events format into a measurable acquisition channel',
     summary:
       'An events program replicated across a network of 6 locations, measured from the first click through to the acquired customer — including in-house training on lead management.',
-    metric: '13,55×',
+    metric: '13.55×',
     metricLabel: 'ROAS · 2024',
   },
   {
@@ -64,7 +64,7 @@ export const caseStudiesEn = [
     title: 'Building a specialist positioning, from discovery to closing the quote',
     summary:
       'A service that was hard to explain, turned into a clear journey: discovery with the owner, 8 copy variants, a post-lead sales protocol.',
-    metric: '8,53×',
+    metric: '8.53×',
     metricLabel: 'ROAS on ad spend',
   },
   {
