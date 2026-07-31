@@ -40,10 +40,10 @@ const steps = [
     </div>
   </section>
 
-  <section class="proof container fade-in" aria-label="Risultati principali">
+  <section class="proof container" aria-label="Risultati principali">
     <div class="proof-track" id="proof-track">
-      {caseStudies.map((c) => (
-        <a class="proof-card" href={`${base}work/${c.slug}/`}>
+      {caseStudies.map((c, i) => (
+        <a class="proof-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}work/${c.slug}/`}>
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
@@ -114,9 +114,18 @@ const steps = [
   window.addEventListener('resize', updateArrows);
   updateArrows();
 
-  // Fade-in al primo ingresso in viewport (solo opacity, nessun movement).
-  // Usa visualViewport.height su iOS per avere l'altezza realmente visibile
-  // (innerHeight su Safari include l'area dietro la barra del browser).
+  // Fade-in al primo ingresso in viewport. Usa visualViewport.height su iOS
+  // per avere l'altezza realmente visibile (innerHeight su Safari include
+  // l'area dietro la barra del browser).
+  //
+  // A fine reveal le classi fade-in/is-visible vengono rimosse: alcuni
+  // elementi (es. le card) hanno le proprie transizioni per hover/tap, e la
+  // transition da 0.5s di .fade-in le sovrascriverebbe se restasse applicata.
+  function finishReveal(el: HTMLElement) {
+    el.classList.remove('fade-in', 'is-visible');
+    el.style.transition = '';
+  }
+
   const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
   const vh = window.visualViewport?.height ?? window.innerHeight;
   const toObserve: HTMLElement[] = [];
@@ -125,6 +134,7 @@ const steps = [
     if (el.getBoundingClientRect().top < vh * 0.75) {
       el.style.transition = 'none';
       el.classList.add('is-visible');
+      requestAnimationFrame(() => requestAnimationFrame(() => finishReveal(el)));
     } else {
       toObserve.push(el);
     }
@@ -134,8 +144,10 @@ const steps = [
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          fadeObserver.unobserve(entry.target);
+          const el = entry.target as HTMLElement;
+          el.classList.add('is-visible');
+          el.addEventListener('transitionend', () => finishReveal(el), { once: true });
+          fadeObserver.unobserve(el);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
@@ -224,8 +236,9 @@ const steps = [
     text-decoration: none;
     font-size: 0.95rem;
     border: var(--border);
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.1s ease;
   }
+  .btn:active { transform: scale(0.97); }
   .btn-primary {
     background: var(--color-ink);
     color: var(--color-bg);
@@ -268,9 +281,10 @@ const steps = [
     border: var(--border);
     text-decoration: none;
     color: var(--color-ink);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.1s ease;
   }
   .proof-card:hover { border-color: var(--color-accent); }
+  .proof-card:active { transform: scale(0.98); }
   .metric {
     font-size: 2.1rem;
     font-weight: 500;
