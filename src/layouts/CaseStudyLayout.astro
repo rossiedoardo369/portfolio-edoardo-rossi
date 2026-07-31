@@ -41,7 +41,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
 
-    <dl class="snapshot">
+    <dl class="snapshot fade-in">
       {snapshot.map((item) => (
         <div class="snapshot-item">
           <dt>{item.label}</dt>
@@ -51,9 +51,9 @@ const nextCase = list[(currentIndex + 1) % list.length];
     </dl>
 
     <div class="results" aria-label={t('case.resultsAria')}>
-      {results.map((item) => (
-        <div class="result-card">
-          <p class="mono metric">{item.metric}</p>
+      {results.map((item, i) => (
+        <div class="result-card fade-in" style={`--delay: ${i * 80}ms`}>
+          <p class="mono metric" data-value={item.metric}>0</p>
           <p class="result-label">{item.label}</p>
         </div>
       ))}
@@ -66,17 +66,78 @@ const nextCase = list[(currentIndex + 1) % list.length];
     <ClosingCTA nested />
 
     <nav class="case-pagination" aria-label={t('case.paginationAria')}>
-      <a class="case-pagination-link prev" href={`${workBase}${prevCase.slug}/`}>
+      <a class="case-pagination-link prev fade-in" href={`${workBase}${prevCase.slug}/`}>
         <p class="eyebrow">← {t('case.prev')}</p>
         <p class="case-pagination-title">{prevCase.title}</p>
       </a>
-      <a class="case-pagination-link next" href={`${workBase}${nextCase.slug}/`}>
+      <a class="case-pagination-link next fade-in" style="--delay: 80ms" href={`${workBase}${nextCase.slug}/`}>
         <p class="eyebrow">{t('case.next')} →</p>
         <p class="case-pagination-title">{nextCase.title}</p>
       </a>
     </nav>
   </article>
 </BaseLayout>
+
+<script>
+  // Count-up sui risultati (result-card) al primo ingresso in viewport.
+  // Stessa logica del contatore in home: su schermi stretti i risultati
+  // sono impilati e partono uno alla volta; su schermi larghi partono
+  // tutti insieme non appena il primo entra in vista.
+  function animateValue(el: HTMLElement) {
+    const raw = el.dataset.value || '';
+    const match = raw.match(/^([+−~]?)(\d+(?:,\d+)?)(.*)$/);
+    if (!match) {
+      el.textContent = raw;
+      return;
+    }
+    const [, prefix, numStr, suffix] = match;
+    const decimals = numStr.includes(',') ? numStr.split(',')[1].length : 0;
+    const target = parseFloat(numStr.replace(',', '.'));
+    const duration = 1500;
+    let start: number | null = null;
+
+    function frame(now: number) {
+      if (start === null) start = now;
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const current = target * eased;
+      el.textContent = prefix + current.toLocaleString('it-IT', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }) + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const metrics = document.querySelectorAll<HTMLElement>('.result-card .metric');
+  const isStacked = window.matchMedia('(max-width: 640px)').matches;
+
+  if (isStacked) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateValue(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 1 });
+    metrics.forEach((el) => observer.observe(el));
+  } else {
+    const firstMetric = metrics[0];
+    if (firstMetric) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            metrics.forEach((el) => animateValue(el));
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(firstMetric);
+    }
+  }
+</script>
 
 <style>
   .case-study {
@@ -152,8 +213,10 @@ const nextCase = list[(currentIndex + 1) % list.length];
     border: var(--border);
     text-decoration: none;
     color: var(--color-ink);
+    transition: border-color 0.2s ease, transform 0.1s ease;
   }
   .case-pagination-link:hover { border-color: var(--color-accent); }
+  .case-pagination-link:active { transform: scale(0.98); }
   .case-pagination-link.next { text-align: right; }
   .case-pagination-title {
     margin: 0.3rem 0 0 0;
