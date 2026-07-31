@@ -115,14 +115,14 @@ const steps = [
   updateArrows();
 
   // Fade-in al primo ingresso in viewport (solo opacity, nessun movement).
-  // Gli elementi già visibili al caricamento vengono mostrati subito senza
-  // transizione; l'observer anima solo quelli sotto la piega.
+  // Usa visualViewport.height su iOS per avere l'altezza realmente visibile
+  // (innerHeight su Safari include l'area dietro la barra del browser).
   const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
-  const vh = window.innerHeight;
+  const vh = window.visualViewport?.height ?? window.innerHeight;
   const toObserve: HTMLElement[] = [];
 
   fadeEls.forEach((el) => {
-    if (el.getBoundingClientRect().top < vh * 0.9) {
+    if (el.getBoundingClientRect().top < vh * 0.75) {
       el.style.transition = 'none';
       el.classList.add('is-visible');
     } else {
@@ -138,7 +138,7 @@ const steps = [
           fadeObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
     toObserve.forEach((el) => fadeObserver.observe(el));
   }
 
