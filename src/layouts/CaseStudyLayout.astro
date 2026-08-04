@@ -126,6 +126,10 @@ const nextCase = list[(currentIndex + 1) % list.length];
     }, { threshold: 1 });
     metrics.forEach((el) => observer.observe(el));
   } else {
+    // Stessa soglia/rootMargin del fade-in condiviso (BaseLayout): con
+    // criteri diversi i due observer potevano scattare in momenti
+    // diversi durante lo scroll, facendo terminare il conteggio prima
+    // che la card fosse effettivamente a schermo.
     const firstMetric = metrics[0];
     if (firstMetric) {
       const observer = new IntersectionObserver((entries) => {
@@ -135,7 +139,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
             observer.disconnect();
           }
         });
-      }, { threshold: 0.4 });
+      }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
       observer.observe(firstMetric);
     }
   }

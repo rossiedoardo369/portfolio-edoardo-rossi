@@ -153,7 +153,10 @@ const steps = [
     metrics.forEach((el) => observer.observe(el));
   } else {
     // On desktop several cards are visible together: they all start as
-    // soon as the first card enters view.
+    // soon as the first card enters view. Same threshold/rootMargin as
+    // the shared fade-in (BaseLayout): with different criteria the two
+    // observers could fire at different points during scroll, letting
+    // the count finish before the card was actually on screen.
     const firstMetric = metrics[0];
     if (firstMetric) {
       const observer = new IntersectionObserver((entries) => {
@@ -163,7 +166,7 @@ const steps = [
             observer.disconnect();
           }
         });
-      }, { threshold: 0.4 });
+      }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
       observer.observe(firstMetric);
     }
   }
