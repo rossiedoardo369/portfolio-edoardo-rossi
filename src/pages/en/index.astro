@@ -104,16 +104,20 @@ const steps = [
 
   // The on-scroll fade-in (.fade-in) is handled globally by BaseLayout.
 
-  // Number count-up on first entering the viewport
+  // Number count-up on first entering the viewport. The decimal
+  // separator depends on the page language (comma in IT, period in
+  // EN) — hardcoding one would break the count in the other language.
   function animateValue(el: HTMLElement) {
     const raw = el.dataset.value || '';
-    const match = raw.match(/^([+−]?)(\d+(?:,\d+)?)(.*)$/);
+    const isEn = document.documentElement.lang === 'en';
+    const decimalSep = isEn ? '.' : ',';
+    const match = raw.match(isEn ? /^([+−]?)(\d+(?:\.\d+)?)(.*)$/ : /^([+−]?)(\d+(?:,\d+)?)(.*)$/);
     if (!match) {
       el.textContent = raw;
       return;
     }
     const [, sign, numStr, suffix] = match;
-    const decimals = numStr.includes(',') ? numStr.split(',')[1].length : 0;
+    const decimals = numStr.includes(decimalSep) ? numStr.split(decimalSep)[1].length : 0;
     const target = parseFloat(numStr.replace(',', '.'));
     const duration = 1500;
     let start: number | null = null;
@@ -123,7 +127,7 @@ const steps = [
       const t = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - t, 3);
       const current = target * eased;
-      el.textContent = sign + current.toLocaleString('it-IT', {
+      el.textContent = sign + current.toLocaleString(isEn ? 'en-US' : 'it-IT', {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       }) + suffix;
