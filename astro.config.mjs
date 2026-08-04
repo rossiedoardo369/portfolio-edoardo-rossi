@@ -21,19 +21,24 @@ export default defineConfig({
   // a /en/. Questi redirect (generati come pagine statiche con meta-refresh)
   // mantengono validi i vecchi URL senza prefisso — indicizzati da Google e
   // potenzialmente già condivisi altrove.
+  //
+  // Le chiavi (URL sorgente) ricevono automaticamente il prefisso `base`,
+  // ma le destinazioni no: vanno scritte per intero, `base` incluso,
+  // altrimenti il redirect punta fuori dal repo (es. .github.io/it/
+  // invece di .github.io/portfolio-edoardo-rossi/it/).
   redirects: {
-    '/': '/it/',
-    '/about/': '/it/about/',
-    '/contact/': '/it/contact/',
-    '/experience/': '/it/experience/',
-    '/expertise/': '/it/expertise/',
-    '/stack/': '/it/stack/',
-    '/work/': '/it/work/',
-    '/work/eventi-multisede/': '/it/work/eventi-multisede/',
-    '/work/posizionamento-specialistico/': '/it/work/posizionamento-specialistico/',
-    '/work/protocollo-crm/': '/it/work/protocollo-crm/',
-    '/work/territorio-bilingue/': '/it/work/territorio-bilingue/',
-    '/work/capacita-operativa/': '/it/work/capacita-operativa/',
+    '/': '/portfolio-edoardo-rossi/it/',
+    '/about/': '/portfolio-edoardo-rossi/it/about/',
+    '/contact/': '/portfolio-edoardo-rossi/it/contact/',
+    '/experience/': '/portfolio-edoardo-rossi/it/experience/',
+    '/expertise/': '/portfolio-edoardo-rossi/it/expertise/',
+    '/stack/': '/portfolio-edoardo-rossi/it/stack/',
+    '/work/': '/portfolio-edoardo-rossi/it/work/',
+    '/work/eventi-multisede/': '/portfolio-edoardo-rossi/it/work/eventi-multisede/',
+    '/work/posizionamento-specialistico/': '/portfolio-edoardo-rossi/it/work/posizionamento-specialistico/',
+    '/work/protocollo-crm/': '/portfolio-edoardo-rossi/it/work/protocollo-crm/',
+    '/work/territorio-bilingue/': '/portfolio-edoardo-rossi/it/work/territorio-bilingue/',
+    '/work/capacita-operativa/': '/portfolio-edoardo-rossi/it/work/capacita-operativa/',
   },
   integrations: [
     sitemap({
