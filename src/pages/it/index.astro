@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import RevealH1 from '../components/RevealH1.astro';
-import { caseStudies } from '../data/case-studies.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RevealH1 from '../../components/RevealH1.astro';
+import { caseStudies } from '../../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
 
@@ -38,15 +38,15 @@ const steps = [
       decisione finale del cliente — con la reportistica a dimostrarlo, non solo a raccontarlo.
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}work/`}>Guarda i case studies</a>
-      <a class="btn btn-ghost" href={`${base}contact/`}>Contattami</a>
+      <a class="btn btn-primary" href={`${base}it/work/`}>Guarda i case studies</a>
+      <a class="btn btn-ghost" href={`${base}it/contact/`}>Contattami</a>
     </div>
   </section>
 
   <section class="proof container" aria-label="Risultati principali">
     <div class="proof-track" id="proof-track">
       {caseStudies.map((c, i) => (
-        <a class="proof-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}work/${c.slug}/`}>
+        <a class="proof-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}it/work/${c.slug}/`}>
           <p class="mono metric" data-value={c.metric}>0</p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
@@ -81,7 +81,7 @@ const steps = [
       Hai appena visto risultati misurati, non promesse. Se cerchi lo stesso approccio — dati alla
       mano, dal primo contatto al risultato di business — sono a disposizione per parlarne.
     </p>
-    <a class="btn btn-primary" href={`${base}contact/`}>Contattami →</a>
+    <a class="btn btn-primary" href={`${base}it/contact/`}>Contattami →</a>
   </section>
 </BaseLayout>
 

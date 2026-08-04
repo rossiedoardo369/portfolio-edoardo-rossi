@@ -4,9 +4,9 @@ import { getLangFromUrl, useTranslations, translatedPaths } from '../i18n/utils'
 const base = import.meta.env.BASE_URL;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const homeHref = lang === 'en' ? `${base}en/` : base;
+const homeHref = `${base}${lang}/`;
 
-const localizedHref = (path: string) => (lang === 'en' ? `${base}en/${path}` : `${base}${path}`);
+const localizedHref = (path: string) => `${base}${lang}/${path}`;
 
 const nav = [
   { label: t('nav.work'), href: localizedHref('work/') },
@@ -16,13 +16,16 @@ const nav = [
   { label: t('nav.contact'), href: localizedHref('contact/') },
 ];
 
+// Entrambe le lingue vivono sotto un prefisso (/it/, /en/): basta togliere
+// quello attuale per ottenere il percorso "nudo" condiviso da translatedPaths.
 const pathWithoutBase = Astro.url.pathname.startsWith(base)
   ? Astro.url.pathname.slice(base.length)
   : Astro.url.pathname;
-const restPath = lang === 'en' ? pathWithoutBase.replace(/^en\/?/, '') : pathWithoutBase;
+const restPath = pathWithoutBase.replace(/^(it|en)\/?/, '');
+const otherLang = lang === 'en' ? 'it' : 'en';
 const switchHref = translatedPaths.includes(restPath)
-  ? (lang === 'en' ? `${base}${restPath}` : `${base}en/${restPath}`)
-  : (lang === 'en' ? base : `${base}en/`);
+  ? `${base}${otherLang}/${restPath}`
+  : `${base}${otherLang}/`;
 ---
 <header class="site-header">
   <div class="container bar">

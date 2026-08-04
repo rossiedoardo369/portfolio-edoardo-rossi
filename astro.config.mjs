@@ -14,8 +14,26 @@ export default defineConfig({
     defaultLocale: 'it',
     locales: ['it', 'en'],
     routing: {
-      prefixDefaultLocale: false,
+      prefixDefaultLocale: true,
     },
+  },
+  // Ogni pagina italiana è stata spostata sotto /it/ per essere simmetrica
+  // a /en/. Questi redirect (generati come pagine statiche con meta-refresh)
+  // mantengono validi i vecchi URL senza prefisso — indicizzati da Google e
+  // potenzialmente già condivisi altrove.
+  redirects: {
+    '/': '/it/',
+    '/about/': '/it/about/',
+    '/contact/': '/it/contact/',
+    '/experience/': '/it/experience/',
+    '/expertise/': '/it/expertise/',
+    '/stack/': '/it/stack/',
+    '/work/': '/it/work/',
+    '/work/eventi-multisede/': '/it/work/eventi-multisede/',
+    '/work/posizionamento-specialistico/': '/it/work/posizionamento-specialistico/',
+    '/work/protocollo-crm/': '/it/work/protocollo-crm/',
+    '/work/territorio-bilingue/': '/it/work/territorio-bilingue/',
+    '/work/capacita-operativa/': '/it/work/capacita-operativa/',
   },
   integrations: [
     sitemap({

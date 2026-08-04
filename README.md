@@ -56,10 +56,16 @@ src/
 ├── components/    Header, Footer, CookieConsent, ClosingCTA, KeyFacts, RevealH1
 ├── i18n/          traduzioni e utility per il routing bilingue
 ├── data/          contenuti dei case study (IT/EN)
-├── pages/         home, lavori selezionati, competenze, esperienza, chi sono, contatti
-│   └── en/        versione inglese, stessa struttura
+├── pages/
+│   ├── 404.astro  pagina di errore usata da GitHub Pages per tutto il sito
+│   ├── it/        home, lavori selezionati, competenze, esperienza, chi sono, contatti
+│   └── en/        stessa struttura, versione inglese
 └── styles/        design token e stili condivisi
 ```
+
+Le pagine italiane vivono sotto `/it/`, in simmetria con `/en/`; i vecchi URL senza
+prefisso (`/`, `/about/`, `/work/…`) restano attivi tramite redirect configurati in
+`astro.config.mjs`.
 
 Per eseguirlo in locale serve [Node.js](https://nodejs.org) 18+:
 

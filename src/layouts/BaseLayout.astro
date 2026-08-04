@@ -25,8 +25,8 @@ const ogImageURL = new URL(`${base}${lang === 'en' ? 'og-image-en.png' : 'og-ima
 const pathWithoutBase = Astro.url.pathname.startsWith(base)
   ? Astro.url.pathname.slice(base.length)
   : Astro.url.pathname;
-const restPath = lang === 'en' ? pathWithoutBase.replace(/^en\/?/, '') : pathWithoutBase;
-const itHref = new URL(`${base}${restPath}`, Astro.site).toString();
+const restPath = pathWithoutBase.replace(/^(it|en)\/?/, '');
+const itHref = new URL(`${base}it/${restPath}`, Astro.site).toString();
 const enHref = new URL(`${base}en/${restPath}`, Astro.site).toString();
 
 const personSchema = {
@@ -121,7 +121,7 @@ const personSchema = {
           var ua = navigator.userAgent || '';
           if (/bot|crawl|spider|slurp|googlebot|bingbot|duckduckbot|baiduspider|yandex|lighthouse|pagespeed/i.test(ua)) return;
 
-          var dest = (targetLang === 'en' ? base + 'en/' + currentPath : base + currentPath) + location.search + location.hash;
+          var dest = base + targetLang + '/' + currentPath + location.search + location.hash;
           if (dest !== location.pathname + location.search + location.hash) {
             location.replace(dest);
           }

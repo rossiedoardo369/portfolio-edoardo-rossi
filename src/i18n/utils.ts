@@ -29,6 +29,7 @@ export function getPathWithoutBase(pathname: string): string {
 export function getLangFromUrl(url: URL): Lang {
   const path = getPathWithoutBase(url.pathname);
   if (path === 'en' || path.startsWith('en/')) return 'en';
+  if (path === 'it' || path.startsWith('it/')) return 'it';
   return defaultLang;
 }
 
