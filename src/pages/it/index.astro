@@ -47,7 +47,7 @@ const steps = [
     <div class="proof-track" id="proof-track">
       {caseStudies.map((c, i) => (
         <a class="proof-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}it/work/${c.slug}/`}>
-          <p class="mono metric" data-value={c.metric}>0</p>
+          <p class="mono metric"><span class="metric-nojs">{c.metric}</span><span class="metric-count" data-value={c.metric}>0</span></p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
           <p class="proof-cta card-cta">Leggi di più →</p>
@@ -151,7 +151,7 @@ const steps = [
     requestAnimationFrame(frame);
   }
 
-  const metrics = document.querySelectorAll<HTMLElement>('.proof-card .metric');
+  const metrics = document.querySelectorAll<HTMLElement>('.proof-card .metric-count');
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
   if (isMobile) {

@@ -132,8 +132,19 @@ button:focus-visible {
    Guidato via requestAnimationFrame invece che con una CSS transition:
    iOS degrada le transition/animation CSS quando "Riduci movimento" è
    attivo (a scatti, non fluide), ma non tocca uno script che scrive i
-   valori frame per frame. */
-.fade-in {
+   valori frame per frame.
+
+   Condizionato a html.js (classe messa da BaseLayout): senza JS non c'è
+   nessuno che rimetta l'opacity a 1, quindi il contenuto deve nascere
+   visibile invece di restare invisibile per sempre. */
+html.js .fade-in {
   opacity: 0;
   transform: translateY(8px);
 }
+
+/* Metriche animate: il valore vero sta nell'HTML (.metric-nojs) ed è ciò che
+   si vede senza JS; lo span che il count-up anima parte da 0 e prende il suo
+   posto solo quando lo script c'è. */
+.metric-count { display: none; }
+html.js .metric-count { display: inline; }
+html.js .metric-nojs { display: none; }

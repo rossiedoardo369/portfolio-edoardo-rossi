@@ -53,7 +53,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
     <div class="results" aria-label={t('case.resultsAria')}>
       {results.map((item, i) => (
         <div class="result-card fade-in" style={`--delay: ${i * 80}ms`}>
-          <p class="mono metric" data-value={item.metric}>0</p>
+          <p class="mono metric"><span class="metric-nojs">{item.metric}</span><span class="metric-count" data-value={item.metric}>0</span></p>
           <p class="result-label">{item.label}</p>
         </div>
       ))}
@@ -112,7 +112,7 @@ const nextCase = list[(currentIndex + 1) % list.length];
     requestAnimationFrame(frame);
   }
 
-  const metrics = document.querySelectorAll<HTMLElement>('.result-card .metric');
+  const metrics = document.querySelectorAll<HTMLElement>('.result-card .metric-count');
   const isStacked = window.matchMedia('(max-width: 640px)').matches;
 
   if (isStacked) {

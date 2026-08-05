@@ -46,6 +46,13 @@ const personSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Interruttore per gli stati iniziali delle animazioni (.fade-in, metriche
+         del count-up): nascondere da CSS significa nascondere per sempre se lo
+         script non parte. Con questa classe lo stato "nascosto" esiste solo
+         quando il JS c'è. Deve essere inline e in testa: uno script a modulo è
+         differito e il contenuto lampeggerebbe prima di sparire. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
     <!-- Consent Mode: stato di default negato finché l'utente non sceglie
          dal banner, e riapplicazione immediata di una scelta già salvata —
          deve girare prima che GTM carichi qualsiasi tag. Usa gtag() nella
