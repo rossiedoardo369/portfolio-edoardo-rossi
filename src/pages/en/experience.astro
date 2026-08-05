@@ -6,7 +6,12 @@ import KeyFacts from '../../components/KeyFacts.astro';
 import { caseStudiesEn } from '../../data/case-studies.js';
 
 const base = import.meta.env.BASE_URL;
-const yearsActive = new Date().getFullYear() - 2021;
+// Anno di inizio del percorso nel digital marketing. Il conteggio è
+// volutamente automatico — "5+ anni" deve invecchiare da solo — ma essendo un
+// sito statico si aggiorna solo al deploy successivo: a cavallo di capodanno
+// può restare indietro di qualche giorno, finché non parte una build.
+const CAREER_START_YEAR = 2021;
+const yearsActive = new Date().getFullYear() - CAREER_START_YEAR;
 
 const roles = [
   {
