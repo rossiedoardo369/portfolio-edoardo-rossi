@@ -2,8 +2,17 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
-import { getLangFromUrl, useTranslations, translatedPaths } from '../i18n/utils';
+import { getLangFromUrl, getPathWithoutLocale, useTranslations, translatedPaths } from '../i18n/utils';
 import '../styles/global.css';
+// Font self-hosted: servirli dalla CDN di Google significherebbe mandare l'IP
+// del visitatore a Google prima ancora che abbia scelto sui cookie, e con una
+// richiesta bloccante in più. I file arrivano dallo stesso dominio del sito.
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/ibm-plex-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+
+const siteName = 'Edoardo Rossi — Performance Marketing & Digital Strategy';
 
 interface Props {
   title: string;
@@ -12,20 +21,20 @@ interface Props {
   // lingua (per ora solo la home) — evita di dichiarare alternate hreflang
   // verso pagine /en/ che non esistono ancora.
   translated?: boolean;
+  // Le pagine con titoli lunghi (i case study) accorciano il suffisso per
+  // restare entro i ~60 caratteri leggibili nei risultati di ricerca.
+  titleSuffix?: string;
 }
 
-const { title, description, translated = false } = Astro.props;
-const siteName = 'Edoardo Rossi — Performance Marketing & Digital Strategy';
+const { title, description, translated = false, titleSuffix = siteName } = Astro.props;
+const fullTitle = `${title} — ${titleSuffix}`;
 const base = import.meta.env.BASE_URL;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(`${base}${lang === 'en' ? 'og-image-en.png' : 'og-image.png'}`, Astro.site);
 
-const pathWithoutBase = Astro.url.pathname.startsWith(base)
-  ? Astro.url.pathname.slice(base.length)
-  : Astro.url.pathname;
-const restPath = pathWithoutBase.replace(/^(it|en)\/?/, '');
+const restPath = getPathWithoutLocale(Astro.url.pathname);
 const itHref = new URL(`${base}it/${restPath}`, Astro.site).toString();
 const enHref = new URL(`${base}en/${restPath}`, Astro.site).toString();
 
@@ -83,21 +92,6 @@ const personSchema = {
       } catch (e) {}
     </script>
 
-    <!-- Google Tag Manager -->
-    <script is:inline>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-KJV984JR');
-    </script>
-    <!-- End Google Tag Manager -->
-
     <script
       is:inline
       define:vars={{ base, currentLang: lang, currentPath: restPath, translatedPaths }}
@@ -135,6 +129,20 @@ const personSchema = {
         } catch (e) {}
       })();
     </script>
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-KJV984JR');
+    </script>
+    <!-- End Google Tag Manager -->
     <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
@@ -147,12 +155,12 @@ const personSchema = {
       </>
     )}
 
-    <title>{title} — {siteName}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={`${title} — ${siteName}`} />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageURL} />
@@ -163,20 +171,13 @@ const personSchema = {
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} — ${siteName}`} />
+    <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Dati strutturati -->
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-    <!-- Font: Space Grotesk (display), IBM Plex Sans (corpo), IBM Plex Mono (dati) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -196,13 +197,23 @@ const personSchema = {
     <Footer />
     <CookieConsent />
     <script>
+      import { prefersReducedMotion } from '../scripts/motion';
+
+      // Chi ha chiesto meno movimento non deve vedere né la rivelazione parola
+      // per parola né il fade-in: queste animazioni girano via
+      // requestAnimationFrame e la regola CSS @media non le tocca (vedi
+      // global.css), quindi la preferenza va rispettata a mano qui.
+      const reduceMotion = prefersReducedMotion();
+
       // Rivelazione parola per parola degli h1 (componente RevealH1) al
       // caricamento della pagina, non allo scroll: sono sempre nella parte
       // già visibile della pagina appena questa si apre. L'opacity iniziale
       // viene impostata da qui, non da CSS: se lo script non parte per
       // qualunque motivo, il testo resta semplicemente visibile da subito
       // invece di sparire.
-      const revealWordEls = document.querySelectorAll<HTMLElement>('h1 .word');
+      const revealWordEls = reduceMotion
+        ? ([] as HTMLElement[])
+        : Array.from(document.querySelectorAll<HTMLElement>('h1 .word'));
       revealWordEls.forEach((el, i) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(6px)';
@@ -251,7 +262,11 @@ const personSchema = {
       }
 
       const fadeEls = document.querySelectorAll<HTMLElement>('.fade-in');
-      if (fadeEls.length) {
+      if (reduceMotion) {
+        // Togliere la classe basta a rendere tutto visibile: lo stato nascosto
+        // vive nella regola html.js .fade-in.
+        fadeEls.forEach((el) => el.classList.remove('fade-in'));
+      } else if (fadeEls.length) {
         const vh = window.visualViewport?.height ?? window.innerHeight;
         const toObserve: HTMLElement[] = [];
 

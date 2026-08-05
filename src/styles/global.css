@@ -15,8 +15,11 @@
   --color-line: #D8DAD5;
 
   /* Tipografia */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  /* I pacchetti @fontsource-variable dichiarano la famiglia con il suffisso
+     "Variable"; il nome senza suffisso resta come fallback per chi avesse il
+     font installato di sistema. Vedi gli import in BaseLayout. */
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   /* Spaziatura (scala 8px) */
