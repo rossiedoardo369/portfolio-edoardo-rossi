@@ -20,9 +20,13 @@ interface Props {
   eyebrow: string;
   snapshot: SnapshotItem[];
   results: ResultItem[];
+  // I titoli dei casi sono lunghi per scelta: come h1 funzionano, come <title>
+  // finivano troncati nei risultati di ricerca. Questa è la versione corta che
+  // finisce nel tag, insieme a un suffisso ridotto al solo nome.
+  metaTitle?: string;
 }
 
-const { title, description, eyebrow, snapshot, results } = Astro.props;
+const { title, description, eyebrow, snapshot, results, metaTitle } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -35,7 +39,7 @@ const currentIndex = list.findIndex((c) => c.slug === currentSlug);
 const prevCase = list[(currentIndex - 1 + list.length) % list.length];
 const nextCase = list[(currentIndex + 1) % list.length];
 ---
-<BaseLayout title={title} description={description} translated>
+<BaseLayout title={metaTitle ?? title} description={description} titleSuffix="Edoardo Rossi" translated>
   <article class="case-study container">
     <a class="back-link" href={workBase}>← {t('case.back')}</a>
     <p class="eyebrow">{eyebrow}</p>
@@ -79,39 +83,12 @@ const nextCase = list[(currentIndex + 1) % list.length];
 </BaseLayout>
 
 <script>
+  import { animateValue } from '../scripts/count-up';
+
   // Count-up sui risultati (result-card) al primo ingresso in viewport.
   // Stessa logica del contatore in home: su schermi stretti i risultati
   // sono impilati e partono uno alla volta; su schermi larghi partono
   // tutti insieme non appena il primo entra in vista.
-  function animateValue(el: HTMLElement) {
-    const raw = el.dataset.value || '';
-    const isEn = document.documentElement.lang === 'en';
-    const decimalSep = isEn ? '.' : ',';
-    const match = raw.match(isEn ? /^([+−~]?)(\d+(?:\.\d+)?)(.*)$/ : /^([+−~]?)(\d+(?:,\d+)?)(.*)$/);
-    if (!match) {
-      el.textContent = raw;
-      return;
-    }
-    const [, prefix, numStr, suffix] = match;
-    const decimals = numStr.includes(decimalSep) ? numStr.split(decimalSep)[1].length : 0;
-    const target = parseFloat(numStr.replace(',', '.'));
-    const duration = 1500;
-    let start: number | null = null;
-
-    function frame(now: number) {
-      if (start === null) start = now;
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const current = target * eased;
-      el.textContent = prefix + current.toLocaleString(isEn ? 'en-US' : 'it-IT', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }) + suffix;
-      if (t < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
   const metrics = document.querySelectorAll<HTMLElement>('.result-card .metric-count');
   const isStacked = window.matchMedia('(max-width: 640px)').matches;
 
