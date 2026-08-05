@@ -5,7 +5,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-modal="false" aria-labelledby="cookie-title" hidden>
-  <div class="cookie-panel">
+  <div class="cookie-panel" tabindex="-1">
     <div class="cookie-summary" id="cookie-summary">
       <p class="mono cookie-eyebrow" id="cookie-title">{t('cookie.title')}</p>
       <p class="cookie-body">{t('cookie.body')}</p>
@@ -112,6 +112,7 @@ const t = useTranslations(lang);
   }
 
   const banner = document.getElementById('cookie-banner');
+  const panel = banner?.querySelector<HTMLElement>('.cookie-panel');
   const summary = document.getElementById('cookie-summary');
   const detail = document.getElementById('cookie-detail');
   const fab = document.getElementById('cookie-fab');
@@ -127,6 +128,10 @@ const t = useTranslations(lang);
     detail.hidden = !openDetail;
     banner.hidden = false;
     if (fab) fab.hidden = true;
+    // Senza questo il focus resta sul body e chi naviga da tastiera deve
+    // attraversare tutto l'header prima di arrivare a una scelta. Il pannello
+    // ha tabindex="-1" apposta: riceve il focus senza entrare nel tab order.
+    panel?.focus();
   }
 
   function hideBanner() {
@@ -135,7 +140,12 @@ const t = useTranslations(lang);
     // Il pulsantino ancorato resta disponibile solo dopo una prima scelta:
     // finché il banner non è mai stato chiuso non c'è ancora nulla da
     // "modificare".
-    if (fab && readStoredConsent()) fab.hidden = false;
+    if (fab && readStoredConsent()) {
+      fab.hidden = false;
+      // Il focus deve atterrare da qualche parte di sensato invece di tornare
+      // all'inizio della pagina: il pulsantino è il modo per riaprire.
+      if (banner.contains(document.activeElement)) fab.focus();
+    }
   }
 
   function applyChoice(consent: Consent) {
@@ -165,6 +175,22 @@ const t = useTranslations(lang);
       analytics: analyticsToggle?.checked ?? false,
       marketing: marketingToggle?.checked ?? false,
     });
+  });
+
+  // Escape su un dialogo deve avere una via d'uscita. Qui equivale a
+  // "Rifiuta": è l'esito che non attiva nulla, quindi l'unico applicabile
+  // senza una scelta esplicita. Resta reversibile dal pulsantino in basso.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !banner || banner.hidden) return;
+    if (detail && !detail.hidden && summary) {
+      // Dal pannello di dettaglio si torna prima al riepilogo, come da
+      // convenzione: un solo Escape non deve saltare due passaggi.
+      summary.hidden = false;
+      detail.hidden = true;
+      panel?.focus();
+      return;
+    }
+    applyChoice({ analytics: false, marketing: false });
   });
 
   document.getElementById('cookie-manage-link')?.addEventListener('click', (e) => {
