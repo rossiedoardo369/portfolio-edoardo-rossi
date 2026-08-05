@@ -1,10 +1,5 @@
 export const defaultLang = 'it';
 
-export const languages = {
-  it: 'Italiano',
-  en: 'English',
-};
-
 export const ui = {
   it: {
     'nav.work': 'Lavori selezionati',

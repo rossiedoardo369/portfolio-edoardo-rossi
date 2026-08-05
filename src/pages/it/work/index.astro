@@ -3,31 +3,31 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import RevealH1 from '../../../components/RevealH1.astro';
 import ClosingCTA from '../../../components/ClosingCTA.astro';
 import { caseStudies } from '../../../data/case-studies.js';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <BaseLayout
-  title="Lavori selezionati"
-  description="Case study di performance marketing: misurazione end-to-end, posizionamento strategico, CRM e automazione. Numeri reali, clienti anonimizzati."
+  title={t('work.title')}
+  description={t('work.description')}
   translated
 >
   <section class="intro container">
-    <p class="eyebrow">Lavori selezionati</p>
-    <RevealH1 text="Cinque problemi diversi, lo stesso metodo." />
-    <p class="lede">
-      Ogni caso studio parte da un problema di business reale e arriva a un risultato misurato.
-      I dati sono reali; i clienti sono anonimizzati per riservatezza.
-    </p>
+    <p class="eyebrow">{t('work.eyebrow')}</p>
+    <RevealH1 text={t('work.h1')} />
+    <p class="lede">{t('work.lede')}</p>
   </section>
 
-  <section class="container case-grid" aria-label="Elenco dei case study">
+  <section class="container case-grid" aria-label={t('work.aria')}>
     {caseStudies.map((c, i) => (
       <a class="case-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}it/work/${c.slug}/`}>
         <p class="eyebrow">{c.eyebrow}</p>
         <h2>{c.title}</h2>
         <p class="summary">{c.summary}</p>
         <p class="mono case-metric">{c.metric} <span class="metric-label">{c.metricLabel}</span></p>
-        <span class="read-more card-cta">Leggi il caso studio →</span>
+        <span class="read-more card-cta">{t('work.cta')}</span>
       </a>
     ))}
   </section>

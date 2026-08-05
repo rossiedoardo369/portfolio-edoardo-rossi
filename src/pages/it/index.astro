@@ -2,66 +2,54 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RevealH1 from '../../components/RevealH1.astro';
 import { caseStudies } from '../../data/case-studies.js';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 const base = import.meta.env.BASE_URL;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-const heroH1 = 'Ogni euro speso in advertising dovrebbe poter rispondere a una domanda: cosa ha prodotto, esattamente?';
+const heroH1 = t('home.h1');
 
 const steps = [
-  {
-    n: '01',
-    title: 'Strategia',
-    body: 'Discovery diretta con il cliente: individuo il posizionamento e l’obiettivo di business reale, non solo quello pubblicitario.',
-  },
-  {
-    n: '02',
-    title: 'Esecuzione',
-    body: 'Creatività, struttura della campagna, automazioni e integrazione con CRM e team commerciale — dal primo contatto in poi.',
-  },
-  {
-    n: '03',
-    title: 'Misurazione',
-    body: 'Reportistica che risale fino al risultato di business — cliente acquisito, fatturato, ritorno reale — non si ferma al click.',
-  },
+  { n: '01', title: t('home.how.step1.title'), body: t('home.how.step1.body') },
+  { n: '02', title: t('home.how.step2.title'), body: t('home.how.step2.body') },
+  { n: '03', title: t('home.how.step3.title'), body: t('home.how.step3.body') },
 ];
 ---
 <BaseLayout
-  title="Home"
-  description="Performance Marketing & Digital Strategy Specialist — campagne Google e Meta misurate dal primo contatto al risultato di business."
+  title={t('home.title')}
+  description={t('home.description')}
   translated
 >
   <section class="hero container">
-    <p class="eyebrow">Performance Marketing &amp; Digital Strategy Specialist</p>
+    <p class="eyebrow">{t('home.eyebrow')}</p>
     <RevealH1 text={heroH1} />
-    <p class="lede">
-      Progetto e conduco campagne su Google e Meta, dal primo contatto pubblicitario fino alla
-      decisione finale del cliente — con la reportistica a dimostrarlo, non solo a raccontarlo.
-    </p>
+    <p class="lede">{t('home.lede')}</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href={`${base}it/work/`}>Guarda i case studies</a>
-      <a class="btn btn-ghost" href={`${base}it/contact/`}>Contattami</a>
+      <a class="btn btn-primary" href={`${base}it/work/`}>{t('home.cta.work')}</a>
+      <a class="btn btn-ghost" href={`${base}it/contact/`}>{t('home.cta.contact')}</a>
     </div>
   </section>
 
-  <section class="proof container" aria-label="Risultati principali">
+  <section class="proof container" aria-label={t('home.proof.aria')}>
     <div class="proof-track" id="proof-track">
       {caseStudies.map((c, i) => (
         <a class="proof-card fade-in" style={`--delay: ${i * 80}ms`} href={`${base}it/work/${c.slug}/`}>
           <p class="mono metric"><span class="metric-nojs">{c.metric}</span><span class="metric-count" data-value={c.metric}>0</span></p>
           <p class="proof-label">{c.metricLabel}</p>
           <p class="proof-context">{c.title}</p>
-          <p class="proof-cta card-cta">Leggi di più →</p>
+          <p class="proof-cta card-cta">{t('home.proof.cta')}</p>
         </a>
       ))}
     </div>
     <div class="proof-controls">
-      <button type="button" class="slider-arrow" id="proof-prev" aria-label="Caso precedente">←</button>
-      <button type="button" class="slider-arrow" id="proof-next" aria-label="Caso successivo">→</button>
+      <button type="button" class="slider-arrow" id="proof-prev" aria-label={t('home.proof.prev')}>←</button>
+      <button type="button" class="slider-arrow" id="proof-next" aria-label={t('home.proof.next')}>→</button>
     </div>
   </section>
 
   <section class="how container">
-    <h2>Come lavoro</h2>
+    <h2>{t('home.how.title')}</h2>
     <ol class="steps">
       {steps.map((step, i) => (
         <li class="fade-in" style={`--delay: ${i * 60}ms`}>
@@ -76,16 +64,15 @@ const steps = [
   </section>
 
   <section class="closing container fade-in">
-    <h2>Ti ho già convinto? Allora cosa aspetti?</h2>
-    <p>
-      Hai appena visto risultati misurati, non promesse. Se cerchi lo stesso approccio — dati alla
-      mano, dal primo contatto al risultato di business — sono a disposizione per parlarne.
-    </p>
-    <a class="btn btn-primary" href={`${base}it/contact/`}>Contattami →</a>
+    <h2>{t('home.closing.h2')}</h2>
+    <p>{t('home.closing.p')}</p>
+    <a class="btn btn-primary" href={`${base}it/contact/`}>{t('home.closing.cta')}</a>
   </section>
 </BaseLayout>
 
 <script>
+  import { animateValue } from '../../scripts/count-up';
+
   const track = document.getElementById('proof-track');
   const prev = document.getElementById('proof-prev') as HTMLButtonElement | null;
   const next = document.getElementById('proof-next') as HTMLButtonElement | null;
@@ -119,38 +106,7 @@ const steps = [
 
   // Il fade-in on-scroll (.fade-in) è gestito globalmente da BaseLayout.
 
-  // Animazione dei numeri al primo ingresso in viewport. Il separatore
-  // decimale dipende dalla lingua della pagina (virgola in IT, punto in
-  // EN): usarne uno fisso spezzerebbe il conteggio nell'altra lingua.
-  function animateValue(el: HTMLElement) {
-    const raw = el.dataset.value || '';
-    const isEn = document.documentElement.lang === 'en';
-    const decimalSep = isEn ? '.' : ',';
-    const match = raw.match(isEn ? /^([+−]?)(\d+(?:\.\d+)?)(.*)$/ : /^([+−]?)(\d+(?:,\d+)?)(.*)$/);
-    if (!match) {
-      el.textContent = raw;
-      return;
-    }
-    const [, sign, numStr, suffix] = match;
-    const decimals = numStr.includes(decimalSep) ? numStr.split(decimalSep)[1].length : 0;
-    const target = parseFloat(numStr.replace(',', '.'));
-    const duration = 1500;
-    let start: number | null = null;
-
-    function frame(now: number) {
-      if (start === null) start = now;
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      const current = target * eased;
-      el.textContent = sign + current.toLocaleString(isEn ? 'en-US' : 'it-IT', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }) + suffix;
-      if (t < 1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-
+  // Animazione dei numeri al primo ingresso in viewport.
   const metrics = document.querySelectorAll<HTMLElement>('.proof-card .metric-count');
   const isMobile = window.matchMedia('(max-width: 780px)').matches;
 
@@ -275,6 +231,7 @@ const steps = [
     margin: 0 0 var(--space-2) 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

@@ -26,6 +26,14 @@ export function getPathWithoutBase(pathname: string): string {
   return pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
 }
 
+// Percorso "nudo": senza `base` e senza il prefisso di lingua. È la chiave con
+// cui si confrontano i translatedPaths, e serve identica allo switcher
+// nell'header, agli hreflang e al redirect automatico: tenerla in un posto
+// solo evita che le tre copie divergano.
+export function getPathWithoutLocale(pathname: string): string {
+  return getPathWithoutBase(pathname).replace(/^(it|en)\/?/, '');
+}
+
 export function getLangFromUrl(url: URL): Lang {
   const path = getPathWithoutBase(url.pathname);
   if (path === 'en' || path.startsWith('en/')) return 'en';
